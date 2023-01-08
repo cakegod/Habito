@@ -1,5 +1,10 @@
 ---
+import HabitCard from "../components/HabitCard.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout />
+<Layout title="Habit Tracker">
+  <main class="grid grid-cols-4">
+    {[...Array(10)].map((card) => <HabitCard title="A habit" />)}
+  </main>
+</Layout>
