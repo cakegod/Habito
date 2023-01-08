@@ -4,7 +4,5 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Habit Tracker">
-  <main class="grid grid-cols-4">
-    {[...Array(10)].map((card) => <HabitCard title="A habit" />)}
-  </main>
+  {[...Array(10)].map((card) => <HabitCard title="A habit" />)}
 </Layout>
