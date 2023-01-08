@@ -1,11 +1,15 @@
 ---
 interface Props {
   title: string;
+  icon: string;
 }
 
-const { title } = Astro.props;
+const { title, icon } = Astro.props;
 ---
 
-<div class="card bg-base-300 h-20 flex justify-center items-center">
-  <h2 class="text-lg">{title}</h2>
+<div
+  class="card flex h-28 items-center justify-center gap-1 bg-base-300 p-4 transition-colors hover:bg-base-200"
+>
+  <span class="text-lg">{icon}</span>
+  <h2 class="text-center">{title}</h2>
 </div>

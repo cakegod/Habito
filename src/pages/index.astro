@@ -1,8 +1,9 @@
 ---
 import HabitCard from "../components/HabitCard.astro";
+import { habits } from "../data/habits";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Habit Tracker">
-  {[...Array(10)].map((card) => <HabitCard title="A habit" />)}
+  {habits.map((habit) => <HabitCard title={habit.name} icon={habit.icon} />)}
 </Layout>

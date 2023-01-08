@@ -2,6 +2,7 @@
   "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
     // Replace `astro/client` with `@astrojs/image/client`
-    "types": ["@astrojs/image/client"]
+    "types": ["@astrojs/image/client"],
+    "isolatedModules": false
   }
 }
