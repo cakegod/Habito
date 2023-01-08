@@ -1,8 +1,8 @@
 export const habits = [
-  { name: "Meditation", icon: "🙏" },
+  { name: "Meditate", icon: "🙏" },
   { name: "Exercise", icon: "🏋️‍♂️" },
-  { name: "Reading", icon: "📖" },
-  { name: "Journaling", icon: "📝" },
-  { name: "Drinking Water", icon: "💧" },
-  { name: "Getting Enough Sleep", icon: "🛌" },
+  { name: "Read", icon: "📖" },
+  { name: "Write", icon: "📝" },
+  { name: "Drink Water", icon: "💧" },
+  { name: "Sleep Well", icon: "🛌" },
 ];
