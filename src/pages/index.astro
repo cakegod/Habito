@@ -1,5 +1,6 @@
 ---
 import HabitCard from "@components/HabitCard";
+import Test from "@components/Test";
 import { habits } from "@data/habits";
 import Layout from "@layouts/Layout.astro";
 ---
@@ -7,7 +8,7 @@ import Layout from "@layouts/Layout.astro";
 <Layout title="Habit Tracker">
   {
     habits.map((habit) => (
-      <HabitCard client:load habit={habit} />
+      <HabitCard client:load habit={habit} key={habit.id} />
     ))
   }
 </Layout>
