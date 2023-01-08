@@ -1,5 +1,6 @@
-import { useState } from "react";
-import type { Habit } from "../data/habits";
+import { useStore } from "@nanostores/react";
+import type { Habit } from "@data/habits";
+import { habits } from "@stores/habits";
 
 interface Props {
   habit: Habit;
@@ -7,10 +8,11 @@ interface Props {
 
 export default function HabitCard({ habit }: Props) {
   const { name, icon } = habit;
-  const [habits, setHabits] = useState<Habit[]>([]);
+  const $habits = useStore(habits);
 
   const handleHabit = (habit: Habit) => {
-    setHabits([...habits, habit]);
+    habits.set([...$habits, habit]);
+    console.log($habits);
   };
 
   return (
