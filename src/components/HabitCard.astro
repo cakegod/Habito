@@ -8,8 +8,8 @@ const { title, icon } = Astro.props;
 ---
 
 <div
-  class="card flex h-28 items-center justify-center gap-1 bg-base-300 p-4 transition-colors hover:bg-base-200"
+  class="card flex h-24 items-center justify-center bg-base-300 p-4 transition-colors hover:bg-base-200"
 >
-  <span class="text-lg">{icon}</span>
-  <h2 class="text-center">{title}</h2>
+  <span class="flex basis-full items-center text-lg">{icon}</span>
+  <h2 class="flex basis-full items-start text-center">{title}</h2>
 </div>
