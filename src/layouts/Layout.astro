@@ -15,10 +15,10 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="flex h-screen w-screen flex-col items-center bg-base-100">
-    <h1 class="self-start text-3xl p-3 font-black">Habit Tracker</h1>
+  <body class="flex h-screen w-screen flex-col items-center bg-base-100 p-4">
+    <h1 class="self-start pb-6 text-2xl lg:text-3xl font-black">Habit Tracker</h1>
     <main
-      class="grid w-full max-w-3xl grid-cols-2 gap-3 p-4 md:grid-cols-3 lg:grid-cols-4"
+      class="grid w-full max-w-3xl grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4"
     >
       <slot />
     </main>
