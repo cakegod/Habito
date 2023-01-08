@@ -1,9 +1,13 @@
 ---
-import HabitCard from "../components/HabitCard.astro";
+import HabitCard from "../components/HabitCard";
 import { habits } from "../data/habits";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Habit Tracker">
-  {habits.map((habit) => <HabitCard title={habit.name} icon={habit.icon} />)}
+  {
+    habits.map((habit) => (
+      <HabitCard client:load habit={habit} />
+    ))
+  }
 </Layout>

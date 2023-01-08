@@ -1,4 +1,9 @@
-export const habits = [
+export type Habit = {
+	name: string;
+	icon: string;
+}
+
+export const habits: Habit[] = [
   { name: "Meditate", icon: "🙏" },
   { name: "Exercise", icon: "🏋️‍♂️" },
   { name: "Read", icon: "📖" },
