@@ -22,7 +22,7 @@ function Modal({ habit }: Props) {
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">How long?</span>
+              <span className="label-text">Time spent per day</span>
             </label>
             <label className="input-group">
               <input
