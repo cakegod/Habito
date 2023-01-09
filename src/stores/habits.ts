@@ -8,3 +8,6 @@ export const addHabit = (habit: Habit) => {
 
   console.log(habits.get());
 };
+
+export const isModalOpen = atom(false);
+export const toggleModal = () => isModalOpen.set(!isModalOpen.get());
