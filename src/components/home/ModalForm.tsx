@@ -1,8 +1,7 @@
 import Button from "@components/Button";
 import ModalLabel from "@components/home/ModalLabel";
 import { toggleModal } from "@stores/habits";
-import { useState } from "react";
-
+import React, { useState } from "react";
 
 function ModalForm() {
   const [data, setData] = useState({
@@ -15,16 +14,20 @@ function ModalForm() {
     },
   });
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
   }
 
-  function handleTime(e) {
+  function handleTime(
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) {
     const { value, name } = e.target;
     setData({ ...data, time: { ...data.time, [name]: value } });
   }
 
-  function handleFrequency(e) {
+  function handleFrequency(
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) {
     const { value, name } = e.target;
     setData({ ...data, frequency: { ...data.frequency, [name]: value } });
   }
