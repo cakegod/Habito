@@ -1,30 +1,24 @@
 import type { Habit } from "@data/habits";
-import ModalButton from "@components/home/ModalButton";
 import CloseButton from "@components/home/CloseButton";
 import ModalTitle from "@components/home/ModalTitle";
-import ModalForm from "./home/ModalForm";
+import ModalForm from "@components/home/ModalForm";
+import { useStore } from "@nanostores/react";
+import { isModalOpen } from "@stores/habits";
 
 interface Props {
   habit: Habit;
 }
 
 function Modal({ habit }: Props) {
+  const $isModalOpen = useStore(isModalOpen);
+
   return (
     <>
-      <input type="checkbox" id={habit.name} className="modal-toggle" />
-      <div className="modal">
+      <div className={`modal ${$isModalOpen ? "modal-open" : ""}`}>
         <div className="modal-box flex max-w-md flex-col gap-2">
-          <CloseButton forContent={habit.name} />
+          <CloseButton />
           <ModalTitle name={habit.name} icon={habit.icon} />
           <ModalForm />
-          <div className="modal-action">
-            <ModalButton intent="ghost" forContent={habit.name}>
-              Cancel
-            </ModalButton>
-            <ModalButton intent="primary" forContent={habit.name}>
-              Add habit
-            </ModalButton>
-          </div>
         </div>
       </div>
     </>

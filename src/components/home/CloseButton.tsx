@@ -1,11 +1,14 @@
-function CloseButton({ forContent }: { forContent: string }) {
+import { useStore } from "@nanostores/react";
+import { toggleModal } from "@stores/habits";
+
+function CloseButton() {
   return (
-    <label
-      htmlFor={forContent}
+    <button
       className="btn-sm btn-circle btn absolute right-2 top-2 border-none bg-transparent text-lg"
+      onClick={toggleModal}
     >
       ✕
-    </label>
+    </button>
   );
 }
 
