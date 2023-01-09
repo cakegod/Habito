@@ -7,7 +7,7 @@ import React, { useState } from "react";
 function ModalForm({ habit }: { habit: Habit }) {
   const [data, setData] = useState({
     time: {
-      value: "",
+      value: 0,
       type: "minutes",
     },
     frequency: {
@@ -15,10 +15,14 @@ function ModalForm({ habit }: { habit: Habit }) {
     },
   });
 
+  // Frequency.value * 52 * time.value
   function handleSubmit(e: React.FormEvent<HTMLFormElement>, habit: Habit) {
     e.preventDefault();
-    addHabit({...habit, ...data});
-    console.log(habit);
+    addHabit({ ...habit, ...data });
+    toggleModal();
+    alert(
+      `${Math.round((data.frequency.value * 52 * data.time.value) / 60)} hours`
+    );
   }
 
   function handleTime(
@@ -47,7 +51,7 @@ function ModalForm({ habit }: { habit: Habit }) {
             min="0"
             step="5"
             placeholder="5"
-            value={data.time.value}
+            value={data.time.value || undefined}
             className="input-bordered input w-full placeholder:text-base-content/50"
             onChange={handleTime}
             name="value"
