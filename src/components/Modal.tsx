@@ -1,4 +1,7 @@
 import type { Habit } from "@data/habits";
+import Button from "@components/Button";
+import Label from "@components/home/Label";
+import ModalButton from "./home/ModalButton";
 
 interface Props {
   habit: Habit;
@@ -16,37 +19,46 @@ function Modal({ habit }: Props) {
           >
             ✕
           </label>
-          <div className="flex gap-2 text-xl">
-            <span>{habit.icon}</span>
-            <h3 className="font-bold">{habit.name}</h3>
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Time spent per day</span>
-            </label>
-            <label className="input-group">
-              <input
-                type="number"
-                required
-                tabIndex={0}
-                min="0"
-                step="5"
-                placeholder="5"
-                className="input-bordered input w-full placeholder:text-base-content/50"
-              />
-              <select className="select bg-base-300 uppercase">
-                <option selected>minutes</option>
-                <option>hours</option>
+          <h3 className="flex items-center text-xl font-bold">
+            <span className="pr-2 text-2xl">{habit.icon}</span>
+            {habit.name}
+          </h3>
+          <form>
+            <div className="form-control">
+              <Label content="Time spent per day" />
+              <label className="input-group">
+                <input
+                  type="number"
+                  required
+                  tabIndex={0}
+                  min="0"
+                  step="5"
+                  placeholder="5"
+                  className="input-bordered input w-full placeholder:text-base-content/50"
+                />
+                <select className="select bg-base-300 uppercase">
+                  <option selected>minutes</option>
+                  <option>hours</option>
+                </select>
+              </label>
+            </div>
+            <div className="form-control">
+              <Label content="Frequency" />
+              <select className="select-bordered select w-full">
+                {[...Array(6)].map((_, i) => (
+                  <option selected>x{i + 1} per week</option>
+                ))}
+                <option>Every day</option>
               </select>
-            </label>
-          </div>
+            </div>
+          </form>
           <div className="modal-action">
-            <label htmlFor={habit.name} className="btn-ghost btn uppercase">
+            <ModalButton intent="ghost" forContent={habit.name}>
               Cancel
-            </label>
-            <label htmlFor={habit.name} className="btn-primary btn uppercase">
+            </ModalButton>
+            <ModalButton intent="primary" forContent={habit.name}>
               Add habit
-            </label>
+            </ModalButton>
           </div>
         </div>
       </div>
