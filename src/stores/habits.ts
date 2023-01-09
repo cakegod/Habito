@@ -9,7 +9,8 @@ export const addHabit = (habit: Habit) => {
   console.log(habits.get());
 };
 
-export const currentHabit = atom<Habit>({});
+// Bad temporary fix :/
+export const currentHabit = atom<Habit>({} as Habit);
 
 export const isModalOpen = atom(false);
 export const toggleModal = (habit?: Habit) => {
