@@ -16,10 +16,10 @@ function HabitCard({ habit }: Props) {
       <label htmlFor={habit.name}>
         <div className="card flex h-24 items-center justify-center bg-base-300 p-4 transition-colors hover:bg-base-200">
           <span className="flex basis-full items-center text-lg">
-            {habit?.icon}
+            {habit.icon}
           </span>
           <h2 className="flex basis-full items-start text-center">
-            {habit?.name}
+            {habit.name}
           </h2>
         </div>
       </label>
