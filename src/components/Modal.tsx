@@ -3,22 +3,18 @@ import CloseButton from "@components/home/CloseButton";
 import ModalTitle from "@components/home/ModalTitle";
 import ModalForm from "@components/home/ModalForm";
 import { useStore } from "@nanostores/react";
-import { isModalOpen } from "@stores/habits";
+import { currentHabit, isModalOpen } from "@stores/habits";
 
-interface Props {
-  habit: Habit;
-}
-
-function Modal({ habit }: Props) {
+function Modal() {
   const $isModalOpen = useStore(isModalOpen);
-
+  const $currentHabit = useStore(currentHabit);
   return (
     <>
       <div className={`modal ${$isModalOpen ? "modal-open" : ""}`}>
         <div className="modal-box flex max-w-md flex-col gap-2">
           <CloseButton />
-          <ModalTitle name={habit.name} icon={habit.icon} />
-          <ModalForm />
+          <ModalTitle name={$currentHabit.name} icon={$currentHabit.icon} />
+          <ModalForm habit={$currentHabit} />
         </div>
       </div>
     </>

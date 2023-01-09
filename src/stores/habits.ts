@@ -9,5 +9,12 @@ export const addHabit = (habit: Habit) => {
   console.log(habits.get());
 };
 
+export const currentHabit = atom<Habit>({});
+
 export const isModalOpen = atom(false);
-export const toggleModal = () => isModalOpen.set(!isModalOpen.get());
+export const toggleModal = (habit?: Habit) => {
+  isModalOpen.set(!isModalOpen.get());
+  if (habit) {
+    currentHabit.set(habit);
+  }
+};

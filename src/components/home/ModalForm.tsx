@@ -1,9 +1,10 @@
 import Button from "@components/Button";
 import ModalLabel from "@components/home/ModalLabel";
-import { toggleModal } from "@stores/habits";
+import type { Habit } from "@data/habits";
+import { toggleModal, addHabit } from "@stores/habits";
 import React, { useState } from "react";
 
-function ModalForm() {
+function ModalForm({ habit }: { habit: Habit }) {
   const [data, setData] = useState({
     time: {
       value: "",
@@ -14,8 +15,10 @@ function ModalForm() {
     },
   });
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>, habit: Habit) {
     e.preventDefault();
+    addHabit(habit);
+    console.log(habit);
   }
 
   function handleTime(
@@ -33,7 +36,7 @@ function ModalForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => handleSubmit(e, habit)}>
       <div className="form-control">
         <ModalLabel content="Time spent per day" />
         <label className="input-group">
@@ -78,7 +81,7 @@ function ModalForm() {
         </select>
       </div>
       <div className="modal-action">
-        <Button intent="ghost" handler={toggleModal}>
+        <Button intent="ghost" handler={() => toggleModal()}>
           Cancel
         </Button>
         <Button type="submit" intent="primary">

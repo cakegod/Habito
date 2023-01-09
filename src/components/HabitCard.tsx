@@ -1,6 +1,5 @@
-import { useStore } from "@nanostores/react";
 import type { Habit } from "@data/habits";
-import { habits, toggleModal } from "@stores/habits";
+import { toggleModal } from "@stores/habits";
 import Modal from "./Modal";
 
 interface Props {
@@ -8,13 +7,11 @@ interface Props {
 }
 
 function HabitCard({ habit }: Props) {
-  const $habits = useStore(habits);
-
   return (
     <>
       <button
         className="card flex h-24 items-center justify-center bg-base-300 p-4 transition-colors hover:bg-base-200"
-        onClick={toggleModal}
+        onClick={() => toggleModal(habit)}
       >
         <span className="flex basis-full items-center text-lg">
           {habit.icon}
@@ -23,7 +20,6 @@ function HabitCard({ habit }: Props) {
           {habit.name}
         </h2>
       </button>
-      <Modal habit={habit} />
     </>
   );
 }
