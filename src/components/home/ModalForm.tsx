@@ -17,7 +17,7 @@ function ModalForm({ habit }: { habit: Habit }) {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>, habit: Habit) {
     e.preventDefault();
-    addHabit(habit);
+    addHabit({...habit, ...data});
     console.log(habit);
   }
 

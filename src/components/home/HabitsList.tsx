@@ -6,15 +6,14 @@ import { habits } from "@stores/habits";
 
 function HabitsList() {
   const $habits = useStore(habits);
-  const habitos = habitsData.filter(
-    (habit) => !Object.values($habits).includes(habit)
+  const filteredHabits = habitsData.filter(
+    (habitData) =>
+      !Object.values($habits).find((habit) => habitData.id === habit.id)
   );
-
-  console.log($habits, habitsData, habitos);
 
   return (
     <>
-      {habitos.map((habit) => (
+      {filteredHabits.map((habit) => (
         <HabitCard habit={habit} key={habit.id} />
       ))}
       <Modal />
