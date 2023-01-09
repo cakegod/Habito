@@ -4,10 +4,20 @@ import type { Habit } from "@data/habits";
 import { toggleModal, addHabit } from "@stores/habits";
 import React, { useState } from "react";
 
+interface Data {
+  time: {
+    value: "" | number;
+    type: "minutes" | "duration";
+  };
+  frequency: {
+    value: number;
+  };
+}
+
 function ModalForm({ habit }: { habit: Habit }) {
-  const [data, setData] = useState({
+  const [data, setData] = useState<Data>({
     time: {
-      value: 0,
+      value: "",
       type: "minutes",
     },
     frequency: {
@@ -20,9 +30,16 @@ function ModalForm({ habit }: { habit: Habit }) {
     e.preventDefault();
     addHabit({ ...habit, ...data });
     toggleModal();
-    alert(
-      `${Math.round((data.frequency.value * 52 * data.time.value) / 60)} hours`
-    );
+
+    // test
+    if (data.time.type === "minutes") {
+      alert(
+        `${Math.round(
+          (data.frequency.value * 52 * data.time.value) / 60
+        )} hours`
+      );
+    } else
+      alert(`${Math.round(data.frequency.value * 52 * data.time.value)} hours`);
   }
 
   function handleTime(
@@ -49,9 +66,9 @@ function ModalForm({ habit }: { habit: Habit }) {
             required
             tabIndex={0}
             min="0"
-            step="5"
+            step="1"
             placeholder="5"
-            value={data.time.value || undefined}
+            value={data.time.value}
             className="input-bordered input w-full placeholder:text-base-content/50"
             onChange={handleTime}
             name="value"
