@@ -1,16 +1,16 @@
-import crypto from "crypto";
+
 
 export type Habit = {
   name: string;
   icon: string;
-  id: string;
+  id: number;
 };
 
-export const habits: Habit[] = [
-  { name: "Meditate", icon: "🙏", id: crypto.randomUUID() },
-  { name: "Exercise", icon: "🏋️‍♂️", id: crypto.randomUUID() },
-  { name: "Read", icon: "📖", id: crypto.randomUUID() },
-  { name: "Write", icon: "📝", id: crypto.randomUUID() },
-  { name: "Drink Water", icon: "💧", id: crypto.randomUUID() },
-  { name: "Sleep Well", icon: "🛌", id: crypto.randomUUID() },
+export const habitsData: Habit[] = [
+  { name: "Meditate", icon: "🙏", id: 1 },
+  { name: "Exercise", icon: "🏋️‍♂️", id: 2 },
+  { name: "Read", icon: "📖", id: 3 },
+  { name: "Write", icon: "📝", id: 4 },
+  { name: "Drink Water", icon: "💧", id: 5 },
+  { name: "Sleep Well", icon: "🛌", id: 6 },
 ];
