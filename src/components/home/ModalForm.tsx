@@ -9,7 +9,7 @@ import TimeForm from "@components/home/forms/TimeForm";
 export interface HabitData {
   time: {
     value: "" | number;
-    type: "minutes" | "duration";
+    type: "minutes" | "hours";
   };
   frequency: {
     value: number;
