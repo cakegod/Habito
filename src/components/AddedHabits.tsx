@@ -45,36 +45,38 @@ function calculateLiquid(
 function AddedHabits() {
   const $habits = useStore(habits);
   return (
-    <div className="absolute bottom-0 left-0 z-10 grid max-h-[20%] w-full grid-cols-2 gap-2 self-start overflow-auto bg-base-300 p-2 sm:grid-cols-3 md:grid-cols-6">
-      {$habits.map((habit) => (
-        <button
-          className="btn-outline btn-info btn flex h-24 max-h-full grow flex-col gap-2 p-2 normal-case"
-          onClick={() => toggleModal(habit)}
-          key={habit.id}
-        >
-          <div className="flex">
-            <span>{habit.icon}</span>
-            <p>{habit.name}</p>
-          </div>
-          {typeof habit.time.value === "number" ? (
-            <>
+    $habits.length > 0 && (
+      <div className="absolute bottom-0 left-0 z-10 grid max-h-[15%] w-full grid-cols-2 gap-2 self-start overflow-auto bg-base-300 p-2 md:grid-cols-3 lg:grid-cols-6">
+        {$habits.map((habit) => (
+          <button
+            className="btn-info btn-outline btn flex h-24 max-h-full grow flex-col gap-2 p-2 normal-case"
+            onClick={() => toggleModal(habit)}
+            key={habit.id}
+          >
+            <div className="flex text-base">
+              <span>{habit.icon}</span>
+              <p>{habit.name}</p>
+            </div>
+            {habit.forms.includes("time") ? (
+              <>
+                <span className="badge badge-sm">
+                  {calculateTime(
+                    habit.frequency.value,
+                    Number(habit.time.value),
+                    habit.time.type
+                  )}
+                </span>
+                <span className="badge badge-sm">{`${habit.frequency.value} times / week`}</span>
+              </>
+            ) : (
               <span className="badge badge-sm">
-                {calculateTime(
-                  habit.frequency.value,
-                  habit.time.value,
-                  habit.time.type
-                )}
+                {calculateLiquid(Number(habit.liquid.value), habit.liquid.type)}
               </span>
-              <span className="badge badge-sm">{`${habit.frequency.value} times / week`}</span>
-            </>
-          ) : (
-            <span className="badge badge-sm">
-              {calculateLiquid(Number(habit.liquid.value), habit.liquid.type)}
-            </span>
-          )}
-        </button>
-      ))}
-    </div>
+            )}
+          </button>
+        ))}
+      </div>
+    )
   );
 }
 
