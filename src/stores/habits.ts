@@ -5,8 +5,13 @@ import type { HabitData } from "@components/home/ModalForm";
 export type HabitStateData = Habit & HabitData;
 export const habits = atom<HabitStateData[]>([]);
 
+// TODO: Refactor into two separated functions
 export const addHabit = (habit: HabitStateData) => {
-  habits.set([...habits.get(), habit]);
+  const isPresent = !!habits.get().find((h) => h.id === habit.id);
+
+  isPresent
+    ? habits.set(habits.get().map((h) => (h.id === habit.id ? habit : h)))
+    : habits.set([...habits.get(), habit]);
 
   console.log(habits.get());
 };
