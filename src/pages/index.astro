@@ -4,5 +4,11 @@ import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="Habit Tracker">
-  <HabitsList client:load />
+  <div class="grow">
+		<main
+			class="grid w-full max-w-3xl grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4"
+		>
+			<HabitsList client:load />
+		</main>
+	</div>
 </Layout>

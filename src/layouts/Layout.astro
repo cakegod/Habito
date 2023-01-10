@@ -16,13 +16,17 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="flex h-screen w-screen flex-col items-center bg-base-100 p-3">
-    <h1 class="self-start pb-6 text-2xl font-black lg:text-3xl">
-      Habit Tracker
-    </h1>
-    <main
-      class="grid w-full max-w-3xl grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4"
-    >
+    <div class="flex min-h-full w-full flex-col items-center">
+      <header>
+        <h1 class="self-start pb-6 text-2xl font-black lg:text-3xl">
+          Habit Tracker
+        </h1>
+      </header>
       <slot />
-    </main>
+      <div class="divider"></div>
+      <footer class="footer footer-center">
+        <p class="footer-title">All rights reserved © Cake 2023 - Present</p>
+      </footer>
+    </div>
   </body>
 </html>
