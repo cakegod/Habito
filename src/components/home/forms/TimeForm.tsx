@@ -2,7 +2,7 @@ import ModalLabel from "@components/home/ModalLabel";
 
 interface Props {
   value: "" | number;
-  type: "minutes" | "duration";
+  type: "minutes" | "hours";
   handler: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
 }
 
