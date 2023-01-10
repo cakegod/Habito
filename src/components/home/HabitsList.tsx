@@ -7,8 +7,7 @@ import { habits } from "@stores/habits";
 function HabitsList() {
   const $habits = useStore(habits);
   const filteredHabits = habitsData.filter(
-    (habitData) =>
-      !$habits.find((habit) => habitData.id === habit.id)
+    (habitData) => !$habits.find((habit) => habitData.id === habit.id)
   );
 
   return (

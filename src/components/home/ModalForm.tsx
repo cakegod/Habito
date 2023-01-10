@@ -46,9 +46,7 @@ function ModalForm({ habit }: { habit: HabitStateData }) {
   const $habits = useStore(habits);
 
   // Check if the current item exists in the added habits
-  const isPresent = !!$habits.find(
-    (habit) => habit.id === data.id
-  );
+  const isPresent = !!$habits.find((habit) => habit.id === data.id);
 
   const forms = {
     time: (
