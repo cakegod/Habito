@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { habits } from "@stores/habits";
+import { habits, toggleModal } from "@stores/habits";
 import type { HabitData } from "./home/ModalForm";
 
 function calculateTime(
@@ -25,9 +25,9 @@ function calculateTime(
 function AddedHabits() {
   const $habits = useStore(habits);
   return (
-    <div className="absolute bottom-0 left-0 z-10 grid max-h-[20%] w-full max-w-2xl grid-cols-2 gap-2 self-start overflow-auto bg-base-300 p-2 sm:grid-cols-3 md:grid-cols-4">
+    <div className="absolute bottom-0 left-0 z-10 grid max-h-[20%] w-full grid-cols-2 gap-2 self-start overflow-auto bg-base-300 p-2 sm:grid-cols-3 md:grid-cols-6">
       {Object.values($habits).map((habit) => (
-        <div className="btn-outline btn-info btn flex h-full grow flex-col gap-2 p-2 normal-case">
+        <button className="btn-outline btn-info btn flex h-full grow flex-col gap-2 p-2 normal-case" onClick={() => toggleModal(habit)}>
           <div className="flex">
             <span>{habit.icon}</span>
             <p>{habit.name}</p>
@@ -35,12 +35,12 @@ function AddedHabits() {
           <span className="badge badge-sm">
             {calculateTime(
               habit.frequency.value,
-              habit.time.value,
+              habit.time.value as number,
               habit.time.type
             )}
           </span>
           <span className="badge badge-sm">{`${habit.frequency.value} times / week`}</span>
-        </div>
+        </button>
       ))}
     </div>
   );
