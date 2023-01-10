@@ -8,7 +8,7 @@ function HabitsList() {
   const $habits = useStore(habits);
   const filteredHabits = habitsData.filter(
     (habitData) =>
-      !Object.values($habits).find((habit) => habitData.id === habit.id)
+      !$habits.find((habit) => habitData.id === habit.id)
   );
 
   return (

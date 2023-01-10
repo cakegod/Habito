@@ -1,10 +1,17 @@
 import Button from "@components/Button";
 import type { Habit } from "@data/habits";
-import { toggleModal, addHabit, HabitStateData } from "@stores/habits";
+import {
+  toggleModal,
+  addHabit,
+  deleteHabit,
+  HabitStateData,
+  habits,
+} from "@stores/habits";
 import React, { useState } from "react";
 import FrequencyForm from "@components/home/forms/FrequencyForm";
 import LiquidForm from "@components/home/forms/LiquidForm";
 import TimeForm from "@components/home/forms/TimeForm";
+import { useStore } from "@nanostores/react";
 
 export interface HabitData {
   time: {
@@ -34,8 +41,14 @@ const emptyData: HabitData = {
   },
 };
 
-function ModalForm({ habit }: { habit: Habit }) {
+function ModalForm({ habit }: { habit: HabitStateData }) {
   const [data, setData] = useState<HabitStateData>({ ...emptyData, ...habit });
+  const $habits = useStore(habits);
+
+  // Check if the current item exists in the added habits
+  const isPresent = !!$habits.find(
+    (habit) => habit.id === data.id
+  );
 
   const forms = {
     time: (
@@ -95,11 +108,17 @@ function ModalForm({ habit }: { habit: Habit }) {
     <form onSubmit={(e) => handleSubmit(e, habit)}>
       {habit.forms.map((form) => forms[form])}
       <div className="modal-action">
-        <Button intent="ghost" handler={() => toggleModal()}>
-          Cancel
-        </Button>
+        {isPresent ? (
+          <Button intent="ghost" handler={() => deleteHabit(habit)}>
+            Remove
+          </Button>
+        ) : (
+          <Button intent="ghost" handler={() => toggleModal()}>
+            Cancel
+          </Button>
+        )}
         <Button type="submit" intent="primary">
-          Add habit
+          {isPresent ? "Update" : "Add habit"}
         </Button>
       </div>
     </form>

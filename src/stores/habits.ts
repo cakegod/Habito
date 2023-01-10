@@ -3,12 +3,18 @@ import type { Habit } from "@data/habits";
 import type { HabitData } from "@components/home/ModalForm";
 
 export type HabitStateData = Habit & HabitData;
-export const habits = map<Record<string, HabitStateData>>({});
+export const habits = atom<HabitStateData[]>([]);
 
 export const addHabit = (habit: HabitStateData) => {
-  habits.setKey(habit.id, habit);
+  habits.set([...habits.get(), habit]);
 
   console.log(habits.get());
+};
+
+export const deleteHabit = (habit: HabitStateData) => {
+  habits.set(habits.get().filter((h) => h.id !== habit.id));
+
+  console.log(habits);
 };
 
 // Bad temporary fix :/
@@ -36,4 +42,5 @@ export const toggleModal = (habit?: HabitStateData) => {
   if (habit) {
     currentHabit.set(habit);
   }
+  console.table(habits);
 };

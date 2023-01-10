@@ -26,7 +26,7 @@ function AddedHabits() {
   const $habits = useStore(habits);
   return (
     <div className="absolute bottom-0 left-0 z-10 grid max-h-[20%] w-full grid-cols-2 gap-2 self-start overflow-auto bg-base-300 p-2 sm:grid-cols-3 md:grid-cols-6">
-      {Object.values($habits).map((habit) => (
+      {$habits.map((habit) => (
         <button className="btn-outline btn-info btn flex h-full grow flex-col gap-2 p-2 normal-case" onClick={() => toggleModal(habit)}>
           <div className="flex">
             <span>{habit.icon}</span>
