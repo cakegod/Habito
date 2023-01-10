@@ -1,9 +1,10 @@
 import { atom, map } from "nanostores";
 import type { Habit } from "@data/habits";
+import type { HabitData } from "@components/home/ModalForm";
 
-export const habits = map<Record<string, Habit>>({});
+export const habits = map<Record<string, Habit & HabitData>>({});
 
-export const addHabit = (habit: Habit) => {
+export const addHabit = (habit: Habit & HabitData) => {
   habits.setKey(habit.id, habit);
 
   console.log(habits.get());

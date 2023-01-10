@@ -1,5 +1,4 @@
 import Button from "@components/Button";
-import ModalLabel from "@components/home/ModalLabel";
 import type { Habit } from "@data/habits";
 import { toggleModal, addHabit } from "@stores/habits";
 import React, { useState } from "react";
@@ -7,7 +6,7 @@ import FrequencyForm from "./FrequencyForm";
 import LiquidForm from "./LiquidForm";
 import TimeForm from "./TimeForm";
 
-interface Data {
+export interface HabitData {
   time: {
     value: "" | number;
     type: "minutes" | "duration";
@@ -22,7 +21,7 @@ interface Data {
 }
 
 function ModalForm({ habit }: { habit: Habit }) {
-  const [data, setData] = useState<Data>({
+  const [data, setData] = useState<HabitData>({
     time: {
       value: "",
       type: "minutes",
@@ -42,16 +41,22 @@ function ModalForm({ habit }: { habit: Habit }) {
         handler={handleTime}
         value={data.time.value}
         type={data.time.type}
+        key={0}
       />
     ),
     frequency: (
-      <FrequencyForm handler={handleFrequency} value={data.frequency.value} />
+      <FrequencyForm
+        handler={handleFrequency}
+        value={data.frequency.value}
+        key={1}
+      />
     ),
     liquid: (
       <LiquidForm
         handler={handleLiquid}
         value={data.liquid.value}
         type={data.liquid.type}
+        key={2}
       />
     ),
   };
