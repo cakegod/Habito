@@ -7,7 +7,7 @@ const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme="myTheme">
+<html lang="en" data-theme="night">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -18,8 +18,10 @@ const { title } = Astro.props;
   <body class="flex h-screen w-screen flex-col items-center bg-base-100 p-3">
     <div class="flex min-h-full w-full flex-col items-center">
       <header>
-        <h1 class="self-start pb-6 text-2xl font-black lg:text-3xl">
-          Habit Tracker
+        <h1 class="self-start pb-6 font-black">
+          <a href="/" class="btn-ghost btn text-2xl normal-case"
+            >Habit Tracker</a
+          >
         </h1>
       </header>
       <slot />
