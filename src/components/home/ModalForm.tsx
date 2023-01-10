@@ -2,9 +2,9 @@ import Button from "@components/Button";
 import type { Habit } from "@data/habits";
 import { toggleModal, addHabit } from "@stores/habits";
 import React, { useState } from "react";
-import FrequencyForm from "./FrequencyForm";
-import LiquidForm from "./LiquidForm";
-import TimeForm from "./TimeForm";
+import FrequencyForm from "@components/home/forms/FrequencyForm";
+import LiquidForm from "@components/home/forms/LiquidForm";
+import TimeForm from "@components/home/forms/TimeForm";
 
 export interface HabitData {
   time: {
@@ -66,16 +66,6 @@ function ModalForm({ habit }: { habit: Habit }) {
     e.preventDefault();
     addHabit({ ...habit, ...data });
     toggleModal();
-
-    // test
-    if (data.time.type === "minutes") {
-      alert(
-        `${Math.round(
-          (data.frequency.value * 52 * data.time.value) / 60
-        )} hours`
-      );
-    } else
-      alert(`${Math.round(data.frequency.value * 52 * data.time.value)} hours`);
   }
 
   function handleTime(
