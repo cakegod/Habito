@@ -3,6 +3,9 @@ import ModalLabel from "@components/home/ModalLabel";
 import type { Habit } from "@data/habits";
 import { toggleModal, addHabit } from "@stores/habits";
 import React, { useState } from "react";
+import FrequencyForm from "./FrequencyForm";
+import LiquidForm from "./LiquidForm";
+import TimeForm from "./TimeForm";
 
 interface Data {
   time: {
@@ -11,6 +14,10 @@ interface Data {
   };
   frequency: {
     value: number;
+  };
+  liquid: {
+    value: "" | number;
+    type: "ml" | "l";
   };
 }
 
@@ -23,7 +30,31 @@ function ModalForm({ habit }: { habit: Habit }) {
     frequency: {
       value: 3,
     },
+    liquid: {
+      value: "",
+      type: "ml",
+    },
   });
+
+  const forms = {
+    time: (
+      <TimeForm
+        handler={handleTime}
+        value={data.time.value}
+        type={data.time.type}
+      />
+    ),
+    frequency: (
+      <FrequencyForm handler={handleFrequency} value={data.frequency.value} />
+    ),
+    liquid: (
+      <LiquidForm
+        handler={handleLiquid}
+        value={data.liquid.value}
+        type={data.liquid.type}
+      />
+    ),
+  };
 
   // Frequency.value * 52 * time.value
   function handleSubmit(e: React.FormEvent<HTMLFormElement>, habit: Habit) {
@@ -56,51 +87,16 @@ function ModalForm({ habit }: { habit: Habit }) {
     setData({ ...data, frequency: { ...data.frequency, [name]: value } });
   }
 
+  function handleLiquid(
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) {
+    const { value, name } = e.target;
+    setData({ ...data, liquid: { ...data.liquid, [name]: value } });
+  }
+
   return (
     <form onSubmit={(e) => handleSubmit(e, habit)}>
-      <div className="form-control">
-        <ModalLabel content="Time spent per day" />
-        <label className="input-group">
-          <input
-            type="number"
-            required
-            tabIndex={0}
-            min="0"
-            step="1"
-            placeholder="5"
-            value={data.time.value}
-            className="input-bordered input w-full placeholder:text-base-content/50"
-            onChange={handleTime}
-            name="value"
-          />
-          <select
-            className="select bg-base-300 uppercase"
-            value={data.time.type}
-            onChange={handleTime}
-            name="type"
-          >
-            <option value="minutes">minutes</option>
-            <option value="hours">hours</option>
-          </select>
-        </label>
-      </div>
-      <div className="form-control">
-        <ModalLabel content="Frequency" />
-        <select
-          className="select-bordered select w-full"
-          value={data.frequency.value}
-          onChange={handleFrequency}
-          name="value"
-        >
-          <option value={1}>x1 times per week</option>
-          <option value={2}>x2 times per week</option>
-          <option value={3}>x3 times per week</option>
-          <option value={4}>x4 times per week</option>
-          <option value={5}>x5 times per week</option>
-          <option value={6}>x6 times per week</option>
-          <option value={7}>Every day</option>
-        </select>
-      </div>
+      {habit.forms.map((form) => forms[form])}
       <div className="modal-action">
         <Button intent="ghost" handler={() => toggleModal()}>
           Cancel
