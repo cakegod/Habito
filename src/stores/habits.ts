@@ -17,13 +17,13 @@ export const addHabit = (habit: HabitStateData) => {
   console.log(habits.get());
 };
 
-export const deleteHabit = (habit: HabitStateData) => {
+export const deleteHabit = (habit: HabitStateData | Habit) => {
   habits.set(habits.get().filter((h) => h.id !== habit.id));
 
   console.log(habits);
 };
 
-export const currentHabit = atom<HabitStateData>({
+export const currentHabit = atom<HabitStateData | Habit>({
   name: "",
   icon: "",
   id: "",
@@ -43,7 +43,7 @@ export const currentHabit = atom<HabitStateData>({
 
 export const isModalOpen = atom(false);
 
-export const toggleModal = (habit?: HabitStateData) => {
+export const toggleModal = (habit?: HabitStateData | Habit) => {
   isModalOpen.set(!isModalOpen.get());
   if (habit) {
     currentHabit.set(habit);

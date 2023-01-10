@@ -56,12 +56,12 @@ function AddedHabits() {
             <span>{habit.icon}</span>
             <p>{habit.name}</p>
           </div>
-          {habit.time.value !== "" ? (
+          {typeof habit.time.value === "number" ? (
             <>
               <span className="badge badge-sm">
                 {calculateTime(
                   habit.frequency.value,
-                  Number(habit.time.value),
+                  habit.time.value,
                   habit.time.type
                 )}
               </span>
@@ -69,7 +69,7 @@ function AddedHabits() {
             </>
           ) : (
             <span className="badge badge-sm">
-              {calculateLiquid(habit.liquid.value, habit.liquid.type)}
+              {calculateLiquid(Number(habit.liquid.value), habit.liquid.type)}
             </span>
           )}
         </button>

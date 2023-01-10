@@ -41,7 +41,7 @@ const emptyData: HabitData = {
   },
 };
 
-function ModalForm({ habit }: { habit: HabitStateData }) {
+function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
   const [data, setData] = useState<HabitStateData>({ ...emptyData, ...habit });
   const $habits = useStore(habits);
 
