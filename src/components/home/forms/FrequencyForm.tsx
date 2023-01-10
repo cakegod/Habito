@@ -22,7 +22,7 @@ function FrequencyForm({ value, handler }: Props) {
         <option value={4}>x4 times per week</option>
         <option value={5}>x5 times per week</option>
         <option value={6}>x6 times per week</option>
-        <option value={7}>Every day</option>
+        <option value={7}>Every day 🚀</option>
       </select>
     </div>
   );
