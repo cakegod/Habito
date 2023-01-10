@@ -2,22 +2,24 @@ import { useStore } from "@nanostores/react";
 import { habits } from "@stores/habits";
 import type { HabitData } from "./home/ModalForm";
 
-function calculateTime(frequency, time, timeType: HabitData["time"]["type"]) {
-  const HOUR = 60;
-  const DAY = 24;
+function calculateTime(
+  frequency: number,
+  time: number,
+  timeType: HabitData["time"]["type"]
+) {
   const WEEK = 7;
-  const YEAR = 365;
+  const durationPerDay = (frequency * time) / WEEK;
 
-  if (timeType === "minutes") {
-    const minPerDay = (frequency * time) / WEEK;
-
-    if (minPerDay < 60) {
-      return `${Math.ceil(minPerDay)} minutes / day`;
-    } else return `${Math.round((minPerDay / 60) * 10) / 10} hours / day`;
+  switch (timeType) {
+    case "minutes": {
+      return durationPerDay < 60
+        ? `${Math.ceil(durationPerDay)} minutes / day`
+        : `${Math.ceil((durationPerDay / 60) * 10) / 10} hours / day`;
+    }
+    case "hours": {
+      return `${Math.ceil(durationPerDay * 10) / 10} hours / day`;
+    }
   }
-  const hoursPerDay = (frequency * time) / WEEK;
-
-  return `${Math.ceil(hoursPerDay * 10) / 10} hours / day`;
 }
 
 function AddedHabits() {
