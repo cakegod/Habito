@@ -20,10 +20,10 @@ function LiquidForm({ value, type, handler }: Props) {
           required
           tabIndex={0}
           min="0"
-          step="50"
+          step="1"
           placeholder="50"
           value={value}
-          className="bg-base-200 input w-full placeholder:text-base-content/50"
+          className="input w-full bg-base-200 placeholder:text-base-content/50"
           onChange={(e) => handler(e, "liquid")}
           name="value"
         />
