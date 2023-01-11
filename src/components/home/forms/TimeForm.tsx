@@ -1,9 +1,13 @@
 import ModalLabel from "@components/home/ModalLabel";
+import type { HabitData } from "../ModalForm";
 
 interface Props {
   value: "" | number;
   type: "minutes" | "hours";
-  handler: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
+  handler: (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
+    type: keyof HabitData
+  ) => void;
 }
 
 function TimeForm({ value, type, handler }: Props) {
@@ -20,13 +24,13 @@ function TimeForm({ value, type, handler }: Props) {
           placeholder="5"
           value={value}
           className="input-bordered input w-full placeholder:text-base-content/50"
-          onChange={handler}
+          onChange={(e) => handler(e, "time")}
           name="value"
         />
         <select
           className="select bg-base-300 uppercase"
           value={type}
-          onChange={handler}
+          onChange={(e) => handler(e, "time")}
           name="type"
         >
           <option value="minutes">minutes</option>

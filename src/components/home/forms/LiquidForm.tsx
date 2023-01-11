@@ -1,9 +1,13 @@
 import ModalLabel from "@components/home/ModalLabel";
+import type { HabitData } from "../ModalForm";
 
 interface Props {
   value: "" | number;
   type: "ml" | "l";
-  handler: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
+  handler: (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
+    type: keyof HabitData
+  ) => void;
 }
 
 function LiquidForm({ value, type, handler }: Props) {
@@ -20,13 +24,13 @@ function LiquidForm({ value, type, handler }: Props) {
           placeholder="50"
           value={value}
           className="input-bordered input w-full placeholder:text-base-content/50"
-          onChange={handler}
+          onChange={(e) => handler(e, "liquid")}
           name="value"
         />
         <select
           className="select bg-base-300 uppercase"
           value={type}
-          onChange={handler}
+          onChange={(e) => handler(e, "liquid")}
           name="type"
         >
           <option value="ml">ml</option>

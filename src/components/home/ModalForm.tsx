@@ -51,7 +51,7 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
   const forms = {
     time: (
       <TimeForm
-        handler={handleTime}
+        handler={handleForm}
         value={data.time.value}
         type={data.time.type}
         key={0}
@@ -59,14 +59,14 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
     ),
     frequency: (
       <FrequencyForm
-        handler={handleFrequency}
+        handler={handleForm}
         value={data.frequency.value}
         key={1}
       />
     ),
     liquid: (
       <LiquidForm
-        handler={handleLiquid}
+        handler={handleForm}
         value={data.liquid.value}
         type={data.liquid.type}
         key={2}
@@ -81,25 +81,12 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
     toggleModal();
   }
 
-  function handleTime(
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  function handleForm(
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
+    type: keyof HabitData
   ) {
     const { value, name } = e.target;
-    setData({ ...data, time: { ...data.time, [name]: value } });
-  }
-
-  function handleFrequency(
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
-  ) {
-    const { value, name } = e.target;
-    setData({ ...data, frequency: { ...data.frequency, [name]: value } });
-  }
-
-  function handleLiquid(
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
-  ) {
-    const { value, name } = e.target;
-    setData({ ...data, liquid: { ...data.liquid, [name]: value } });
+    setData({ ...data, [type]: { ...data[type], [name]: value } });
   }
 
   return (
@@ -107,17 +94,29 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
       {habit.forms.map((form) => forms[form])}
       <div className="modal-action">
         {isPresent ? (
-          <Button intent="ghost" handler={() => deleteHabit(habit)}>
+          <Button
+            size="grow"
+            intent="error"
+            handler={() => {
+              toggleModal(), deleteHabit(habit);
+            }}
+          >
             Remove
           </Button>
         ) : (
-          <Button intent="ghost" handler={() => toggleModal()}>
+          <Button size="grow" intent="ghost" handler={() => toggleModal()}>
             Cancel
           </Button>
         )}
-        <Button type="submit" intent="primary">
-          {isPresent ? "Update" : "Add habit"}
-        </Button>
+        {isPresent ? (
+          <Button size="grow" intent="success" type="submit">
+            Update
+          </Button>
+        ) : (
+          <Button size="grow" intent="primary" type="submit">
+            Add Habit
+          </Button>
+        )}
       </div>
     </form>
   );

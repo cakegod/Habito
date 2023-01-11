@@ -1,9 +1,13 @@
 import ModalLabel from "@components/home/ModalLabel";
 import type React from "react";
+import type { HabitData } from "../ModalForm";
 
 interface Props {
   value: number;
-  handler: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
+  handler: (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
+    type: keyof HabitData
+  ) => void;
 }
 
 function FrequencyForm({ value, handler }: Props) {
@@ -13,7 +17,7 @@ function FrequencyForm({ value, handler }: Props) {
       <select
         className="select-bordered select w-full"
         value={value}
-        onChange={handler}
+        onChange={(e) => handler(e, "frequency")}
         name="value"
       >
         <option value={1}>x1 times per week</option>
