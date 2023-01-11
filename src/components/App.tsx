@@ -49,7 +49,7 @@ function App() {
               <div className="mt-10 flex w-full justify-center">
                 <button className="btn btn-success btn-lg" onClick={handleNext}>
                   Calculate my habits!
-                  <span className="m-1 text-xl">🤯</span>
+                  <span className="m-1 text-xl">😎</span>
                 </button>
               </div>
             </main>
@@ -100,9 +100,9 @@ function App() {
                 );
               })}
             </section>
-            <div className="mt-10 flex w-full justify-center">
-              <button className="btn btn-info btn-lg" onClick={handleBack}>
-                <span className="m-1 rotate-180">➤</span>
+            <div className="mt-10 flex w-full justify-center items-center">
+              <button className="btn btn-info text-center btn-lg" onClick={handleBack}>
+                <span className="mx-1 rotate-180">➤</span>
                 Back to habit selection
               </button>
             </div>
