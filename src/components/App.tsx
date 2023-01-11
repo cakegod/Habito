@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { habits } from "@stores/habits";
-import { useState } from "react";
+import React, { useState } from "react";
 import { calculateHoursPerYear } from "src/util/calculate";
 
 import AddedHabits from "./AddedHabits";
@@ -8,6 +8,7 @@ import HabitsList from "./home/HabitsList";
 
 function App() {
   const [index, setIndex] = useState<0 | 1>(0);
+  const [year, setYear] = useState<number>(1);
   const $habits = useStore(habits);
 
   function handleNext() {
@@ -16,6 +17,10 @@ function App() {
 
   function handleBack() {
     setIndex(0);
+  }
+
+  function handleYearChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setYear(Number(e.target.value));
   }
 
   return (
@@ -40,7 +45,18 @@ function App() {
       ) : (
         <div className="w-full max-w-xl grow">
           <main className="flex w-full max-w-3xl flex-col items-center">
-            {/* // TODO: Habit grid here*/}
+            <h2 className="mb-4 flex items-center self-start text-lg">
+              In
+              <input
+                type="number"
+                onChange={handleYearChange}
+                min={1}
+                max={99}
+                value={year}
+                className="input mx-2 w-20 bg-neutral text-center font-bold"
+              />
+              year{year > 1 && "s"}, you will achieve:
+            </h2>
             <section className="grid w-full grid-cols-2 gap-2 ">
               {$habits.map((habit) => {
                 return (
@@ -52,13 +68,15 @@ function App() {
                       </p>
                     </div>
                     <p className="text-2xl font-bold text-primary-content">
-                      {`${Math.round(
-                        calculateHoursPerYear(
-                          habit.frequency.value,
-                          Number(habit.time.value),
-                          habit.time.type
-                        )
-                      )} hours`}
+                      {`${
+                        Math.round(
+                          calculateHoursPerYear(
+                            habit.frequency.value,
+                            Number(habit.time.value),
+                            habit.time.type
+                          )
+                        ) * year
+                      } hours`}
                     </p>
                   </div>
                 );
