@@ -46,12 +46,21 @@ function App() {
               <section className="grid w-full grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
                 <HabitsList />
               </section>
-              <div className="mt-10 flex w-full justify-center">
-                <button className="btn btn-success btn-lg" onClick={handleNext}>
-                  Calculate my habits!
-                  <span className="m-1 text-xl">😎</span>
-                </button>
-              </div>
+              {$habits.length !== 0 ? (
+                <div className="mt-10 flex w-full justify-center">
+                  <button
+                    className="btn btn-success btn-lg"
+                    onClick={handleNext}
+                  >
+                    Calculate my habits!
+                    <span className="m-1 text-xl">😎</span>
+                  </button>
+                </div>
+              ) : (
+                <h2 className="mt-10 text-xl bold">
+                  Add an habit from the list to start!
+                </h2>
+              )}
             </main>
           </div>
           <AddedHabits />
@@ -100,8 +109,11 @@ function App() {
                 );
               })}
             </section>
-            <div className="mt-10 flex w-full justify-center items-center">
-              <button className="btn btn-info text-center btn-lg" onClick={handleBack}>
+            <div className="mt-10 flex w-full items-center justify-center">
+              <button
+                className="btn btn-info btn-lg text-center"
+                onClick={handleBack}
+              >
                 <span className="mx-1 rotate-180">➤</span>
                 Back to habit selection
               </button>
