@@ -5,6 +5,7 @@ export type Habit = {
   forms: Forms[];
 };
 
+// TODO: add more habits
 export const habitsData: Habit[] = [
   { name: "Meditate", icon: "🧘‍♀️", id: "1", forms: ["time", "frequency"] },
   { name: "Exercise", icon: "🏋️‍♂️", id: "2", forms: ["time", "frequency"] },

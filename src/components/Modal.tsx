@@ -9,6 +9,8 @@ function Modal() {
   const $isModalOpen = useStore(isModalOpen);
   const $currentHabit = useStore(currentHabit);
 
+
+	// TODO: transfer the small modal components here to avoid too many micro components
   return (
     <Transition
       show={$isModalOpen}

@@ -12,6 +12,8 @@ import LiquidForm from "@components/home/forms/LiquidForm";
 import TimeForm from "@components/home/forms/TimeForm";
 import { useStore } from "@nanostores/react";
 
+// TODO: file is too big, reduce size by extracting parts of it elsewhere
+
 export interface HabitData {
   time: {
     value: "" | number;

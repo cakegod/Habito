@@ -20,6 +20,7 @@ function pickGradient(index: number) {
   } else return gradients[0];
 }
 
+// TODO add logic for liquid and custom calculation (like drops of rain)
 export function HabitsGridCards({ year }: Props) {
   const $habits = useStore(habits);
   return (
