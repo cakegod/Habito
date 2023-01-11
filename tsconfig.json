@@ -11,7 +11,8 @@
       "@layouts/*": ["src/layouts/*"],
       "@assets/*": ["src/assets/*"],
       "@stores/*": ["src/stores/*"],
-      "@data/*": ["src/data/*"]
+      "@data/*": ["src/data/*"],
+      "@util/*": ["src/util/*"]
     }
   }
 }
