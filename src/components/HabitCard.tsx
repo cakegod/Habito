@@ -8,7 +8,7 @@ interface Props {
 function HabitCard({ habit }: Props) {
   return (
     <button
-      className="btn h-24 flex-col normal-case"
+      className="btn bg-base-200 border-none h-24 flex-col normal-case"
       onClick={() => toggleModal(habit)}
     >
       <span className="flex grow items-center text-lg">{habit.icon}</span>

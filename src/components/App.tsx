@@ -33,19 +33,20 @@ function App() {
           <AddedHabits />
         </>
       ) : (
-        <>
-          <div className="w-full max-w-xl grow">
-            <main className="flex w-full max-w-3xl flex-col items-center">
-              // TODO: Habit grid here
-              <div className="mt-10 flex w-full justify-center">
-                <button className="btn btn-info btn-lg" onClick={handleBack}>
-                  <span className="m-1 rotate-180">➤</span>
-                  Back to habit selection
-                </button>
-              </div>
-            </main>
-          </div>
-        </>
+        <div className="w-full max-w-xl grow">
+          <main className="flex w-full max-w-3xl flex-col items-center">
+            {/* // TODO: Habit grid here*/}
+            <section className="grid w-full grid-cols-2 gap-2 ">
+              <HabitsList />
+            </section>
+            <div className="mt-10 flex w-full justify-center">
+              <button className="btn btn-info btn-lg" onClick={handleBack}>
+                <span className="m-1 rotate-180">➤</span>
+                Back to habit selection
+              </button>
+            </div>
+          </main>
+        </div>
       )}
     </>
   );

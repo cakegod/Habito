@@ -15,7 +15,7 @@ function FrequencyForm({ value, handler }: Props) {
     <div className="form-control">
       <ModalLabel content="Frequency" />
       <select
-        className="select-bordered select w-full"
+        className="bg-base-200 select w-full"
         value={value}
         onChange={(e) => handler(e, "frequency")}
         name="value"

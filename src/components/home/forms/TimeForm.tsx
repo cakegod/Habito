@@ -23,7 +23,7 @@ function TimeForm({ value, type, handler }: Props) {
           step="1"
           placeholder="5"
           value={value}
-          className="input-bordered input w-full placeholder:text-base-content/50"
+          className="bg-base-200 input w-full placeholder:text-base-content/50"
           onChange={(e) => handler(e, "time")}
           name="value"
         />

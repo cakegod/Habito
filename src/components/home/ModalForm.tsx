@@ -95,7 +95,7 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
         {isPresent ? (
           <button
             type="button"
-            className="btn btn-error grow"
+            className="btn btn-ghost grow text-error"
             onClick={() => {
               toggleModal(), deleteHabit(habit);
             }}
