@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
-import { calculateLiquidPerDay, composeHoursPerWeek } from "src/util/calculate";
+import { calculateLiquidPerDay, composeHoursPerWeek } from "@util/calculate";
 
 function AddedHabits() {
   const $habits = useStore(habits);
