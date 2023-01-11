@@ -73,10 +73,13 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
     ),
   };
 
-  // Frequency.value * 52 * time.value
+	
   function handleSubmit(e: React.FormEvent<HTMLFormElement>, habit: Habit) {
-    e.preventDefault();
-    addHabit({ ...habit, ...data });
+		e.preventDefault();
+		
+		// TODO: Find a better way to handle this bug
+    // Small timeout to prevent seeing the modal changing content
+    setTimeout(() => addHabit({ ...habit, ...data }), 200);
     toggleModal();
   }
 

@@ -12,10 +12,10 @@ function Modal() {
   return (
     <Transition
       show={$isModalOpen}
-			enter="transition-opacity duration-300"
+			enter="transition-opacity"
 			enterFrom="opacity-0"
 			enterTo="opacity-100"
-			leave="transition-opacity duration-300"
+			leave="transition-opacity"
 			leaveFrom="opacity-100"
 			leaveTo="opacity-0"
       as={Fragment}
