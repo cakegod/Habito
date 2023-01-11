@@ -20,24 +20,24 @@ function AddedHabits() {
             </div>
             {forms.includes("time") ? (
               <>
-                <span className="badge-outline badge badge-sm ">
+                <span className="badge-info badge badge-sm ">
                   {composeHoursPerWeek(
                     frequency.value,
                     Number(time.value),
                     time.type
                   )}
                 </span>
-                <span className="badge-outline badge badge-sm ">{`${frequency.value} times per week`}</span>
+                <span className="badge-info badge badge-sm ">{`${frequency.value} times per week`}</span>
               </>
             ) : (
               <>
-                <span className="badge-outline badge badge-sm ">
+                <span className="badge-info badge badge-sm ">
                   {`${calculateLiquidPerDay(
                     Number(liquid.value),
                     liquid.type
                   )}L per week`}
                 </span>
-                <span className="badge-outline badge badge-sm ">daily</span>
+                <span className="badge-info badge badge-sm ">daily</span>
               </>
             )}
           </button>
