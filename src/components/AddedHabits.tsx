@@ -1,46 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
-import type { HabitData } from "./home/ModalForm";
-
-function calculateTime(
-  frequency: number,
-  time: number,
-  timeType: HabitData["time"]["type"]
-) {
-  const WEEK = 7;
-  const durationPerDay = Math.ceil((frequency * time) / WEEK);
-
-  switch (timeType) {
-    case "minutes": {
-      return durationPerDay < 60
-        ? `${durationPerDay} minutes / day`
-        : `${((durationPerDay / 60) * 10) / 10} hours / day`;
-    }
-    case "hours": {
-      return `${(durationPerDay * 10) / 10} hours / day`;
-    }
-  }
-}
-
-function calculateLiquid(
-  value: number,
-  liquidType: HabitData["liquid"]["type"]
-) {
-  const LITER = 1000;
-  const WEEK = 7;
-  const VOLUME = value * WEEK;
-
-  switch (liquidType) {
-    case "ml": {
-      return VOLUME < 1000
-        ? `${VOLUME}ml / week`
-        : `${(VOLUME * WEEK) / LITER}L / week`;
-    }
-    case "l": {
-      return `${VOLUME}L / week`;
-    }
-  }
-}
+import { calculateLiquid, calculateTime } from "src/util/calculate";
 
 function AddedHabits() {
   const $habits = useStore(habits);
