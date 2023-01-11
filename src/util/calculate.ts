@@ -1,6 +1,8 @@
 import type { HabitData } from "@components/home/ModalForm";
 
+const HOUR = 60;
 const WEEK = 7;
+const DAYS_PER_YEAR = 365;
 
 export function calculateMinutesPerDay(
   frequency: number,
@@ -19,6 +21,16 @@ export function calculateMinutesPerDay(
   }
 }
 
+export function calculateHoursPerYear(
+  frequency: number,
+  time: number,
+  timeType: HabitData["time"]["type"]
+) {
+  return (
+    (calculateMinutesPerDay(frequency, time, timeType) * DAYS_PER_YEAR) / HOUR
+  );
+}
+
 export function calculateLiquidPerDay(
   value: number,
   liquidType: HabitData["liquid"]["type"]
@@ -34,4 +46,14 @@ export function calculateLiquidPerDay(
       return VOLUME;
     }
   }
+}
+
+export function composeHoursPerWeek(
+  frequency: number,
+  time: number,
+  timeType: HabitData["time"]["type"]
+) {
+  const minPerDay = calculateMinutesPerDay(frequency, time, timeType);
+  const hoursPerWeek = Math.round(((minPerDay * 7) / 60) * 10) / 10;
+  return `${hoursPerWeek} hours per week`;
 }
