@@ -3,17 +3,25 @@ import { cva } from "class-variance-authority";
 
 interface Props extends ButtonProps {
   children: React.ReactNode;
-	handler?: () => void;
+  handler?: () => void;
   type?: "button" | "submit";
 }
 
 export type ButtonProps = Required<VariantProps<typeof button>>;
 
-const button = cva("btn grow uppercase", {
+const button = cva("btn", {
   variants: {
     intent: {
       primary: "btn-primary",
       ghost: "btn-ghost",
+      success: "btn-success",
+      info: "btn-info",
+      warning: "btn-warning",
+      error: "btn-error",
+    },
+    size: {
+      large: "btn-lg",
+      grow: "grow",
     },
   },
   defaultVariants: {
@@ -21,9 +29,9 @@ const button = cva("btn grow uppercase", {
   },
 });
 
-function Button({ intent, children, type = "button", handler }: Props) {
+function Button({ intent, size, children, type = "button", handler }: Props) {
   return (
-    <button type={type} className={button({ intent })} onClick={handler}>
+    <button type={type} className={button({ intent, size })} onClick={handler}>
       {children}
     </button>
   );
