@@ -11,12 +11,12 @@ function HabitsList() {
   );
 
   return (
-    <>
+    <section className="grid w-full grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
       {filteredHabits.map((habit) => (
         <HabitCard habit={habit} key={habit.id} />
       ))}
       <Modal />
-    </>
+    </section>
   );
 }
 
