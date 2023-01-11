@@ -7,15 +7,13 @@ interface Props {
 
 function HabitCard({ habit }: Props) {
   return (
-    <>
-      <button
-        className="btn h-24 flex-col normal-case"
-        onClick={() => toggleModal(habit)}
-      >
-        <span className="flex grow items-center text-lg">{habit.icon}</span>
-        <h2 className="flex grow items-start text-center">{habit.name}</h2>
-      </button>
-    </>
+    <button
+      className="btn h-24 flex-col normal-case"
+      onClick={() => toggleModal(habit)}
+    >
+      <span className="flex grow items-center text-lg">{habit.icon}</span>
+      <h2 className="flex grow items-start text-center">{habit.name}</h2>
+    </button>
   );
 }
 export default HabitCard;
