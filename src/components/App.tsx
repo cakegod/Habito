@@ -6,6 +6,20 @@ import { calculateHoursPerYear } from "src/util/calculate";
 import AddedHabits from "./AddedHabits";
 import HabitsList from "./home/HabitsList";
 
+const gradients = [
+  "bg-gradient-to-r from-sky-400 to-blue-500",
+  "bg-gradient-to-r from-emerald-500 to-lime-600",
+  "bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500",
+];
+
+function pickGradient(index: number) {
+  if (index % 3 === 0) {
+    return `${gradients[2]} col-span-2`;
+  } else if (index % 2 === 0) {
+    return gradients[1];
+  } else return gradients[0];
+}
+
 function App() {
   const [index, setIndex] = useState<0 | 1>(0);
   const [year, setYear] = useState<number>(1);
@@ -58,9 +72,13 @@ function App() {
               year{year > 1 && "s"}, you will achieve:
             </h2>
             <section className="grid w-full grid-cols-2 gap-2 ">
-              {$habits.map((habit) => {
+              {$habits.map((habit, i) => {
                 return (
-                  <div className="card cursor-pointer gap-1 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-4">
+                  <div
+                    className={`card cursor-pointer gap-1 p-4 ${pickGradient(
+                      i + 1
+                    )} ${i % 2 === 0 && i !== 0 ? "col-span-2" : ""}`}
+                  >
                     <div className="flex items-center gap-2 font-bold uppercase">
                       <span>{habit.icon}</span>
                       <p className="text-sm text-primary-content">
