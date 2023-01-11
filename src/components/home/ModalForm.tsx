@@ -1,4 +1,3 @@
-import Button from "@components/Button";
 import type { Habit } from "@data/habits";
 import {
   toggleModal,
@@ -94,28 +93,27 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
       {habit.forms.map((form) => forms[form])}
       <div className="modal-action">
         {isPresent ? (
-          <Button
-            size="grow"
-            intent="error"
-            handler={() => {
+          <button
+            className="btn btn-error grow"
+            onClick={() => {
               toggleModal(), deleteHabit(habit);
             }}
           >
             Remove
-          </Button>
+          </button>
         ) : (
-          <Button size="grow" intent="ghost" handler={() => toggleModal()}>
+          <button className="btn btn-ghost grow" onClick={() => toggleModal}>
             Cancel
-          </Button>
+          </button>
         )}
         {isPresent ? (
-          <Button size="grow" intent="success" type="submit">
+          <button className="btn btn-success grow" type="submit">
             Update
-          </Button>
+          </button>
         ) : (
-          <Button size="grow" intent="primary" type="submit">
+          <button className="btn btn-primary grow" type="submit">
             Add Habit
-          </Button>
+          </button>
         )}
       </div>
     </form>
