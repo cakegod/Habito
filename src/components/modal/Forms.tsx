@@ -9,97 +9,119 @@ export function FrequencyForm({
   handler,
 }: {
   value: HabitStateData["frequency"]["value"];
-  handler: (e: ChangeEvent, type: keyof HabitData) => void;
+  handler: (e: ChangeEvent, unit: keyof HabitData) => void;
 }) {
   return (
-    <Container content="Frequency">
-      <select
-        className="select w-full bg-base-200"
+    <Container group={false} content="Frequency">
+      <DropdownSelect
+        type="frequency"
         value={value}
-        onChange={(e) => handler(e, "frequency")}
-        name="value"
-      >
-        <option value={1}>1 time per week</option>
-        <option value={2}>2 times per week</option>
-        <option value={3}>3 times per week</option>
-        <option value={4}>4 times per week</option>
-        <option value={5}>5 times per week</option>
-        <option value={6}>6 times per week</option>
-        <option value={7}>Every day 🚀 </option>
-      </select>
+        options={[
+          [1, "1 time per week"],
+          [2, "2 times per week"],
+          [3, "3 times per week"],
+          [4, "4 times per week"],
+          [5, "5 times per week"],
+          [6, "6 times per week"],
+          [7, "Every day 🚀"],
+        ]}
+        handler={handler}
+      />
     </Container>
   );
 }
 
 export function LiquidForm({
   value,
-  type,
+  unit,
   handler,
 }: {
-  type: HabitStateData["liquid"]["unit"];
+  unit: HabitStateData["liquid"]["unit"];
   value: HabitStateData["liquid"]["value"];
-  handler: (e: ChangeEvent, type: keyof HabitData) => void;
+  handler: (e: ChangeEvent, unit: keyof HabitData) => void;
 }) {
   return (
     <Container content="Liquid drank per day">
-      <input
-        type="number"
-        required
-        tabIndex={0}
-        min="0"
-        step="1"
-        placeholder="50"
-        value={value}
-        className="input w-full bg-base-200 placeholder:text-base-content/50"
-        onChange={(e) => handler(e, "liquid")}
-        name="value"
+      <Input type="liquid" value={value} handler={handler} placeholder="50" />
+      <SelectInput
+        type="liquid"
+        unit={unit}
+        handler={handler}
+        options={["ml", "l"]}
       />
-      <select
-        className="select bg-base-300 uppercase"
-        value={type}
-        onChange={(e) => handler(e, "liquid")}
-        name="type"
-      >
-        <option value="ml">ml</option>
-        <option value="l">l</option>
-      </select>
     </Container>
   );
 }
 
 export function TimeForm({
   value,
-  type,
+  unit,
   handler,
 }: {
-  type: HabitStateData["time"]["unit"];
+  unit: HabitStateData["time"]["unit"];
   value: HabitStateData["time"]["value"];
-  handler: (e: ChangeEvent, type: keyof HabitData) => void;
+  handler: (e: ChangeEvent, unit: keyof HabitData) => void;
 }) {
   return (
     <Container content="Time spent">
-      <input
-        type="number"
-        required
-        tabIndex={0}
-        min="0"
-        step="1"
-        placeholder="5"
-        value={value}
-        className="input w-full bg-base-200 placeholder:text-base-content/50"
-        onChange={(e) => handler(e, "time")}
-        name="value"
+      <Input type="time" value={value} handler={handler} placeholder="5" />
+      <SelectInput
+        type="time"
+        unit={unit}
+        handler={handler}
+        options={["minutes", "hours"]}
       />
-      <select
-        className="select bg-base-300 uppercase"
-        value={type}
-        onChange={(e) => handler(e, "time")}
-        name="type"
-      >
-        <option value="minutes">minutes</option>
-        <option value="hours">hours</option>
-      </select>
     </Container>
+  );
+}
+
+function SelectInput({
+  type,
+  unit,
+  handler,
+  options,
+}: {
+  type: keyof Omit<HabitData, "frequency">;
+  unit: Omit<HabitData, "frequency">[typeof type]["unit"];
+  handler: (e: ChangeEvent, unit: keyof HabitData) => void;
+  options: (typeof unit)[];
+}) {
+  return (
+    <select
+      className="select bg-base-300 uppercase"
+      value={unit}
+      onChange={(e) => handler(e, type)}
+      name="type"
+    >
+      {options.map((option) => (
+        <option key={option[1]} value={option}>{option}</option>
+      ))}
+    </select>
+  );
+}
+
+function DropdownSelect({
+  type,
+  value,
+  options,
+  handler,
+}: {
+  type: keyof HabitData;
+  value: HabitStateData[typeof type]["value"];
+  options: [typeof value, string][];
+  handler: (e: ChangeEvent, unit: keyof HabitData) => void;
+}) {
+  return (
+    <select
+      className="select w-full bg-base-200"
+      value={value}
+      onChange={(e) => handler(e, type)}
+      name="value"
+    >
+      {options.map((option) => (
+        <option key={option[1]} value={option[0]}>{option[1]}</option>
+      ))}
+    </select>
   );
 }
 
@@ -114,14 +136,42 @@ function Label({ content }: { content: string }) {
 function Container({
   children,
   content,
+  group = true,
 }: {
   children: React.ReactNode;
   content: string;
+  group?: boolean;
 }) {
   return (
     <div className="form-control">
       <Label content={content} />
-      <label className="input-group">{children}</label>
+      <label className={group ? "input-group" : ""}>{children}</label>
     </div>
+  );
+}
+function Input({
+  type,
+  value,
+  handler,
+  placeholder,
+}: {
+  type: keyof HabitData;
+  value: HabitStateData[typeof type]["value"];
+  handler: (e: ChangeEvent, unit: keyof HabitData) => void;
+  placeholder: string;
+}) {
+  return (
+    <input
+      type="number"
+      required
+      tabIndex={0}
+      min="0"
+      step="1"
+      placeholder={placeholder}
+      value={value}
+      className="input w-full bg-base-200 placeholder:text-base-content/50"
+      onChange={(e) => handler(e, type)}
+      name="value"
+    />
   );
 }
