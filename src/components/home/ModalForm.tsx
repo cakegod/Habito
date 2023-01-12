@@ -8,7 +8,7 @@ import {
 } from "@stores/habits";
 import React, { useState } from "react";
 import { useStore } from "@nanostores/react";
-import { TimeForm, FrequencyForm, LiquidForm } from "./Forms";
+import { TimeForm, FrequencyForm, LiquidForm } from "@components/home/Forms";
 
 // TODO: file is too big, reduce size by extracting parts of it elsewhere
 
