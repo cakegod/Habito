@@ -50,24 +50,30 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
   const forms = {
     time: (
       <TimeForm
-        handler={handleForm}
-        value={data.time.value}
-        unit={data.time.unit}
+        formData={{
+          handler: handleForm,
+          value: data.time.value,
+          unit: data.time.unit,
+        }}
         key={0}
       />
     ),
     frequency: (
       <FrequencyForm
-        handler={handleForm}
-        value={data.frequency.value}
+        formData={{
+          handler: handleForm,
+          value: data.frequency.value,
+        }}
         key={1}
       />
     ),
     liquid: (
       <LiquidForm
-        handler={handleForm}
-        value={data.liquid.value}
-        unit={data.liquid.unit}
+        formData={{
+          handler: handleForm,
+          value: data.liquid.value,
+          unit: data.liquid.unit,
+        }}
         key={2}
       />
     ),
