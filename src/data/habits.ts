@@ -51,13 +51,13 @@ export const habitsData: Habit[] = [
     forms: ["time", "frequency"],
     avoid: false,
   },
-	{
+  {
     name: "Smoke",
     icon: "🚬",
     id: "8",
-    forms: ["time", "frequency"],
+    forms: ["cigarettes"],
     avoid: true,
   },
 ];
 
-type Forms = "time" | "frequency" | "liquid";
+type Forms = "time" | "frequency" | "liquid" | "cigarettes";

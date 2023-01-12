@@ -24,27 +24,13 @@ export function FrequencyForm({
   formData: {
     value: HabitStateData["frequency"]["value"];
     handler: ChangeHandler;
+    type: "frequency";
+    options: [number, string][];
   };
 }) {
-  const { value, handler } = formData;
   return (
     <Container group={false} content="Frequency">
-      <DropdownSelect
-        inputData={{
-          type: "frequency",
-          value,
-          handler,
-          options: [
-            [1, "1 time per week"],
-            [2, "2 times per week"],
-            [3, "3 times per week"],
-            [4, "4 times per week"],
-            [5, "5 times per week"],
-            [6, "6 times per week"],
-            [7, "Every day 🚀"],
-          ],
-        }}
-      />
+      <DropdownSelect inputData={formData} />
     </Container>
   );
 }
@@ -56,17 +42,15 @@ export function LiquidForm({
     unit: HabitStateData["liquid"]["unit"];
     value: HabitStateData["liquid"]["value"];
     handler: ChangeHandler;
+    placeholder: string;
+    type: "liquid";
+    options: (typeof formData.unit)[];
   };
 }) {
-  const { handler, value, unit } = formData;
   return (
     <Container content="Liquid drank per day">
-      <Input
-        inputData={{ type: "liquid", value, handler, placeholder: "50" }}
-      />
-      <SelectInput
-        inputData={{ type: "liquid", unit, handler, options: ["ml", "l"] }}
-      />
+      <Input inputData={formData} />
+      <SelectInput inputData={formData} />
     </Container>
   );
 }
@@ -78,20 +62,32 @@ export function TimeForm({
     unit: HabitStateData["time"]["unit"];
     value: HabitStateData["time"]["value"];
     handler: ChangeHandler;
+    options: (typeof formData.unit)[];
+    type: "time";
   };
 }) {
-  const { unit, value, handler } = formData;
+  const { unit, value, handler, type, options } = formData;
   return (
     <Container content="Time spent">
       <Input inputData={{ type: "time", value, handler, placeholder: "5" }} />
-      <SelectInput
-        inputData={{
-          type: "time",
-          unit,
-          handler,
-          options: ["minutes", "hours"],
-        }}
-      />
+      <SelectInput inputData={{ type, handler, options, unit }} />
+    </Container>
+  );
+}
+
+export function CigaretteForm({
+  formData,
+}: {
+  formData: {
+    value: HabitStateData["cigarettes"]["value"];
+    handler: ChangeHandler;
+    type: "cigarettes";
+    placeholder: string;
+  };
+}) {
+  return (
+    <Container content="Amount of cigarettes per day">
+      <Input inputData={formData} />
     </Container>
   );
 }

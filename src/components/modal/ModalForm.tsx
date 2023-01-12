@@ -8,7 +8,12 @@ import {
 } from "@stores/habits";
 import React, { useState } from "react";
 import { useStore } from "@nanostores/react";
-import { TimeForm, FrequencyForm, LiquidForm } from "@components/modal/Forms";
+import {
+  TimeForm,
+  FrequencyForm,
+  LiquidForm,
+  CigaretteForm,
+} from "@components/modal/Forms";
 
 // TODO: file is too big, reduce size by extracting parts of it elsewhere
 
@@ -60,6 +65,8 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
           handler: handleForm,
           value: data.time.value,
           unit: data.time.unit,
+          options: ["minutes", "hours"],
+          type: "time",
         }}
         key={0}
       />
@@ -69,6 +76,16 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
         formData={{
           handler: handleForm,
           value: data.frequency.value,
+          type: "frequency",
+          options: [
+            [1, "1 time per week"],
+            [2, "2 times per week"],
+            [3, "3 times per week"],
+            [4, "4 times per week"],
+            [5, "5 times per week"],
+            [6, "6 times per week"],
+            [7, "Every day 🚀"],
+          ],
         }}
         key={1}
       />
@@ -79,8 +96,21 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
           handler: handleForm,
           value: data.liquid.value,
           unit: data.liquid.unit,
+          placeholder: "50",
+          type: "liquid",
+          options: ["ml", "l"],
         }}
         key={2}
+      />
+    ),
+    cigarettes: (
+      <CigaretteForm
+        formData={{
+          handler: handleForm,
+          value: data.cigarettes.value,
+          type: "cigarettes",
+          placeholder: "1",
+        }}
       />
     ),
   };
