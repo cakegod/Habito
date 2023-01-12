@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import AddedHabits from "@components/AddedHabits";
-import HabitsGridCards from "@components/app/HabitsGridCards";
-import HabitsList from "@components/home/HabitsList";
+
 import { useStore } from "@nanostores/react";
 import { habits } from "@stores/habits";
+import HabitsList from "./HabitsList";
+import HabitsDrawer from "./HabitsDrawer";
+import HabitsGrid from "./HabtisGrid";
 
 function App() {
   const [index, setIndex] = useState<0 | 1>(0);
@@ -29,12 +30,12 @@ function App() {
             <HabitsList />
             <SuccessButton handleNext={handleNext} />
           </Container>
-          <AddedHabits />
+          <HabitsDrawer />
         </>
       ) : (
         <Container>
-          <YearTitleInput handleYearChange={handleYearChange} year={year} />
-          <HabitsGridCards year={year} />
+          <Title handleYearChange={handleYearChange} year={year} />
+          <HabitsGrid year={year} />
           <BackButton handleBack={handleBack} />
         </Container>
       )}
@@ -87,7 +88,7 @@ function SuccessButton({
   );
 }
 
-function YearTitleInput({
+function Title({
   handleYearChange,
   year,
 }: {

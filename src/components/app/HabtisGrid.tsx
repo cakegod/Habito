@@ -17,7 +17,7 @@ function pickGradient(index: number) {
 }
 
 // TODO add logic for liquid and custom calculation (like drops of rain)
-export default function HabitsGridCards({ year }: { year: number }) {
+export default function HabitsGrid({ year }: { year: number }) {
   const $habits = useStore(habits);
   return (
     <section className="grid w-full grid-cols-2 gap-2 ">

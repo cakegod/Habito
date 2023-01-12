@@ -1,9 +1,9 @@
 import Modal from "@components/Modal";
-import { Habit, habitsData } from "@data/habits";
+import { habitsData, type Habit } from "@data/habits";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 
-function HabitsList() {
+export default function HabitsList() {
   const $habits = useStore(habits);
   const filteredHabits = habitsData.filter(
     (habitData) => !$habits.find((habit) => habitData.id === habit.id)
@@ -30,5 +30,3 @@ function Card({ habit }: { habit: Habit }) {
     </button>
   );
 }
-
-export default HabitsList;
