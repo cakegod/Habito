@@ -1,8 +1,7 @@
-import HabitCard from "@components/HabitCard";
 import Modal from "@components/Modal";
-import { habitsData } from "@data/habits";
+import { Habit, habitsData } from "@data/habits";
 import { useStore } from "@nanostores/react";
-import { habits } from "@stores/habits";
+import { habits, toggleModal } from "@stores/habits";
 
 function HabitsList() {
   const $habits = useStore(habits);
@@ -13,10 +12,22 @@ function HabitsList() {
   return (
     <section className="grid w-full grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
       {filteredHabits.map((habit) => (
-        <HabitCard habit={habit} key={habit.id} />
+        <Card habit={habit} key={habit.id} />
       ))}
       <Modal />
     </section>
+  );
+}
+
+function Card({ habit }: { habit: Habit }) {
+  return (
+    <button
+      className="btn h-24 flex-col border-none bg-base-200 normal-case"
+      onClick={() => toggleModal(habit)}
+    >
+      <span className="flex grow items-center text-lg">{habit.icon}</span>
+      <h2 className="flex grow items-start text-center">{habit.name}</h2>
+    </button>
   );
 }
 
