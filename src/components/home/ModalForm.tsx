@@ -7,10 +7,8 @@ import {
   habits,
 } from "@stores/habits";
 import React, { useState } from "react";
-import FrequencyForm from "@components/home/forms/FrequencyForm";
-import LiquidForm from "@components/home/forms/LiquidForm";
-import TimeForm from "@components/home/forms/TimeForm";
 import { useStore } from "@nanostores/react";
+import { TimeForm, FrequencyForm, LiquidForm } from "./Forms";
 
 // TODO: file is too big, reduce size by extracting parts of it elsewhere
 
@@ -78,7 +76,7 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>, habit: Habit) {
     e.preventDefault();
 
-    // TODO: Find a better way to handle this bug
+    // FIXME: Find a better way to handle this bug
     // Small timeout to prevent seeing the modal changing content
     setTimeout(() => addHabit({ ...habit, ...data }), 200);
     toggleModal();
@@ -96,7 +94,12 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
     <form onSubmit={(e) => handleSubmit(e, habit)}>
       {habit.forms.map((form) => forms[form])}
       <div className="modal-action">
-        {isPresent ? <RemoveButton habit={habit as HabitStateData} /> : <CancelButton />}
+        {isPresent ? (
+          //FIXME: Remove as...
+          <RemoveButton habit={habit as HabitStateData} />
+        ) : (
+          <CancelButton />
+        )}
         {isPresent ? <UpdateButton /> : <AddButton />}
       </div>
     </form>
