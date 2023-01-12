@@ -75,11 +75,10 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
     ),
   };
 
-	
   function handleSubmit(e: React.FormEvent<HTMLFormElement>, habit: Habit) {
-		e.preventDefault();
-		
-		// TODO: Find a better way to handle this bug
+    e.preventDefault();
+
+    // TODO: Find a better way to handle this bug
     // Small timeout to prevent seeing the modal changing content
     setTimeout(() => addHabit({ ...habit, ...data }), 200);
     toggleModal();
@@ -97,36 +96,52 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
     <form onSubmit={(e) => handleSubmit(e, habit)}>
       {habit.forms.map((form) => forms[form])}
       <div className="modal-action">
-        {isPresent ? (
-          <button
-            type="button"
-            className="btn btn-ghost grow text-error"
-            onClick={() => {
-              toggleModal(), deleteHabit(habit);
-            }}
-          >
-            Remove
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="btn btn-ghost grow"
-            onClick={() => toggleModal()}
-          >
-            Cancel
-          </button>
-        )}
-        {isPresent ? (
-          <button className="btn btn-success grow" type="submit">
-            Update
-          </button>
-        ) : (
-          <button className="btn btn-primary grow" type="submit">
-            Add Habit
-          </button>
-        )}
+        {isPresent ? <RemoveButton habit={habit as HabitStateData} /> : <CancelButton />}
+        {isPresent ? <UpdateButton /> : <AddButton />}
       </div>
     </form>
+  );
+}
+
+function AddButton() {
+  return (
+    <button className="btn-primary btn grow" type="submit">
+      Add Habit
+    </button>
+  );
+}
+
+function UpdateButton() {
+  return (
+    <button className="btn-success btn grow" type="submit">
+      Update
+    </button>
+  );
+}
+
+function RemoveButton({ habit }: { habit: HabitStateData }) {
+  return (
+    <button
+      type="button"
+      className="btn-ghost btn grow text-error"
+      onClick={() => {
+        toggleModal(), deleteHabit(habit);
+      }}
+    >
+      Remove
+    </button>
+  );
+}
+
+function CancelButton() {
+  return (
+    <button
+      type="button"
+      className="btn-ghost btn grow"
+      onClick={() => toggleModal()}
+    >
+      Cancel
+    </button>
   );
 }
 
