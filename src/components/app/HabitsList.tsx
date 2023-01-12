@@ -22,7 +22,9 @@ export default function HabitsList() {
 function Card({ habit }: { habit: Habit }) {
   return (
     <button
-      className="btn h-24 flex-col border-none bg-base-200 normal-case"
+      className={`btn h-24 flex-col border-none ${
+        habit.avoid ? "btn-error" : "bg-base-200"
+      } normal-case`}
       onClick={() => toggleModal(habit)}
     >
       <span className="flex grow items-center text-lg">{habit.icon}</span>
