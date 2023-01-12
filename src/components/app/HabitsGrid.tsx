@@ -15,7 +15,7 @@ export default function HabitsGrid({ year }: { year: number }) {
   return (
     <section className="grid w-full grid-cols-[repeat(2,_minmax(150px,_200px))] gap-2">
       {$habits.map((habit, index) => (
-        <HabitCard habit={habit} year={year} index={index} />
+        <HabitCard key={habit.name} habit={habit} year={year} index={index} />
       ))}
     </section>
   );

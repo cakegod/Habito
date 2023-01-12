@@ -52,7 +52,7 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
       <TimeForm
         handler={handleForm}
         value={data.time.value}
-        type={data.time.unit}
+        unit={data.time.unit}
         key={0}
       />
     ),
@@ -67,7 +67,7 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
       <LiquidForm
         handler={handleForm}
         value={data.liquid.value}
-        type={data.liquid.unit}
+        unit={data.liquid.unit}
         key={2}
       />
     ),

@@ -8,7 +8,7 @@ export default function HabitsDrawer() {
   return $habits.length > 0 ? (
     <Container>
       {$habits.map((habit) => (
-        <Habit habit={habit} />
+        <Habit key={habit.name} habit={habit} />
       ))}
     </Container>
   ) : null;
@@ -38,7 +38,7 @@ function Habit({ habit }: { habit: HabitStateData }) {
             {composeHoursPerWeek(
               frequency.value,
               Number(time.value),
-              time.type
+              time.unit
             )}
           </Badge>
           <Badge>{`${frequency.value} times per week`}</Badge>
@@ -48,7 +48,7 @@ function Habit({ habit }: { habit: HabitStateData }) {
           <Badge>
             {`${calculateLiquidPerDay(
               Number(liquid.value),
-              liquid.type
+              liquid.unit
             )}L per week`}
           </Badge>
           <Badge>daily</Badge>
