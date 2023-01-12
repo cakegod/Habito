@@ -1,18 +1,17 @@
 import type React from "react";
 import type { HabitData } from "./ModalForm";
 
+type ChangeEvent = React.ChangeEvent<HTMLSelectElement | HTMLInputElement>;
+
 export function FrequencyForm({
   value,
   handler,
 }: {
   value: number;
-  handler: (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-    type: keyof HabitData
-  ) => void;
+  handler: (e: ChangeEvent, type: keyof HabitData) => void;
 }) {
   return (
-    <Container content="frequency">
+    <Container content="Frequency">
       <select
         className="select w-full bg-base-200"
         value={value}
@@ -38,10 +37,7 @@ export function LiquidForm({
 }: {
   value: "" | number;
   type: "ml" | "l";
-  handler: (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-    type: keyof HabitData
-  ) => void;
+  handler: (e: ChangeEvent, type: keyof HabitData) => void;
 }) {
   return (
     <Container content="Liquid drank per day">
@@ -77,10 +73,7 @@ export function TimeForm({
 }: {
   value: "" | number;
   type: "minutes" | "hours";
-  handler: (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-    type: keyof HabitData
-  ) => void;
+  handler: (e: ChangeEvent, type: keyof HabitData) => void;
 }) {
   return (
     <Container content="Time spent">

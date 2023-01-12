@@ -3,7 +3,7 @@ import { habits, HabitStateData, toggleModal } from "@stores/habits";
 import { calculateLiquidPerDay, composeHoursPerWeek } from "@util/calculate";
 import type React from "react";
 
-export function AddedHabits() {
+export default function AddedHabits() {
   const $habits = useStore(habits);
   return $habits.length > 0 ? (
     <Container>
