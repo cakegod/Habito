@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddedHabits from "@components/AddedHabits";
-import { HabitsGridCards } from "@components/app/HabitsGridCards";
+import HabitsGridCards from "@components/app/HabitsGridCards";
 import HabitsList from "@components/home/HabitsList";
 import { useStore } from "@nanostores/react";
 import { habits } from "@stores/habits";

@@ -1,8 +1,8 @@
-import ModalForm from "@components/home/ModalForm";
+import ModalForm from "@components/ModalForm";
 import { useStore } from "@nanostores/react";
 import { currentHabit, isModalOpen, toggleModal } from "@stores/habits";
 import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 
 function Modal() {
   const $isModalOpen = useStore(isModalOpen);
