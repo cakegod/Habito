@@ -7,6 +7,17 @@ type ChangeHandler = (
   unit: keyof HabitData
 ) => void;
 
+type PropsUnit<T> = {
+  [K in keyof T]: T[K] extends { unit: any } ? T[K] : never;
+}[keyof T]["unit"];
+
+type PropsTypes<T> = {
+  [K in keyof T]: T[K] extends { unit: any } ? K : never;
+}[keyof T];
+
+type HabitUnitType = PropsUnit<HabitData>;
+type HabitTypes = PropsTypes<HabitData>;
+
 export function FrequencyForm({
   formData,
 }: {
@@ -141,8 +152,8 @@ function SelectInput({
   inputData,
 }: {
   inputData: {
-    type: keyof Omit<HabitData, "frequency">;
-    unit: Omit<HabitData, "frequency">[typeof inputData.type]["unit"];
+    type: HabitTypes;
+    unit: HabitUnitType;
     handler: ChangeHandler;
     options: (typeof inputData.unit)[];
   };

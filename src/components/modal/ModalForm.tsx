@@ -24,6 +24,9 @@ export interface HabitData {
     value: "" | number;
     unit: "ml" | "l";
   };
+  cigarettes: {
+    value: "" | number;
+  };
 }
 
 const emptyData: HabitData = {
@@ -37,6 +40,9 @@ const emptyData: HabitData = {
   liquid: {
     value: "",
     unit: "ml",
+  },
+  cigarettes: {
+    value: "",
   },
 };
 
