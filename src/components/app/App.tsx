@@ -4,7 +4,7 @@ import { useStore } from "@nanostores/react";
 import { habits } from "@stores/habits";
 import HabitsList from "./HabitsList";
 import HabitsDrawer from "./HabitsDrawer";
-import HabitsGrid from "./HabtisGrid";
+import HabitsGrid from "./HabitsGrid";
 
 function App() {
   const [index, setIndex] = useState<0 | 1>(0);

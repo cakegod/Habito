@@ -1,6 +1,6 @@
 import { atom } from "nanostores";
 import type { Habit } from "@data/habits";
-import type { HabitData } from "@components/home/ModalForm";
+import type { HabitData } from "@components/modal/ModalForm";
 
 export type HabitStateData = Habit & HabitData;
 export const habits = atom<HabitStateData[]>([]);
