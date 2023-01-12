@@ -30,15 +30,16 @@ export const currentHabit = atom<HabitStateData | Habit>({
   forms: [],
   time: {
     value: 0,
-    type: "minutes",
+    unit: "minutes",
   },
   frequency: {
     value: 0,
   },
   liquid: {
     value: 0,
-    type: "ml",
+    unit: "ml",
   },
+  avoid: false,
 });
 
 export const isModalOpen = atom(false);

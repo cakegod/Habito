@@ -8,7 +8,7 @@ const DAYS_PER_YEAR = 365;
 export function calculateMinutesPerDay(
   frequency: number,
   time: number,
-  timeType: HabitData["time"]["type"]
+  timeType: HabitData["time"]["unit"]
 ) {
   const durationPerDay = (frequency * time) / DAYS_PER_WEEK;
 
@@ -25,7 +25,7 @@ export function calculateMinutesPerDay(
 export function composeTimePerYear(
   frequency: number,
   time: number,
-  timeType: HabitData["time"]["type"],
+  timeType: HabitData["time"]["unit"],
   year: number
 ) {
   const hoursPerYear =
@@ -42,7 +42,7 @@ export function composeTimePerYear(
 
 export function calculateLiquidPerDay(
   value: number,
-  liquidType: HabitData["liquid"]["type"]
+  liquidType: HabitData["liquid"]["unit"]
 ) {
   const LITER = 1000;
   const VOLUME = value * DAYS_PER_WEEK;
@@ -60,7 +60,7 @@ export function calculateLiquidPerDay(
 export function composeHoursPerWeek(
   frequency: number,
   time: number,
-  timeType: HabitData["time"]["type"]
+  timeType: HabitData["time"]["unit"]
 ) {
   const minPerDay = calculateMinutesPerDay(frequency, time, timeType);
   const hoursPerWeek = Math.round(((minPerDay * 7) / 60) * 10) / 10;

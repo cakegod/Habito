@@ -57,7 +57,7 @@ function HoursPerYear({
   const { frequency, time } = habit;
   return (
     <p className="text-3xl font-bold text-primary-content">
-      {composeTimePerYear(frequency.value, Number(time.value), time.type, year)}
+      {composeTimePerYear(frequency.value, Number(time.value), time.unit, year)}
     </p>
   );
 }

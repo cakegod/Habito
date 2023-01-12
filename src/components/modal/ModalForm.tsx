@@ -15,28 +15,28 @@ import { TimeForm, FrequencyForm, LiquidForm } from "@components/modal/Forms";
 export interface HabitData {
   time: {
     value: "" | number;
-    type: "minutes" | "hours";
+    unit: "minutes" | "hours";
   };
   frequency: {
     value: number;
   };
   liquid: {
     value: "" | number;
-    type: "ml" | "l";
+    unit: "ml" | "l";
   };
 }
 
 const emptyData: HabitData = {
   time: {
     value: "",
-    type: "minutes",
+    unit: "minutes",
   },
   frequency: {
     value: 3,
   },
   liquid: {
     value: "",
-    type: "ml",
+    unit: "ml",
   },
 };
 
@@ -52,7 +52,7 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
       <TimeForm
         handler={handleForm}
         value={data.time.value}
-        type={data.time.type}
+        type={data.time.unit}
         key={0}
       />
     ),
@@ -67,7 +67,7 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
       <LiquidForm
         handler={handleForm}
         value={data.liquid.value}
-        type={data.liquid.type}
+        type={data.liquid.unit}
         key={2}
       />
     ),

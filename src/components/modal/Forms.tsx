@@ -1,3 +1,4 @@
+import type { HabitStateData } from "@stores/habits";
 import type React from "react";
 import type { HabitData } from "./ModalForm";
 
@@ -7,7 +8,7 @@ export function FrequencyForm({
   value,
   handler,
 }: {
-  value: number;
+  value: HabitStateData["frequency"]["value"];
   handler: (e: ChangeEvent, type: keyof HabitData) => void;
 }) {
   return (
@@ -35,8 +36,8 @@ export function LiquidForm({
   type,
   handler,
 }: {
-  value: "" | number;
-  type: "ml" | "l";
+  type: HabitStateData["liquid"]["unit"];
+  value: HabitStateData["liquid"]["value"];
   handler: (e: ChangeEvent, type: keyof HabitData) => void;
 }) {
   return (
@@ -71,8 +72,8 @@ export function TimeForm({
   type,
   handler,
 }: {
-  value: "" | number;
-  type: "minutes" | "hours";
+  type: HabitStateData["time"]["unit"];
+  value: HabitStateData["time"]["value"];
   handler: (e: ChangeEvent, type: keyof HabitData) => void;
 }) {
   return (
