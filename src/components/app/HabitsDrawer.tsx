@@ -16,7 +16,7 @@ export default function HabitsDrawer() {
 
 function Container({ children }: { children: React.ReactNode }) {
   return (
-    <div className="absolute bottom-0 left-0 z-10 grid max-h-[15%] w-full grid-cols-[repeat(auto-fill,_minmax(150px,_1fr))] gap-2 self-start overflow-auto bg-base-300 p-2">
+    <div className="absolute bottom-0 left-0 z-10 grid max-h-[25%] w-full grid-cols-[repeat(auto-fill,_minmax(150px,_1fr))] gap-2 self-start overflow-auto bg-base-300 p-2">
       {children}
     </div>
   );
