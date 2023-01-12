@@ -1,4 +1,4 @@
-import Modal from "@components/Modal";
+import Modal from "@components/modal/Modal";
 import { habitsData, type Habit } from "@data/habits";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";

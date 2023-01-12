@@ -1,4 +1,4 @@
-import ModalForm from "@components/ModalForm";
+import ModalForm from "@components/modal/ModalForm";
 import { useStore } from "@nanostores/react";
 import { currentHabit, isModalOpen, toggleModal } from "@stores/habits";
 import { Dialog, Transition } from "@headlessui/react";
