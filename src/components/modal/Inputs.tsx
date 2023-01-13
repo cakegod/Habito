@@ -1,5 +1,6 @@
 import type { InputCategories, InputType } from "@data/inputs";
 import type React from "react";
+import type { InputState } from "./ModalForm";
 
 type ChangeHandler = (
   e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
@@ -7,23 +8,31 @@ type ChangeHandler = (
 ) => void;
 
 export function Inputs({
-  data,
+  input,
   handler,
-  value,
+  inputState,
 }: {
-  data: InputType;
+  input: InputType;
   handler: ChangeHandler;
-  value: string;
+  inputState: InputState;
 }) {
   return (
-    <Container content={data.label}>
-      {data.select !== undefined && (
-        <DropdownSelect data={data} handler={handler} value={value} />
+    <Container content={input.label}>
+      {input.type === "select-dropdown" && (
+        <DropdownSelect
+          input={input}
+          handler={handler}
+          inputState={inputState}
+        />
       )}
-      {data.inputGroup !== undefined && (
+      {input.type === "input-group" && (
         <>
-          <Input data={data} handler={handler} value={value} />
-          <SelectInput data={data} handler={handler} value={value} />
+          <Input input={input} handler={handler} inputState={inputState} />
+          <SelectInput
+            input={input}
+            handler={handler}
+            inputState={inputState}
+          />
         </>
       )}
     </Container>
@@ -56,13 +65,13 @@ function Container({
 }
 
 function Input({
-  data,
+  input,
   handler,
-  value,
+  inputState,
 }: {
-  data: InputType;
+  input: InputType;
   handler: ChangeHandler;
-  value: string;
+  inputState: InputState;
 }) {
   return (
     <input
@@ -71,33 +80,33 @@ function Input({
       tabIndex={0}
       min="0"
       step="1"
-      placeholder={data.inputGroup!.input.placeholder}
-      value={value}
+      placeholder={input.data.input.placeholder}
+      value={inputState.value}
       className="input w-full bg-base-200 placeholder:text-base-content/50"
-      onChange={(e) => handler(e, data.category)}
+      onChange={(e) => handler(e, input.category)}
       name="value"
     />
   );
 }
 
 function SelectInput({
-  data,
+  input,
   handler,
-  value,
+  inputState,
 }: {
-  data: InputType;
+  input: InputType;
   handler: ChangeHandler;
-  value: string;
+  inputState: InputState;
 }) {
   return (
     <select
       className="select bg-base-300 uppercase"
-      value={value}
-      onChange={(e) => handler(e, data.category)}
+      value={inputState.unit}
+      onChange={(e) => handler(e, input.category)}
       name="unit"
     >
-      {data.inputGroup!.select.options.map((option) => (
-        <option key={option[1]} value={option}>
+      {input.data.select.options.map((option) => (
+        <option key={option as string} value={option as string}>
           {option}
         </option>
       ))}
@@ -106,22 +115,22 @@ function SelectInput({
 }
 
 function DropdownSelect({
-  data,
+  input,
   handler,
-  value,
+  inputState,
 }: {
-  data: InputType;
+  input: InputType;
   handler: ChangeHandler;
-  value: string;
+  inputState: InputState;
 }) {
   return (
     <select
       className="select w-full bg-base-200"
-      value={value}
-      onChange={(e) => handler(e, data.category)}
+      value={inputState.value}
+      onChange={(e) => handler(e, input.category)}
       name="value"
     >
-      {data.select!.options.map((option) => (
+      {input.data.select.options.map((option) => (
         <option key={option[1]} value={option[0]}>
           {option[1]}
         </option>
