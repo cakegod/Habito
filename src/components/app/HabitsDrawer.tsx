@@ -23,7 +23,7 @@ function Container({ children }: { children: React.ReactNode }) {
 }
 
 function Habit({ habit }: { habit: HabitStateData }) {
-  const { id, icon, name, frequency, time, liquid, forms } = habit;
+  const { id, icon, name, frequency, time, liquid, inputs } = habit;
 
   return (
     <button
@@ -32,7 +32,7 @@ function Habit({ habit }: { habit: HabitStateData }) {
       key={id}
     >
       <Title icon={icon} name={name} />
-      {forms.includes("time") ? (
+      {!!inputs.find((input) => input.category === "time") ? (
         <>
           <Badge>
             {composeHoursPerWeek(

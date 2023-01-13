@@ -134,7 +134,7 @@ function ModalForm({ habit }: { habit: HabitStateData | Habit }) {
 
   return (
     <form onSubmit={(e) => handleSubmit(e, habit)}>
-      {habit.forms.map((form) => forms[form])}
+      {habit.inputs.map((input) => forms[input.category])}
       <div className="modal-action">
         {isPresent ? (
           //FIXME: Remove as...
