@@ -1,22 +1,16 @@
 import type { HabitData } from "@data/habits";
-import {
-  toggleModal,
-  addHabit,
-  deleteHabit,
-  habits,
-} from "@stores/habits";
+import { toggleModal, addHabit, deleteHabit, habits } from "@stores/habits";
 import React, { useState } from "react";
 import { useStore } from "@nanostores/react";
-import { Inputs } from "./Forms";
+import { Inputs } from "./Inputs";
 import type { InputCategories } from "@data/inputs";
 
-interface State {
+export type InputState = {
   value: string;
   unit: string;
-}
-
+};
 type HabitState = {
-  [key in InputCategories]: State;
+  [key in InputCategories]: InputState;
 };
 
 export type CombinedHabitState = HabitData & HabitState;
@@ -29,15 +23,15 @@ function ModalForm({ habit }: { habit: HabitData | CombinedHabitState }) {
     },
     liquid: {
       value: "",
-      unit: "",
+      unit: "ml",
     },
     frequency: {
-      value: "",
+      value: "3",
       unit: "",
     },
     time: {
       value: "",
-      unit: "",
+      unit: "minutes",
     },
     ...habit,
   });
@@ -60,16 +54,18 @@ function ModalForm({ habit }: { habit: HabitData | CombinedHabitState }) {
     category: InputCategories
   ) {
     const { value, name } = e.target;
-    setData({ ...data, [category]: { [name]: value } });
+    console.log(category, name, value);
+    setData({ ...data, [category]: { ...data[category], [name]: value } });
   }
 
   return (
     <form onSubmit={(e) => handleSubmit(e, habit)}>
       {habit.inputs.map((input) => (
         <Inputs
+          key={input.category}
           handler={handleForm}
-          data={input}
-          value={data[input.category].value}
+          input={input}
+          inputState={data[input.category]}
         />
       ))}
       <div className="modal-action">
