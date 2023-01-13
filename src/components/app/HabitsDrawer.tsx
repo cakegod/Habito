@@ -1,5 +1,6 @@
+import type { CombinedHabitState } from "@components/modal/ModalForm";
 import { useStore } from "@nanostores/react";
-import { habits, HabitStateData, toggleModal } from "@stores/habits";
+import { habits, toggleModal } from "@stores/habits";
 import { calculateLiquidPerDay, composeHoursPerWeek } from "@util/calculate";
 import type React from "react";
 
@@ -22,7 +23,7 @@ function Container({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Habit({ habit }: { habit: HabitStateData }) {
+function Habit({ habit }: { habit: CombinedHabitState }) {
   const { id, icon, name, frequency, time, liquid, inputs } = habit;
 
   return (
@@ -36,7 +37,7 @@ function Habit({ habit }: { habit: HabitStateData }) {
         <>
           <Badge>
             {composeHoursPerWeek(
-              frequency.value,
+              Number(frequency.value),
               Number(time.value),
               time.unit
             )}
