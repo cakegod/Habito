@@ -1,9 +1,9 @@
 import { atom } from "nanostores";
-import type { Habit } from "@data/habits";
-import type { HabitData } from "@components/modal/ModalForm";
+import type { CombinedHabitState } from "@components/modal/ModalForm";
+import type { HabitData } from "@data/habits";
 
-export type HabitStateData = Habit & HabitData;
-export const habits = atom<HabitStateData[]>([]);
+export type HabitStateData = CombinedHabitState;
+export const habits = atom<CombinedHabitState[]>([]);
 
 // TODO: Refactor into two separated functions
 export const addHabit = (habit: HabitStateData) => {
@@ -17,34 +17,17 @@ export const addHabit = (habit: HabitStateData) => {
   console.log(habits.get());
 };
 
-export const deleteHabit = (habit: HabitStateData | Habit) => {
+export const deleteHabit = (habit: CombinedHabitState) => {
   habits.set(habits.get().filter((h) => h.id !== habit.id));
 
   console.log(habits);
 };
 
-export const currentHabit = atom<HabitStateData | Habit>({
-  name: "",
-  icon: "",
-  id: "",
-  forms: [],
-  time: {
-    value: 0,
-    unit: "minutes",
-  },
-  frequency: {
-    value: 0,
-  },
-  liquid: {
-    value: 0,
-    unit: "ml",
-  },
-  avoid: false,
-});
+export const currentHabit = atom<CombinedHabitState | HabitData>({} as HabitData);
 
 export const isModalOpen = atom(false);
 
-export const toggleModal = (habit?: HabitStateData | Habit) => {
+export const toggleModal = (habit?: CombinedHabitState | HabitData) => {
   isModalOpen.set(!isModalOpen.get());
   if (habit) {
     currentHabit.set(habit);

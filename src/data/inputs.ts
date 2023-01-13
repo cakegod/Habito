@@ -1,12 +1,12 @@
-type Categories = "time" | "frequency" | "liquid" | "cigarettes";
+export type InputCategories = "time" | "frequency" | "liquid" | "cigarettes";
 
-export interface Input {
-  category: Categories;
+export interface InputType {
+  category: InputCategories;
   label: string;
   inputGroup?: {
     input: {
       type: "number";
-      placeholder: number;
+      placeholder: string;
     };
     select: {
       options: string[];
@@ -18,7 +18,7 @@ export interface Input {
 }
 
 const inputs: {
-  [key in Categories]: Input;
+  [key in InputCategories]: InputType;
 } = {
   liquid: {
     category: "liquid",
@@ -26,7 +26,7 @@ const inputs: {
     inputGroup: {
       input: {
         type: "number",
-        placeholder: 50,
+        placeholder: "50",
       },
       select: {
         options: ["ml", "l"],
@@ -39,7 +39,7 @@ const inputs: {
     inputGroup: {
       input: {
         type: "number",
-        placeholder: 5,
+        placeholder: "5",
       },
       select: {
         options: ["minutes", "hours"],
@@ -67,7 +67,7 @@ const inputs: {
     inputGroup: {
       input: {
         type: "number",
-        placeholder: 5,
+        placeholder: "5",
       },
       select: {
         options: ["minutes", "hours"],

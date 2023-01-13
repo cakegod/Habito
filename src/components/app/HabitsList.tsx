@@ -1,5 +1,5 @@
 import Modal from "@components/modal/Modal";
-import { habitsData, type Habit } from "@data/habits";
+import { habitsData, type HabitData } from "@data/habits";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 
@@ -19,7 +19,7 @@ export default function HabitsList() {
   );
 }
 
-function Card({ habit }: { habit: Habit }) {
+function Card({ habit }: { habit: HabitData }) {
   return (
     <button
       className={`btn h-24 flex-col border-none ${

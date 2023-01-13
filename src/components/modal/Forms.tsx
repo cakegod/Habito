@@ -1,93 +1,31 @@
-import type { HabitStateData } from "@stores/habits";
+import type { InputCategories, InputType } from "@data/inputs";
 import type React from "react";
-import type { HabitData } from "./ModalForm";
 
 type ChangeHandler = (
   e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-  unit: keyof HabitData
+  category: InputCategories
 ) => void;
 
-type PropsUnit<T> = {
-  [K in keyof T]: T[K] extends { unit: any } ? T[K] : never;
-}[keyof T]["unit"];
-
-type PropsTypes<T> = {
-  [K in keyof T]: T[K] extends { unit: any } ? K : never;
-}[keyof T];
-
-type HabitUnitType = PropsUnit<HabitData>;
-type HabitTypes = PropsTypes<HabitData>;
-
-export function FrequencyForm({
-  formData,
+export function Inputs({
+  data,
+  handler,
+  value,
 }: {
-  formData: {
-    value: HabitStateData["frequency"]["value"];
-    handler: ChangeHandler;
-    type: "frequency";
-    options: [number, string][];
-  };
+  data: InputType;
+  handler: ChangeHandler;
+  value: string;
 }) {
   return (
-    <Container group={false} content="Frequency">
-      <DropdownSelect inputData={formData} />
-    </Container>
-  );
-}
-
-export function LiquidForm({
-  formData,
-}: {
-  formData: {
-    unit: HabitStateData["liquid"]["unit"];
-    value: HabitStateData["liquid"]["value"];
-    handler: ChangeHandler;
-    placeholder: string;
-    type: "liquid";
-    options: (typeof formData.unit)[];
-  };
-}) {
-  return (
-    <Container content="Liquid drank per day">
-      <Input inputData={formData} />
-      <SelectInput inputData={formData} />
-    </Container>
-  );
-}
-
-export function TimeForm({
-  formData,
-}: {
-  formData: {
-    unit: HabitStateData["time"]["unit"];
-    value: HabitStateData["time"]["value"];
-    handler: ChangeHandler;
-    options: (typeof formData.unit)[];
-    type: "time";
-  };
-}) {
-  const { unit, value, handler, type, options } = formData;
-  return (
-    <Container content="Time spent">
-      <Input inputData={{ type: "time", value, handler, placeholder: "5" }} />
-      <SelectInput inputData={{ type, handler, options, unit }} />
-    </Container>
-  );
-}
-
-export function CigaretteForm({
-  formData,
-}: {
-  formData: {
-    value: HabitStateData["cigarettes"]["value"];
-    handler: ChangeHandler;
-    type: "cigarettes";
-    placeholder: string;
-  };
-}) {
-  return (
-    <Container content="Amount of cigarettes per day">
-      <Input inputData={formData} />
+    <Container content={data.label}>
+      {data.select !== undefined && (
+        <DropdownSelect data={data} handler={handler} value={value} />
+      )}
+      {data.inputGroup !== undefined && (
+        <>
+          <Input data={data} handler={handler} value={value} />
+          <SelectInput data={data} handler={handler} value={value} />
+        </>
+      )}
     </Container>
   );
 }
@@ -106,7 +44,7 @@ function Container({
   group = true,
 }: {
   children: React.ReactNode;
-  content: string;
+  content: InputType["label"];
   group?: boolean;
 }) {
   return (
@@ -118,16 +56,14 @@ function Container({
 }
 
 function Input({
-  inputData,
+  data,
+  handler,
+  value,
 }: {
-  inputData: {
-    type: keyof HabitData;
-    value: HabitStateData[typeof inputData.type]["value"];
-    handler: ChangeHandler;
-    placeholder: string;
-  };
+  data: InputType;
+  handler: ChangeHandler;
+  value: string;
 }) {
-  const { type, value, handler, placeholder } = inputData;
   return (
     <input
       type="number"
@@ -135,34 +71,32 @@ function Input({
       tabIndex={0}
       min="0"
       step="1"
-      placeholder={placeholder}
+      placeholder={data.inputGroup!.input.placeholder}
       value={value}
       className="input w-full bg-base-200 placeholder:text-base-content/50"
-      onChange={(e) => handler(e, type)}
+      onChange={(e) => handler(e, data.category)}
       name="value"
     />
   );
 }
 
 function SelectInput({
-  inputData,
+  data,
+  handler,
+  value,
 }: {
-  inputData: {
-    type: HabitTypes;
-    unit: HabitUnitType;
-    handler: ChangeHandler;
-    options: (typeof inputData.unit)[];
-  };
+  data: InputType;
+  handler: ChangeHandler;
+  value: string;
 }) {
-  const { type, unit, handler, options } = inputData;
   return (
     <select
       className="select bg-base-300 uppercase"
-      value={unit}
-      onChange={(e) => handler(e, type)}
+      value={value}
+      onChange={(e) => handler(e, data.category)}
       name="unit"
     >
-      {options.map((option) => (
+      {data.inputGroup!.select.options.map((option) => (
         <option key={option[1]} value={option}>
           {option}
         </option>
@@ -172,24 +106,22 @@ function SelectInput({
 }
 
 function DropdownSelect({
-  inputData,
+  data,
+  handler,
+  value,
 }: {
-  inputData: {
-    type: keyof HabitData;
-    value: HabitStateData[typeof inputData.type]["value"];
-    options: [typeof inputData.value, string][];
-    handler: ChangeHandler;
-  };
+  data: InputType;
+  handler: ChangeHandler;
+  value: string;
 }) {
-  const { type, value, options, handler } = inputData;
   return (
     <select
       className="select w-full bg-base-200"
       value={value}
-      onChange={(e) => handler(e, type)}
+      onChange={(e) => handler(e, data.category)}
       name="value"
     >
-      {options.map((option) => (
+      {data.select!.options.map((option) => (
         <option key={option[1]} value={option[0]}>
           {option[1]}
         </option>
