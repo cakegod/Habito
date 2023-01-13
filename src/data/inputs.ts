@@ -34,8 +34,8 @@ const inputs: {
     },
   },
   frequency: {
-    category: "frequency",
-    label: "frequency",
+    category: "time",
+    label: "Time spent",
     inputGroup: {
       input: {
         type: "number",
@@ -47,8 +47,8 @@ const inputs: {
     },
   },
   time: {
-    category: "time",
-    label: "Time spent",
+    category: "frequency",
+    label: "Frequency",
     select: {
       options: [
         [1, "1 time per week"],
