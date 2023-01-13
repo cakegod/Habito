@@ -1,20 +1,26 @@
 export type InputCategories = "time" | "frequency" | "liquid" | "cigarettes";
 
+export interface InputGroup {
+  input: {
+    type: "number";
+    placeholder: string;
+  };
+  select: {
+    options: string[];
+  };
+}
+
+export interface SelectDropdown {
+  select: {
+    options: [number, string][];
+  };
+}
+
 export interface InputType {
   category: InputCategories;
   label: string;
-  inputGroup?: {
-    input: {
-      type: "number";
-      placeholder: string;
-    };
-    select: {
-      options: string[];
-    };
-  };
-  select?: {
-    options: [number, string][];
-  };
+  type: "input-group" | "select-dropdown";
+  data: InputGroup | SelectDropdown;
 }
 
 const inputs: {
@@ -23,7 +29,8 @@ const inputs: {
   liquid: {
     category: "liquid",
     label: "Liquid drank per day",
-    inputGroup: {
+    type: "input-group",
+    data: {
       input: {
         type: "number",
         placeholder: "50",
@@ -36,7 +43,8 @@ const inputs: {
   frequency: {
     category: "time",
     label: "Time spent",
-    inputGroup: {
+    type: "input-group",
+    data: {
       input: {
         type: "number",
         placeholder: "5",
@@ -49,31 +57,35 @@ const inputs: {
   time: {
     category: "frequency",
     label: "Frequency",
-    select: {
-      options: [
-        [1, "1 time per week"],
-        [2, "2 times per week"],
-        [3, "3 times per week"],
-        [4, "4 times per week"],
-        [5, "5 times per week"],
-        [6, "6 times per week"],
-        [7, "Every day 🚀"],
-      ],
+    type: "select-dropdown",
+    data: {
+      select: {
+        options: [
+          [1, "1 time per week"],
+          [2, "2 times per week"],
+          [3, "3 times per week"],
+          [4, "4 times per week"],
+          [5, "5 times per week"],
+          [6, "6 times per week"],
+          [7, "Every day 🚀"],
+        ],
+      },
     },
   },
   cigarettes: {
-    category: "frequency",
-    label: "frequency",
-    inputGroup: {
+    category: "cigarettes",
+    label: "Time spent",
+    type: "input-group",
+    data: {
       input: {
         type: "number",
-        placeholder: "5",
+        placeholder: "50",
       },
       select: {
-        options: ["minutes", "hours"],
+        options: ["ml", "l"],
       },
     },
   },
 };
 
-export default inputs
+export default inputs;
