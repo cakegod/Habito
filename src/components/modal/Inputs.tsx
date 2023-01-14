@@ -1,4 +1,9 @@
-import type { InputCategories, InputType } from "@data/inputs";
+import type {
+  InputCategories,
+  InputGroup,
+  InputType,
+  SelectDropdown,
+} from "@data/inputs";
 import type React from "react";
 import type { InputState } from "./ModalForm";
 
@@ -7,15 +12,13 @@ type ChangeHandler = (
   category: InputCategories
 ) => void;
 
-export function Inputs({
-  input,
-  handler,
-  inputState,
-}: {
-  input: InputType;
+interface Props<T = InputType> {
+  input: T;
   handler: ChangeHandler;
   inputState: InputState;
-}) {
+}
+
+export function Inputs({ input, handler, inputState }: Props) {
   return (
     <Container content={input.label}>
       {input.type === "select-dropdown" && (
@@ -64,15 +67,7 @@ function Container({
   );
 }
 
-function Input({
-  input,
-  handler,
-  inputState,
-}: {
-  input: InputType;
-  handler: ChangeHandler;
-  inputState: InputState;
-}) {
+function Input({ input, handler, inputState }: Props<InputGroup>) {
   return (
     <input
       type="number"
@@ -89,15 +84,7 @@ function Input({
   );
 }
 
-function SelectInput({
-  input,
-  handler,
-  inputState,
-}: {
-  input: InputType;
-  handler: ChangeHandler;
-  inputState: InputState;
-}) {
+function SelectInput({ input, handler, inputState }: Props<InputGroup>) {
   return (
     <select
       className="select bg-base-300 uppercase"
@@ -106,7 +93,7 @@ function SelectInput({
       name="unit"
     >
       {input.data.select.options.map((option) => (
-        <option key={option as string} value={option as string}>
+        <option key={option} value={option}>
           {option}
         </option>
       ))}
@@ -114,15 +101,7 @@ function SelectInput({
   );
 }
 
-function DropdownSelect({
-  input,
-  handler,
-  inputState,
-}: {
-  input: InputType;
-  handler: ChangeHandler;
-  inputState: InputState;
-}) {
+function DropdownSelect({ input, handler, inputState }: Props<SelectDropdown>) {
   return (
     <select
       className="select w-full bg-base-200"

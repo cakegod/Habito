@@ -1,27 +1,33 @@
 export type InputCategories = "time" | "frequency" | "liquid" | "cigarettes";
 
-export interface InputGroup {
-  input: {
-    type: "number";
-    placeholder: string;
-  };
-  select: {
-    options: string[];
-  };
-}
-
-export interface SelectDropdown {
-  select: {
-    options: [number, string][];
-  };
-}
-
-export interface InputType {
+export interface InputBase {
   category: InputCategories;
   label: string;
-  type: "input-group" | "select-dropdown";
-  data: InputGroup | SelectDropdown;
 }
+
+export interface InputGroup extends InputBase {
+  type: "input-group";
+  data: {
+    input: {
+      type: "number";
+      placeholder: string;
+    };
+    select: {
+      options: string[];
+    };
+  };
+}
+
+export interface SelectDropdown extends InputBase {
+  type: "select-dropdown";
+  data: {
+    select: {
+      options: [number, string][];
+    };
+  };
+}
+
+export type InputType = InputGroup | SelectDropdown;
 
 const inputs: {
   [key in InputCategories]: InputType;
