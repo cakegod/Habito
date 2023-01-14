@@ -46,7 +46,7 @@ const inputs: {
       },
     },
   },
-  frequency: {
+  time: {
     category: "time",
     label: "Time spent",
     type: "input-group",
@@ -60,7 +60,7 @@ const inputs: {
       },
     },
   },
-  time: {
+  frequency: {
     category: "frequency",
     label: "Frequency",
     type: "select-dropdown",
