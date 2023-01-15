@@ -10,7 +10,7 @@ export type InputGroup = {
   value: string;
   type: "number" | "text";
   placeholder: string;
-  options: readonly string[];
+  options: ReadonlyArray<readonly [string, string]>;
   selectedOption: string;
 };
 
@@ -19,7 +19,7 @@ export type InputSelect = {
   value: string;
   type: "number" | "text";
   placeholder: string;
-  options: readonly string[];
+  options: ReadonlyArray<readonly [number, string]>;
   selectedOption: string;
 };
 
@@ -36,7 +36,10 @@ export const inputs = {
     value: "",
     placeholder: "50",
     type: "number",
-    options: ["ml", "l"],
+    options: [
+      ["ml", "ml"],
+      ["l", "l"],
+    ],
     selectedOption: "ml",
   },
   time: {
@@ -46,7 +49,10 @@ export const inputs = {
     value: "",
     placeholder: "5",
     type: "number",
-    options: ["minutes", "hours"],
+    options: [
+      ["minutes", "minutes"],
+      ["hours", "hours"],
+    ],
     selectedOption: "minutes",
   },
   frequency: {
@@ -56,17 +62,35 @@ export const inputs = {
     value: "",
     placeholder: "5",
     type: "number",
-    options: ["minutes", "hours"],
+    options: [
+      [1, "1 time per week"],
+      [2, "2 times per week"],
+      [3, "3 times per week"],
+      [4, "4 times per week"],
+      [5, "5 times per week"],
+      [6, "6 times per week"],
+      [7, "Every day 🚀"],
+    ],
     selectedOption: "minutes",
   },
   cigarettes: {
     inputCategory: "inputGroup",
     name: "generic",
-    label: "Cigarettes per day",
+    label: "Cigarettes you want to avoid per day",
     value: "",
     placeholder: "1",
     type: "number",
-    options: ["cigarettes"],
-    selectedOption: "cigarettes",
+    options: [["generic", "cigarettes"]],
+    selectedOption: "generic",
+  },
+  smartphone: {
+    inputCategory: "inputGroup",
+    name: "generic",
+    label: "Hours to avoid using per day",
+    value: "",
+    placeholder: "1",
+    type: "number",
+    options: [["generic", "hours"]],
+    selectedOption: "generic",
   },
 } as const satisfies Record<string, Input>;

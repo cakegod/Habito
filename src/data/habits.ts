@@ -1,4 +1,4 @@
-import inputs from "./inputs";
+import { inputs } from "./inputs";
 
 export type HabitData = {
   name: string;
@@ -64,6 +64,13 @@ export const habitsData: HabitData[] = [
     icon: "🚬",
     id: "8",
     inputs: [inputs.cigarettes],
+    avoid: true,
+  },
+	{
+    name: "Smartphone",
+    icon: "📱",
+    id: "9",
+    inputs: [inputs.smartphone],
     avoid: true,
   },
 ];
