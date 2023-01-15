@@ -21,10 +21,10 @@ type SelectGroupArg = {
 
 type Selects = SelectDropdownArg | SelectGroupArg;
 
-function inputBase(
+function inputBase<T>(
   base: InputBase,
   ...inputs: (Selects | SimpleInputArg)[]
-): InputBase & (InputGroup | InputDropdown) {
+): InputBase & T {
   return Object.assign(base, ...inputs);
 }
 
@@ -45,10 +45,10 @@ function inputDropdown(select: SelectDropdownArg) {
 
 export type InputGroup = ReturnType<typeof inputGroup>;
 export type InputDropdown = ReturnType<typeof inputDropdown>;
-export type Input = ReturnType<typeof inputBase>;
+export type Input = ReturnType<typeof inputBase<InputGroup | InputDropdown>>;
 
 const inputs = {
-  liquid: inputBase(
+  liquid: inputBase<InputGroup>(
     { name: "liquid", label: "Liquid drank per day" },
     inputGroup(
       {
@@ -60,7 +60,7 @@ const inputs = {
     )
   ),
 
-  time: inputBase(
+  time: inputBase<InputGroup>(
     { name: "time", label: "Time spent" },
     inputGroup(
       {
@@ -72,7 +72,7 @@ const inputs = {
     )
   ),
 
-  frequency: inputBase(
+  frequency: inputBase<InputDropdown>(
     { name: "frequency", label: "Frequency" },
     inputDropdown({
       options: [
@@ -84,18 +84,18 @@ const inputs = {
         [6, "6 times per week"],
         [7, "Every day 🚀"],
       ],
-      selectedOption: 1,
+      selectedOption: 3,
     })
   ),
-  cigarettes: inputBase(
-    { name: "generic", label: "Time spent" },
+  cigarettes: inputBase<InputGroup>(
+    { name: "generic", label: "cigarettes per day" },
     inputGroup(
       {
         value: "",
         type: "number",
         placeholder: "1",
       },
-      { options: ["minutes", "hours"], selectedOption: "minutes" }
+      { options: ["cigarettes"], selectedOption: "cigarettes" }
     )
   ),
 } satisfies Record<string, Input>;
