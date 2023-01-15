@@ -64,8 +64,8 @@ function Habit({ habit }: { habit: HabitData }) {
       {generic && (
         <>
           {/* Temporary */}
-          <Badge>{`${generic.value * 7} ${
-            generic.selectedOption
+          <Badge>{`${Number(generic.value) * 7} ${
+            generic.options[0][1]
           } / week`}</Badge>
           <Badge>daily</Badge>
         </>
