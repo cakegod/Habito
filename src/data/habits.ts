@@ -1,10 +1,10 @@
-import inputs, { InputType } from "./inputs";
+import inputs from "./inputs";
 
 export type HabitData = {
   name: string;
   icon: string;
   id: string;
-  inputs: InputType[];
+  inputs: (typeof inputs)[keyof typeof inputs][];
   avoid: boolean;
 };
 
@@ -63,7 +63,7 @@ export const habitsData: HabitData[] = [
     name: "Smoke",
     icon: "🚬",
     id: "8",
-    inputs: [inputs.cigarettes, inputs.time],
+    inputs: [inputs.cigarettes],
     avoid: true,
   },
 ];
