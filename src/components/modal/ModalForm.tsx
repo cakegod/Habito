@@ -3,7 +3,7 @@ import { toggleModal, addHabit, deleteHabit, habits } from "@stores/habits";
 import React, { useState } from "react";
 import { useStore } from "@nanostores/react";
 import { Inputs } from "./Inputs";
-import type { Input } from "@data/inputs";
+import type { InputCategory } from "@data/inputs";
 
 function ModalForm({ habit }: { habit: HabitData }) {
   const [state, setState] = useState<HabitData>(habit);
@@ -23,7 +23,7 @@ function ModalForm({ habit }: { habit: HabitData }) {
 
   function handleForm(
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-    category: Input["inputCategory"]
+    category: InputCategory
   ) {
     const { name, value } = e.target;
     setState((habit) => ({
