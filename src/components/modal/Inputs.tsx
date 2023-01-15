@@ -1,4 +1,4 @@
-import type { Input, InputDropdown, InputGroup } from "@data/inputs";
+import type { Input, InputGroup, InputSelect } from "@data/inputs";
 import type React from "react";
 
 type ChangeHandler = (
@@ -14,7 +14,7 @@ interface Props<T = Input> {
 export function Inputs({ input, handler }: Props) {
   return (
     <Container content={input.label}>
-      {input.inputCategory === "inputDropdown" && (
+      {input.inputCategory === "inputSelect" && (
         <DropdownSelect input={input} handler={handler} />
       )}
       {input.inputCategory === "inputGroup" && (
@@ -78,20 +78,20 @@ function SelectInput({ input, handler }: Props<InputGroup>) {
       name="selectedOption"
     >
       {input.options.map((option) => (
-        <option key={option} value={option}>
-          {option}
+        <option key={option[0]} value={option[0]}>
+          {option[1]}
         </option>
       ))}
     </select>
   );
 }
 
-function DropdownSelect({ input, handler }: Props<InputDropdown>) {
+function DropdownSelect({ input, handler }: Props<InputSelect>) {
   return (
     <select
       className="select w-full bg-base-200"
       value={input.selectedOption}
-      onChange={(e) => handler(e, "inputDropdown")}
+      onChange={(e) => handler(e, "inputSelect")}
       name="selectedOption"
     >
       {input.options.map((option) => (
