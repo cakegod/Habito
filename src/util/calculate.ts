@@ -68,5 +68,7 @@ export function formatLiquidPerYear(
 
 export function formatGenericPerYear(dailyValue: number, year: number) {
   const result =
-    calculateDaily(7, dailyValue, "generic") * DAYS_PER_WEEK * year;
+    calculateDaily(7, dailyValue, "generic") * DAYS_PER_YEAR * year;
+
+  return result;
 }
