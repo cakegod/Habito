@@ -1,7 +1,11 @@
 import type { HabitData } from "@data/habits";
 import { useStore } from "@nanostores/react";
 import { habits } from "@stores/habits";
-import { formatLiquidPerYear, formatTimePerYear } from "@util/calculate";
+import {
+  formatGenericPerYear,
+  formatLiquidPerYear,
+  formatTimePerYear,
+} from "@util/calculate";
 
 const gradients = [
   "bg-gradient-to-r from-sky-400 to-blue-500",
@@ -54,29 +58,13 @@ function HabitCard({
               liquid.selectedOption,
               year
             )}
-          {/* {habit.inputs.some((input) => input.name === "time") &&
-            formatTimePerYear(
-              Number(habit.frequency.value),
-              Number(habit.time.value),
-              habit.time.unit,
-              year
-            )}
-          {habit.inputs.some((input) => input.name === "liquid") &&
-            formatLiquidPerYear(
-              Number(habit.liquid.value),
-              habit.liquid.unit,
-              year
-            )}
-          {habit.inputs.some((input) => input.name === "generic") &&
-            formatGenericPerYear(Number(habit.generic.value), year)} */}
+          {generic &&
+            // TODO: To improve
+            `${formatGenericPerYear(Number(generic.value), year)} ${
+              generic.options[0][1]
+            }`}
         </p>
       }
-      {/* {habit.inputs.find((input) => input.category === "time") && (
-        <HoursPerYear habit={habit} year={year} />
-      )}
-      {habit.inputs.find((input) => input.category === "liquid") && (
-        <LiquidPerYear habit={habit} year={year} />
-      )} */}
     </div>
   );
 }
@@ -89,27 +77,3 @@ function Title({ icon, name }: { icon: string; name: string }) {
     </div>
   );
 }
-
-// function HoursPerYear({
-//   habit,
-//   year,
-// }: {
-//   habit: CombinedHabitState;
-//   year: number;
-// }) {
-//   const { frequency, time } = habit;
-
-//   return (
-//     <p className="text-3xl font-bold text-primary-content">
-//       {formatTimePerYear(frequency.value, Number(time.value), time.unit, year)}
-//     </p>
-//   );
-// }
-
-// function LiquidPerYear({ habit, year }) {
-//   return (
-//     <p className="text-3xl font-bold text-primary-content">
-//       {formatLiquidPerYear(habit.liquid.value, habit.liquid.unit, year)}
-//     </p>
-//   );
-// }
