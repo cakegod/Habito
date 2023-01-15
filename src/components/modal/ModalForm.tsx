@@ -3,78 +3,58 @@ import { toggleModal, addHabit, deleteHabit, habits } from "@stores/habits";
 import React, { useState } from "react";
 import { useStore } from "@nanostores/react";
 import { Inputs } from "./Inputs";
-import type { InputCategories } from "@data/inputs";
+import type { Input } from "@data/inputs";
 
-export type InputState = {
-  value: string;
-  unit: string;
-};
-type HabitState = {
-  [key in InputCategories]: InputState;
-};
-
-export type CombinedHabitState = HabitData & HabitState;
-
-function ModalForm({ habit }: { habit: HabitData | CombinedHabitState }) {
-  const [data, setData] = useState<CombinedHabitState>({
-    cigarettes: {
-      value: "",
-      unit: "",
-    },
-    liquid: {
-      value: "",
-      unit: "ml",
-    },
-    frequency: {
-      value: "3",
-      unit: "",
-    },
-    time: {
-      value: "",
-      unit: "minutes",
-    },
-    ...habit,
-  });
+function ModalForm({ habit }: { habit: HabitData }) {
+  const [state, setState] = useState<HabitData>(habit);
   const $habits = useStore(habits);
 
   // Check if the current item exists in the added habits
-  const isPresent = !!$habits.find((habit) => habit.id === data.id);
+  const isPresent = $habits.some((habit) => habit.id === state.id);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>, habit: HabitData) {
     e.preventDefault();
 
     // FIXME: Find a better way to handle this bug
     // Small timeout to prevent seeing the modal changing content
-    setTimeout(() => addHabit({ ...habit, ...data }), 200);
+    setTimeout(() => addHabit({ ...habit, ...state }), 200);
     toggleModal();
   }
 
   function handleForm(
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-    category: InputCategories
+    category: Input["inputCategory"]
   ) {
-    const { value, name } = e.target;
-    console.log(category, name, value);
-    setData({ ...data, [category]: { ...data[category], [name]: value } });
+    const { name, value } = e.target;
+    setState((habit) => ({
+      ...habit,
+      inputs: habit.inputs.map((input) => {
+        console.log(name, input.inputCategory);
+
+        return input.inputCategory === category
+          ? { ...input, [name]: value }
+          : input;
+      }),
+    }));
   }
 
   return (
     <form onSubmit={(e) => handleSubmit(e, habit)}>
-      {habit.inputs.map((input) => (
-        <Inputs
-          key={input.category}
-          handler={handleForm}
-          input={input}
-          inputState={data[input.category]}
-        />
+      {state.inputs.map((input) => (
+        <Inputs key={input.name} handler={handleForm} input={input} />
       ))}
       <div className="modal-action">
         {isPresent ? (
-          <RemoveButton habit={habit as CombinedHabitState} />
+          <>
+            <RemoveButton habit={habit} />
+            <UpdateButton />
+          </>
         ) : (
-          <CancelButton />
+          <>
+            <CancelButton />
+            <AddButton />
+          </>
         )}
-        {isPresent ? <UpdateButton /> : <AddButton />}
       </div>
     </form>
   );
@@ -96,7 +76,7 @@ function UpdateButton() {
   );
 }
 
-function RemoveButton({ habit }: { habit: CombinedHabitState }) {
+function RemoveButton({ habit }: { habit: HabitData }) {
   return (
     <button
       type="button"
