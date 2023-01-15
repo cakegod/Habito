@@ -1,41 +1,26 @@
-import type {
-  InputCategories,
-  InputGroup,
-  InputType,
-  SelectDropdown,
-} from "@data/inputs";
+import type { Input, InputDropdown, InputGroup } from "@data/inputs";
 import type React from "react";
-import type { InputState } from "./ModalForm";
 
 type ChangeHandler = (
   e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-  category: InputCategories
+  category: Input["inputCategory"]
 ) => void;
 
-interface Props<T = InputType> {
+interface Props<T = Input> {
   input: T;
   handler: ChangeHandler;
-  inputState: InputState;
 }
 
-export function Inputs({ input, handler, inputState }: Props) {
+export function Inputs({ input, handler }: Props) {
   return (
     <Container content={input.label}>
-      {input.type === "select-dropdown" && (
-        <DropdownSelect
-          input={input}
-          handler={handler}
-          inputState={inputState}
-        />
+      {input.inputCategory === "inputDropdown" && (
+        <DropdownSelect input={input} handler={handler} />
       )}
-      {input.type === "input-group" && (
+      {input.inputCategory === "inputGroup" && (
         <>
-          <Input input={input} handler={handler} inputState={inputState} />
-          <SelectInput
-            input={input}
-            handler={handler}
-            inputState={inputState}
-          />
+          <Input input={input} handler={handler} />
+          <SelectInput input={input} handler={handler} />
         </>
       )}
     </Container>
@@ -56,7 +41,7 @@ function Container({
   group = true,
 }: {
   children: React.ReactNode;
-  content: InputType["label"];
+  content: Input["label"];
   group?: boolean;
 }) {
   return (
@@ -67,7 +52,7 @@ function Container({
   );
 }
 
-function Input({ input, handler, inputState }: Props<InputGroup>) {
+function Input({ input, handler }: Props<InputGroup>) {
   return (
     <input
       type="number"
@@ -75,24 +60,24 @@ function Input({ input, handler, inputState }: Props<InputGroup>) {
       tabIndex={0}
       min="0"
       step="1"
-      placeholder={input.data.input.placeholder}
-      value={inputState.value}
+      placeholder={input.placeholder}
+      value={input.value}
       className="input w-full bg-base-200 placeholder:text-base-content/50"
-      onChange={(e) => handler(e, input.category)}
+      onChange={(e) => handler(e, "inputGroup")}
       name="value"
     />
   );
 }
 
-function SelectInput({ input, handler, inputState }: Props<InputGroup>) {
+function SelectInput({ input, handler }: Props<InputGroup>) {
   return (
     <select
       className="select bg-base-300 uppercase"
-      value={inputState.unit}
-      onChange={(e) => handler(e, input.category)}
-      name="unit"
+      value={input.selectedOption}
+      onChange={(e) => handler(e, "inputGroup")}
+      name="selectedOption"
     >
-      {input.data.select.options.map((option) => (
+      {input.options.map((option) => (
         <option key={option} value={option}>
           {option}
         </option>
@@ -101,15 +86,15 @@ function SelectInput({ input, handler, inputState }: Props<InputGroup>) {
   );
 }
 
-function DropdownSelect({ input, handler, inputState }: Props<SelectDropdown>) {
+function DropdownSelect({ input, handler }: Props<InputDropdown>) {
   return (
     <select
       className="select w-full bg-base-200"
-      value={inputState.value}
-      onChange={(e) => handler(e, input.category)}
-      name="value"
+      value={input.selectedOption}
+      onChange={(e) => handler(e, "inputDropdown")}
+      name="selectedOption"
     >
-      {input.data.select.options.map((option) => (
+      {input.options.map((option) => (
         <option key={option[1]} value={option[0]}>
           {option[1]}
         </option>
