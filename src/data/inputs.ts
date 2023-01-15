@@ -3,32 +3,32 @@ type InputBase = {
   label: string;
 };
 
-type SimpleInput = {
+type SimpleInputArg = {
   placeholder: string;
   value: string;
   type: "number" | "text";
 };
 
-type SelectDropdown = {
+type SelectDropdownArg = {
   options: [number, string][];
   selectedOption: number;
 };
 
-type SelectGroup = {
+type SelectGroupArg = {
   options: string[];
   selectedOption: string;
 };
 
-type Selects = SelectDropdown | SelectGroup;
+type Selects = SelectDropdownArg | SelectGroupArg;
 
 function inputBase(
   base: InputBase,
-  ...inputs: (Selects | SimpleInput)[]
-): InputBase & (SimpleInput | Selects) {
+  ...inputs: (Selects | SimpleInputArg)[]
+): InputBase & (InputGroup | InputDropdown) {
   return Object.assign(base, ...inputs);
 }
 
-function inputGroup(input: SimpleInput, select: SelectGroup) {
+function inputGroup(input: SimpleInputArg, select: SelectGroupArg) {
   return {
     inputCategory: "inputGroup" as const,
     ...input,
@@ -36,14 +36,16 @@ function inputGroup(input: SimpleInput, select: SelectGroup) {
   };
 }
 
-function inputDropdown(select: SelectDropdown) {
+function inputDropdown(select: SelectDropdownArg) {
   return {
-    inputCategory: "inputDropdown",
+    inputCategory: "inputDropdown" as const,
     ...select,
   };
 }
 
-export type Inputs = ReturnType<typeof inputBase>;
+export type InputGroup = ReturnType<typeof inputGroup>;
+export type InputDropdown = ReturnType<typeof inputDropdown>;
+export type Input = ReturnType<typeof inputBase>;
 
 const inputs = {
   liquid: inputBase(
@@ -96,6 +98,6 @@ const inputs = {
       { options: ["minutes", "hours"], selectedOption: "minutes" }
     )
   ),
-} satisfies Record<string, Inputs>;
+} satisfies Record<string, Input>;
 
 export default inputs;
