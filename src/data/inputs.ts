@@ -1,97 +1,101 @@
-export type InputCategories = "time" | "frequency" | "liquid" | "cigarettes";
-
-export interface InputBase {
-  category: InputCategories;
+type InputBase = {
+  name: string;
   label: string;
+};
+
+type SimpleInput = {
+  placeholder: string;
+  value: string;
+  type: "number" | "text";
+};
+
+type SelectDropdown = {
+  options: [number, string][];
+  selectedOption: number;
+};
+
+type SelectGroup = {
+  options: string[];
+  selectedOption: string;
+};
+
+type Selects = SelectDropdown | SelectGroup;
+
+function inputBase(
+  base: InputBase,
+  ...inputs: (Selects | SimpleInput)[]
+): InputBase & (SimpleInput | Selects) {
+  return Object.assign(base, ...inputs);
 }
 
-export interface InputGroup extends InputBase {
-  type: "input-group";
-  data: {
-    input: {
-      type: "number";
-      placeholder: string;
-    };
-    select: {
-      options: string[];
-    };
+function inputGroup(input: SimpleInput, select: SelectGroup) {
+  return {
+    inputCategory: "inputGroup" as const,
+    ...input,
+    ...select,
   };
 }
 
-export interface SelectDropdown extends InputBase {
-  type: "select-dropdown";
-  data: {
-    select: {
-      options: [number, string][];
-    };
+function inputDropdown(select: SelectDropdown) {
+  return {
+    inputCategory: "inputDropdown",
+    ...select,
   };
 }
 
-export type InputType = InputGroup | SelectDropdown;
+export type Inputs = ReturnType<typeof inputBase>;
 
-const inputs: {
-  [key in InputCategories]: InputType;
-} = {
-  liquid: {
-    category: "liquid",
-    label: "Liquid drank per day",
-    type: "input-group",
-    data: {
-      input: {
+const inputs = {
+  liquid: inputBase(
+    { name: "liquid", label: "Liquid drank per day" },
+    inputGroup(
+      {
+        value: "",
         type: "number",
         placeholder: "50",
       },
-      select: {
-        options: ["ml", "l"],
-      },
-    },
-  },
-  time: {
-    category: "time",
-    label: "Time spent",
-    type: "input-group",
-    data: {
-      input: {
+      { options: ["ml", "l"], selectedOption: "ml" }
+    )
+  ),
+
+  time: inputBase(
+    { name: "time", label: "Time spent" },
+    inputGroup(
+      {
+        value: "",
         type: "number",
         placeholder: "5",
       },
-      select: {
-        options: ["minutes", "hours"],
-      },
-    },
-  },
-  frequency: {
-    category: "frequency",
-    label: "Frequency",
-    type: "select-dropdown",
-    data: {
-      select: {
-        options: [
-          [1, "1 time per week"],
-          [2, "2 times per week"],
-          [3, "3 times per week"],
-          [4, "4 times per week"],
-          [5, "5 times per week"],
-          [6, "6 times per week"],
-          [7, "Every day 🚀"],
-        ],
-      },
-    },
-  },
-  cigarettes: {
-    category: "cigarettes",
-    label: "Time spent",
-    type: "input-group",
-    data: {
-      input: {
+      { options: ["minutes", "hours"], selectedOption: "minutes" }
+    )
+  ),
+
+  frequency: inputBase(
+    { name: "frequency", label: "Frequency" },
+    inputDropdown({
+      options: [
+        [1, "1 time per week"],
+        [2, "2 times per week"],
+        [3, "3 times per week"],
+        [4, "4 times per week"],
+        [5, "5 times per week"],
+        [6, "6 times per week"],
+        [7, "Every day 🚀"],
+      ],
+      selectedOption: 1,
+    })
+  ),
+  cigarettes: inputBase(
+    { name: "generic", label: "Time spent" },
+    inputGroup(
+      {
+        value: "",
         type: "number",
-        placeholder: "50",
+        placeholder: "1",
       },
-      select: {
-        options: ["ml", "l"],
-      },
-    },
-  },
-};
+      { options: ["minutes", "hours"], selectedOption: "minutes" }
+    )
+  ),
+} satisfies Record<string, Inputs>;
 
 export default inputs;
