@@ -44,7 +44,7 @@ export function formatTimePerYear(
   const result =
     (calculateDaily(frequency, dailyValue, unit) * DAYS_PER_YEAR * year) /
     MINS_PER_HOUR;
-  return `${result} hours`;
+  return `${Math.round(result)} hours`;
 }
 
 export function formatLiquidPerWeek(
