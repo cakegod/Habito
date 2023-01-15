@@ -1,6 +1,7 @@
+import type { HabitData } from "@data/habits";
 import { useStore } from "@nanostores/react";
-import { habits, HabitStateData } from "@stores/habits";
-import { composeTimePerYear } from "@util/calculate";
+import { habits } from "@stores/habits";
+import { formatLiquidPerYear, formatTimePerYear } from "@util/calculate";
 
 const gradients = [
   "bg-gradient-to-r from-sky-400 to-blue-500",
@@ -26,14 +27,56 @@ function HabitCard({
   year,
   index,
 }: {
-  habit: HabitStateData;
+  habit: HabitData;
   year: number;
   index: number;
 }) {
+  const time = habit.inputs.find((input) => input.name === "time");
+  const frequency = habit.inputs.find((input) => input.name === "frequency");
+  const liquid = habit.inputs.find((input) => input.name === "liquid");
+  const generic = habit.inputs.find((input) => input.name === "generic");
   return (
     <div className={`card cursor-pointer gap-1 p-4 ${gradients[index % 4]}`}>
       <Title name={habit.name} icon={habit.icon} />
-      <HoursPerYear habit={habit} year={year} />
+      {
+        <p className="text-3xl font-bold text-primary-content">
+          {time &&
+            frequency &&
+            formatTimePerYear(
+              Number(frequency.selectedOption),
+              Number(time.value),
+              time.selectedOption,
+              year
+            )}
+          {liquid &&
+            formatLiquidPerYear(
+              Number(liquid.value),
+              liquid.selectedOption,
+              year
+            )}
+          {/* {habit.inputs.some((input) => input.name === "time") &&
+            formatTimePerYear(
+              Number(habit.frequency.value),
+              Number(habit.time.value),
+              habit.time.unit,
+              year
+            )}
+          {habit.inputs.some((input) => input.name === "liquid") &&
+            formatLiquidPerYear(
+              Number(habit.liquid.value),
+              habit.liquid.unit,
+              year
+            )}
+          {habit.inputs.some((input) => input.name === "generic") &&
+            formatGenericPerYear(Number(habit.generic.value), year)} */}
+        </p>
+      }
+      {/* {habit.inputs.find((input) => input.category === "time") && (
+        <HoursPerYear habit={habit} year={year} />
+      )}
+      {habit.inputs.find((input) => input.category === "liquid") && (
+        <LiquidPerYear habit={habit} year={year} />
+      )} */}
     </div>
   );
 }
@@ -47,17 +90,26 @@ function Title({ icon, name }: { icon: string; name: string }) {
   );
 }
 
-function HoursPerYear({
-  habit,
-  year,
-}: {
-  habit: HabitStateData;
-  year: number;
-}) {
-  const { frequency, time } = habit;
-  return (
-    <p className="text-3xl font-bold text-primary-content">
-      {composeTimePerYear(frequency.value, Number(time.value), time.unit, year)}
-    </p>
-  );
-}
+// function HoursPerYear({
+//   habit,
+//   year,
+// }: {
+//   habit: CombinedHabitState;
+//   year: number;
+// }) {
+//   const { frequency, time } = habit;
+
+//   return (
+//     <p className="text-3xl font-bold text-primary-content">
+//       {formatTimePerYear(frequency.value, Number(time.value), time.unit, year)}
+//     </p>
+//   );
+// }
+
+// function LiquidPerYear({ habit, year }) {
+//   return (
+//     <p className="text-3xl font-bold text-primary-content">
+//       {formatLiquidPerYear(habit.liquid.value, habit.liquid.unit, year)}
+//     </p>
+//   );
+// }

@@ -1,7 +1,7 @@
-import type { CombinedHabitState } from "@components/modal/ModalForm";
+import type { HabitData } from "@data/habits";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
-import { calculateLiquidPerDay, composeHoursPerWeek } from "@util/calculate";
+import { formatLiquidPerWeek, formatTimePerWeek } from "@util/calculate";
 import type React from "react";
 
 export default function HabitsDrawer() {
@@ -23,8 +23,12 @@ function Container({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Habit({ habit }: { habit: CombinedHabitState }) {
-  const { id, icon, name, frequency, time, liquid, inputs } = habit;
+function Habit({ habit }: { habit: HabitData }) {
+  const { id, icon, name, inputs } = habit;
+  const time = inputs.find((input) => input.name === "time");
+  const frequency = inputs.find((input) => input.name === "frequency");
+  const liquid = inputs.find((input) => input.name === "liquid");
+  const generic = inputs.find((input) => input.name === "generic");
 
   return (
     <button
@@ -33,25 +37,36 @@ function Habit({ habit }: { habit: CombinedHabitState }) {
       key={id}
     >
       <Title icon={icon} name={name} />
-      {!!inputs.find((input) => input.category === "time") ? (
+      {time && frequency && (
         <>
           <Badge>
-            {composeHoursPerWeek(
-              Number(frequency.value),
+            {formatTimePerWeek(
+              Number(frequency.selectedOption),
               Number(time.value),
-              time.unit
+              time.selectedOption
             )}
           </Badge>
-          <Badge>{`${frequency.value} times per week`}</Badge>
+          <Badge>{`${frequency.selectedOption} times / week`}</Badge>
         </>
-      ) : (
+      )}
+
+      {liquid && (
         <>
           <Badge>
-            {`${calculateLiquidPerDay(
+            {`${formatLiquidPerWeek(
               Number(liquid.value),
-              liquid.unit
-            )}L per week`}
+              liquid.selectedOption
+            )}`}
           </Badge>
+          <Badge>daily</Badge>
+        </>
+      )}
+      {generic && (
+        <>
+          {/* Temporary */}
+          <Badge>{`${generic.value * 7} ${
+            generic.selectedOption
+          } / week`}</Badge>
           <Badge>daily</Badge>
         </>
       )}
