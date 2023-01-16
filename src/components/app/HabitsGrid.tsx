@@ -18,7 +18,7 @@ const gradients = [
 export default function HabitsGrid({ year }: { year: number }) {
   const $habits = useStore(habits);
   return (
-    <section className="grid w-full grid-cols-[repeat(2,_minmax(150px,_200px))] gap-2">
+    <section className="grid w-full grid-cols-[repeat(2,_minmax(150px,_300px))] gap-2">
       {$habits.map((habit, index) => (
         <HabitCard key={habit.name} habit={habit} year={year} index={index} />
       ))}
@@ -43,19 +43,19 @@ function HabitCard({
     <div className={`card cursor-pointer gap-1 p-4 ${gradients[index % 4]}`}>
       <Title name={habit.name} icon={habit.icon} />
       {
-        <p className="text-3xl font-bold text-primary-content">
+        <p className="text-xl font-bold text-primary-content md:text-2xl">
           {time &&
             frequency &&
             formatTimePerYear({
               frequency: Number(frequency.selectedOption),
               dailyValue: Number(time.value),
-              unit: time.selectedOption,
+              unit: time.selectedOption as number,
               year,
             })}
           {liquid &&
             formatLiquidPerYear({
               dailyValue: Number(liquid.value),
-              unit: liquid.selectedOption,
+              unit: liquid.selectedOption as "ml" | "l",
               year,
             })}
           {generic &&
@@ -63,7 +63,9 @@ function HabitCard({
             `${formatGenericPerYear({
               dailyValue: Number(generic.value),
               year,
-            })} ${generic.options[0][1]}`}
+            })} ${
+              typeof generic.options[0] === "string" && generic.options[0][1]
+            } ${habit.avoid ? "avoided" : ""}`}
         </p>
       }
     </div>
