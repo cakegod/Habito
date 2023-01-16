@@ -39,9 +39,12 @@ export function formatTimePerWeek({
 
   const result =
     calculateDaily({ frequency, dailyValue, unit }) * DAYS_PER_WEEK;
-  return result >= 60
-    ? `${Math.round(result / MINS_PER_HOUR)} hours / week`
-    : `${result} min / week`;
+  if (result >= 60) {
+    const years = Math.round(result / MINS_PER_HOUR);
+    return `${years} hour${years > 1 ? "s" : ""} / week`;
+  }
+
+  return `${result} min / week`;
 }
 
 export function formatTimePerYear({
