@@ -93,4 +93,4 @@ export const inputs = {
     options: [["generic", "hours"]],
     selectedOption: "generic",
   },
-} as const satisfies Record<string, Input>;
+} satisfies Record<string, Input>;
