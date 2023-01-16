@@ -20,7 +20,7 @@ export type InputSelect = {
   type: "number" | "text";
   placeholder: string;
   options: ReadonlyArray<readonly [number, string]>;
-  selectedOption: string;
+  selectedOption: string | number;
 };
 
 export type InputCategory = GetPropValues<typeof inputs, "inputCategory">;
@@ -71,7 +71,7 @@ export const inputs = {
       [6, "6 times per week"],
       [7, "Every day 🚀"],
     ],
-    selectedOption: "minutes",
+    selectedOption: 3,
   },
   cigarettes: {
     inputCategory: "inputGroup",
