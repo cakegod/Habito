@@ -17,7 +17,7 @@ export default function HabitsDrawer() {
 
 function Container({ children }: { children: React.ReactNode }) {
   return (
-    <div className="absolute bottom-0 left-0 z-10 grid max-h-[25%] w-full grid-cols-[repeat(auto-fill,_minmax(150px,_1fr))] gap-2 self-start overflow-auto bg-base-300 p-2">
+    <div className="absolute bottom-0 left-0 z-10 grid max-h-[25%] w-full grid-cols-[repeat(auto-fill,_minmax(170px,_1fr))] gap-2 self-start overflow-auto bg-base-300 p-2">
       {children}
     </div>
   );
@@ -40,11 +40,11 @@ function Habit({ habit }: { habit: HabitData }) {
       {time && frequency && (
         <>
           <Badge>
-            {formatTimePerWeek(
-              Number(frequency.selectedOption),
-              Number(time.value),
-              time.selectedOption
-            )}
+            {formatTimePerWeek({
+              frequency: Number(frequency.selectedOption),
+              dailyValue: Number(time.value),
+              unit: time.selectedOption,
+            })}
           </Badge>
           <Badge>{`${frequency.selectedOption} times / week`}</Badge>
         </>
@@ -53,14 +53,15 @@ function Habit({ habit }: { habit: HabitData }) {
       {liquid && (
         <>
           <Badge>
-            {`${formatLiquidPerWeek(
-              Number(liquid.value),
-              liquid.selectedOption
-            )}`}
+            {formatLiquidPerWeek({
+              dailyValue: Number(liquid.value),
+              unit: liquid.selectedOption,
+            })}
           </Badge>
           <Badge>daily</Badge>
         </>
       )}
+
       {generic && (
         <>
           {/* Temporary */}

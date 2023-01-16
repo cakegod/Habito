@@ -46,23 +46,24 @@ function HabitCard({
         <p className="text-3xl font-bold text-primary-content">
           {time &&
             frequency &&
-            formatTimePerYear(
-              Number(frequency.selectedOption),
-              Number(time.value),
-              time.selectedOption,
-              year
-            )}
+            formatTimePerYear({
+              frequency: Number(frequency.selectedOption),
+              dailyValue: Number(time.value),
+              unit: time.selectedOption,
+              year,
+            })}
           {liquid &&
-            formatLiquidPerYear(
-              Number(liquid.value),
-              liquid.selectedOption,
-              year
-            )}
+            formatLiquidPerYear({
+              dailyValue: Number(liquid.value),
+              unit: liquid.selectedOption,
+              year,
+            })}
           {generic &&
             // TODO: To improve
-            `${formatGenericPerYear(Number(generic.value), year)} ${
-              generic.options[0][1]
-            }`}
+            `${formatGenericPerYear({
+              dailyValue: Number(generic.value),
+              year,
+            })} ${generic.options[0][1]}`}
         </p>
       }
     </div>
