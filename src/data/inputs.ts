@@ -86,7 +86,7 @@ export const inputs = {
   smartphone: {
     inputCategory: "inputGroup",
     name: "generic",
-    label: "Hours to avoid using per day",
+    label: "Hours to avoid per day",
     value: "",
     placeholder: "1",
     type: "number",
