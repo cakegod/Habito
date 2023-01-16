@@ -18,7 +18,6 @@ export type InputSelect = {
   inputCategory: "inputSelect";
   value: string;
   type: "number" | "text";
-  placeholder: string;
   options: ReadonlyArray<readonly [number, string]>;
   selectedOption: string | number;
 };
@@ -60,7 +59,6 @@ export const inputs = {
     name: "frequency",
     label: "Time spent",
     value: "",
-    placeholder: "5",
     type: "number",
     options: [
       [1, "1 time per week"],
