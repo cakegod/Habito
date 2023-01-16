@@ -4,12 +4,12 @@ export type HabitData = {
   name: string;
   icon: string;
   id: string;
-  inputs: (typeof inputs)[keyof typeof inputs][];
+  inputs: ReadonlyArray<(typeof inputs)[keyof typeof inputs]>;
   avoid: boolean;
 };
 
 // TODO: add more habits
-export const habitsData: HabitData[] = [
+export const habitsData = [
   {
     name: "Meditate",
     icon: "🧘‍♀️",
@@ -66,11 +66,11 @@ export const habitsData: HabitData[] = [
     inputs: [inputs.cigarettes],
     avoid: true,
   },
-	{
+  {
     name: "Smartphone",
     icon: "📱",
     id: "9",
     inputs: [inputs.smartphone],
     avoid: true,
   },
-];
+] as const satisfies Readonly<HabitData[]>;
