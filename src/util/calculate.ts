@@ -38,11 +38,9 @@ export function formatTimePerWeek({
   console.log(frequency, dailyValue, unit);
 
   const result =
-    Math.round(
-      calculateDaily({ frequency, dailyValue, unit }) * DAYS_PER_WEEK * 10
-    ) / 10;
+    calculateDaily({ frequency, dailyValue, unit }) * DAYS_PER_WEEK;
   return result >= 60
-    ? `${result / MINS_PER_HOUR} hours / week`
+    ? `${Math.round(result / MINS_PER_HOUR)} hours / week`
     : `${result} min / week`;
 }
 
