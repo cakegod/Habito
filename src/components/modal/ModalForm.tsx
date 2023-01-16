@@ -28,13 +28,9 @@ function ModalForm({ habit }: { habit: HabitData }) {
     const { name, value } = e.target;
     setState((habit) => ({
       ...habit,
-      inputs: habit.inputs.map((input) => {
-        console.log(name, input.inputCategory);
-
-        return input.inputCategory === category
-          ? { ...input, [name]: value }
-          : input;
-      }),
+      inputs: habit.inputs.map((input) =>
+        input.inputCategory === category ? { ...input, [name]: value } : input
+      ),
     }));
   }
 
