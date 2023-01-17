@@ -1,12 +1,12 @@
 import { inputs } from "./inputs";
 
-export type HabitData = {
+export type HabitData = Readonly<{
   name: string;
   icon: string;
   id: string;
   inputs: ReadonlyArray<(typeof inputs)[keyof typeof inputs]>;
   avoid: boolean;
-};
+}>;
 
 // TODO: add more habits
 export const habitsData = [
@@ -74,3 +74,5 @@ export const habitsData = [
     avoid: true,
   },
 ] as const satisfies Readonly<HabitData[]>;
+
+
