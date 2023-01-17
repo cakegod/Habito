@@ -26,5 +26,4 @@ export const toggleModal = (habit?: HabitData) => {
   if (habit) {
     currentHabit.set(habit);
   }
-  console.table(habits);
 };

@@ -35,8 +35,6 @@ export function formatTimePerWeek({
   dailyValue,
   unit,
 }: Omit<Props, "year">) {
-  console.log(frequency, dailyValue, unit);
-
   const result =
     calculateDaily({ frequency, dailyValue, unit }) * DAYS_PER_WEEK;
   if (result >= 60) {
