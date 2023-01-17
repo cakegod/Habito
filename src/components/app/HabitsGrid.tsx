@@ -1,6 +1,6 @@
 import type { HabitData } from "@data/habits";
 import { useStore } from "@nanostores/react";
-import { habits } from "@stores/habits";
+import { habits, toggleModal } from "@stores/habits";
 import {
   formatGenericPerYear,
   formatLiquidPerYear,
@@ -40,7 +40,10 @@ function HabitCard({
   const liquid = habit.inputs.find((input) => input.name === "liquid");
   const generic = habit.inputs.find((input) => input.name === "generic");
   return (
-    <div className={`card cursor-pointer gap-1 p-4 ${gradients[index % 4]}`}>
+    <button
+      className={`card btn cursor-pointer gap-1  p-4 ${gradients[index % 4]}`}
+      onClick={() => toggleModal(habit)}
+    >
       <Title name={habit.name} icon={habit.icon} />
       {
         <p className="text-xl font-bold text-primary-content md:text-2xl">
@@ -68,7 +71,7 @@ function HabitCard({
             } ${habit.avoid ? "avoided" : ""}`}
         </p>
       }
-    </div>
+    </button>
   );
 }
 
