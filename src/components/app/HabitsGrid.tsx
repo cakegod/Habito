@@ -1,4 +1,5 @@
 import type { HabitData } from "@data/habits";
+import type { Input } from "@data/inputs";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 import {
@@ -13,6 +14,13 @@ const gradients = [
   "bg-gradient-to-r from-red-500 to-red-800",
   "bg-gradient-to-r from-orange-600 to-orange-500",
 ];
+
+function transformToObj(inputs: HabitData["inputs"]) {
+  return inputs.reduce((acc, curr) => {
+    acc[curr.name] = curr;
+    return acc;
+  }, {} as { [key: string]: Input });
+}
 
 // TODO add logic for liquid and custom calculation (like drops of rain)
 export default function HabitsGrid({ year }: { year: number }) {
@@ -35,13 +43,10 @@ function HabitCard({
   year: number;
   index: number;
 }) {
-  const time = habit.inputs.find((input) => input.name === "time");
-  const frequency = habit.inputs.find((input) => input.name === "frequency");
-  const liquid = habit.inputs.find((input) => input.name === "liquid");
-  const generic = habit.inputs.find((input) => input.name === "generic");
+  const { time, frequency, liquid, generic } = transformToObj(habit.inputs);
   return (
     <button
-      className={`card btn cursor-pointer gap-1  p-4 ${gradients[index % 4]}`}
+      className={`card cursor-pointer gap-1  p-4 ${gradients[index % 4]}`}
       onClick={() => toggleModal(habit)}
     >
       <Title name={habit.name} icon={habit.icon} />
