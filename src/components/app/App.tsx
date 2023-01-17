@@ -5,6 +5,7 @@ import { habits } from "@stores/habits";
 import HabitsList from "./HabitsList";
 import HabitsDrawer from "./HabitsDrawer";
 import HabitsGrid from "./HabitsGrid";
+import Modal from "@components/modal/Modal";
 
 function App() {
   const [index, setIndex] = useState<0 | 1>(0);
@@ -29,6 +30,7 @@ function App() {
           <Container>
             <HabitsList />
             <SuccessButton handleNext={handleNext} />
+            <Modal />
           </Container>
           <HabitsDrawer />
         </>
@@ -37,6 +39,7 @@ function App() {
           <Title handleYearChange={handleYearChange} year={year} />
           <HabitsGrid year={year} />
           <BackButton handleBack={handleBack} />
+          <Modal />
         </Container>
       )}
     </>

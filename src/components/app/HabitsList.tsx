@@ -1,4 +1,3 @@
-import Modal from "@components/modal/Modal";
 import { habitsData, type HabitData } from "@data/habits";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
@@ -14,7 +13,6 @@ export default function HabitsList() {
       {filteredHabits.map((habit) => (
         <Card habit={habit} key={habit.id} />
       ))}
-      <Modal />
     </section>
   );
 }
