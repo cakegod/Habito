@@ -24,25 +24,22 @@ function App() {
   }
 
   return (
-    <>
+    <Container>
       {index === 0 ? (
         <>
-          <Container>
-            <HabitsList />
-            <SuccessButton handleNext={handleNext} />
-            <Modal />
-          </Container>
+          <HabitsList />
+          <SuccessButton handleNext={handleNext} />
           <HabitsDrawer />
         </>
       ) : (
-        <Container>
+        <>
           <Title handleYearChange={handleYearChange} year={year} />
           <HabitsGrid year={year} />
           <BackButton handleBack={handleBack} />
-          <Modal />
-        </Container>
+        </>
       )}
-    </>
+      <Modal />
+    </Container>
   );
 }
 
