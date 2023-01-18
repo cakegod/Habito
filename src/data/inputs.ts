@@ -1,7 +1,9 @@
 type GetPropValues<T, B extends keyof T[keyof T]> = T[keyof T][B];
 
+export type InputNames = "liquid" | "frequency" | "time" | "generic";
+
 export type Base = Readonly<{
-  name: string;
+  name: InputNames;
   label: string;
 }>;
 
