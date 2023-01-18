@@ -8,6 +8,8 @@ export type HabitData = Readonly<{
   avoid: boolean;
 }>;
 
+export type HabitsNames = (typeof habitsData)[number]["name"];
+
 // TODO: add more habits
 export const habitsData = [
   {
@@ -74,5 +76,3 @@ export const habitsData = [
     avoid: true,
   },
 ] as const satisfies Readonly<HabitData[]>;
-
-
