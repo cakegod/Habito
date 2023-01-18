@@ -71,9 +71,7 @@ function HabitCard({
             `${formatGenericPerYear({
               dailyValue: Number(generic.value),
               year,
-            })} ${
-              typeof generic.options[0] === "string" && generic.options[0][1]
-            } ${habit.avoid ? "avoided" : ""}`}
+            })} ${generic.options[0]![1]} ${habit.avoid ? "avoided" : ""}`}
         </p>
       }
     </button>
