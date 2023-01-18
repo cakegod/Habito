@@ -20,7 +20,8 @@ function App() {
   }
 
   function handleYearChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setYear(Number(e.target.value));
+    const { value } = e.target;
+    Number(value) === 0 ? setYear(1) : setYear(Number(value));
   }
 
   return (
