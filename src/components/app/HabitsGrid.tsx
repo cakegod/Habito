@@ -23,7 +23,6 @@ function transformToObj(inputs: HabitData["inputs"]) {
   }, {} as { [key in InputNames]: Input });
 }
 
-// TODO add logic for liquid and custom calculation (like drops of rain)
 export default function HabitsGrid({ year }: { year: number }) {
   const $habits = useStore(habits);
   return (
@@ -51,7 +50,7 @@ function HabitCard({
       className={`card cursor-pointer gap-1  p-4 ${gradients[index % 4]}`}
       onClick={() => toggleModal(habit)}
     >
-      <Title name={habit.name} icon={habit.icon} />
+      <Name name={habit.name} icon={habit.icon} />
       {
         <p className="text-xl font-bold text-primary-content md:text-2xl">
           {time &&
@@ -83,9 +82,9 @@ function HabitCard({
   );
 }
 
-function Title({ icon, name }: { icon: string; name: string }) {
+function Name({ icon, name }: { icon: string; name: string }) {
   return (
-    <div className="flex items-center gap-2 font-bold uppercase">
+    <div className="flex items-center gap-2 font-bold text-xl uppercase">
       <span>{icon}</span>
       <p className="text-sm text-primary-content">{name}</p>
     </div>
