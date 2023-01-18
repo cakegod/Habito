@@ -1,11 +1,12 @@
 import type { HabitData } from "@data/habits";
-import type { Input } from "@data/inputs";
+import type { Input, InputNames } from "@data/inputs";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 import {
   formatGenericPerYear,
   formatLiquidPerYear,
   formatTimePerYear,
+  generateFunComparaison,
 } from "@util/calculate";
 
 const gradients = [
@@ -19,7 +20,7 @@ function transformToObj(inputs: HabitData["inputs"]) {
   return inputs.reduce((acc, curr) => {
     acc[curr.name] = curr;
     return acc;
-  }, {} as { [key: string]: Input });
+  }, {} as { [key in InputNames]: Input });
 }
 
 // TODO add logic for liquid and custom calculation (like drops of rain)
@@ -43,7 +44,8 @@ function HabitCard({
   year: number;
   index: number;
 }) {
-  const { time, frequency, liquid, generic } = transformToObj(habit.inputs);
+  const inputs = transformToObj(habit.inputs);
+  const { time, frequency, liquid, generic } = inputs;
   return (
     <button
       className={`card cursor-pointer gap-1  p-4 ${gradients[index % 4]}`}
@@ -74,6 +76,9 @@ function HabitCard({
             })} ${generic.options[0]![1]} ${habit.avoid ? "avoided" : ""}`}
         </p>
       }
+      <p className="text-primary-content">
+        {generateFunComparaison(habit, inputs, year)}
+      </p>
     </button>
   );
 }
