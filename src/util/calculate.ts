@@ -15,17 +15,36 @@ const UNITS = {
   generic: 1,
 };
 
-function calculateWaterDrops(inputs: { liquid: Input }, year: number) {
-  const rainDrops =
+function calculateRaindrops(inputs: { liquid: Input }, year: number) {
+  const RAIN_DROPS_PER_ML = 20;
+  const rainDropsQuantity =
     calculateYearly({
       frequency: 7,
       dailyValue: Number(inputs.liquid.value),
       unit: inputs.liquid.selectedOption as "ml" | "l",
       year,
-    }) * 20;
-  return `Or ${
-    rainDrops > 1000000 ? `${rainDrops / 1000000}M` : `${rainDrops / 1000}K`
-  } rain drops.`;
+    }) * RAIN_DROPS_PER_ML;
+
+  return rainDropsQuantity > 1000000
+    ? `Or ${rainDropsQuantity / 1000000}M raindrops!`
+    : `Or ${rainDropsQuantity / 1000}K raindrops!`;
+}
+
+function calculateBooks(
+  inputs: { time: Input; frequency: Input },
+  year: number
+) {
+  console.log(inputs, year);
+
+  const AVERAGE_MIN_PER_BOOK = 1200;
+  const booksQuantity =
+    Math.round(calculateYearly({
+      frequency: Number(inputs.frequency.selectedOption),
+      dailyValue: Number(inputs.time.value),
+      unit: inputs.time.selectedOption as "minutes" | "hours",
+      year,
+    }) / AVERAGE_MIN_PER_BOOK);
+  return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""}!`;
 }
 
 export function generateFunComparaison(
@@ -39,11 +58,11 @@ export function generateFunComparaison(
 // TODO: change any type
 const FUN_CALC: { [key in HabitsNames]: any } = {
   Meditate: "",
-  "Drink Water": calculateWaterDrops,
+  "Drink Water": calculateRaindrops,
   "Sleep Well": "",
   Code: "",
   Exercise: "",
-  Read: "",
+  Read: calculateBooks,
   Smartphone: "",
   Smoke: "",
   Write: "",
@@ -117,7 +136,9 @@ export function formatLiquidPerYear({
   year,
 }: Omit<Props, "frequency">) {
   const result = calculateYearly({ frequency: 7, dailyValue, unit, year });
-  return result >= 1000 ? `${result / ML_PER_LITER}L` : `${result}mL`;
+  return result >= 1000
+    ? `${result / ML_PER_LITER}L`
+    : `${result}mL`;
 }
 
 export function formatGenericPerYear({
