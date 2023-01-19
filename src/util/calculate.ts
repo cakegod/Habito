@@ -1,5 +1,5 @@
 import type { HabitData, HabitsNames } from "@data/habits";
-import type { Input } from "@data/inputs";
+import type { Input, InputNames } from "@data/inputs";
 
 const MINS_PER_HOUR = 60;
 // const HOURS_PER_DAY = 24;
@@ -37,26 +37,32 @@ function calculateBooks(
   console.log(inputs, year);
 
   const AVERAGE_MIN_PER_BOOK = 1200;
-  const booksQuantity =
-    Math.round(calculateYearly({
+  const booksQuantity = Math.round(
+    calculateYearly({
       frequency: Number(inputs.frequency.selectedOption),
       dailyValue: Number(inputs.time.value),
       unit: inputs.time.selectedOption as "minutes" | "hours",
       year,
-    }) / AVERAGE_MIN_PER_BOOK);
+    }) / AVERAGE_MIN_PER_BOOK
+  );
   return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""}!`;
 }
 
 export function generateFunComparaison(
   habit: HabitData,
-  inputs: { [key: string]: Input },
+  inputs: { [key in InputNames]: Input },
   year: number
 ) {
   return FUN_CALC[habit.name as HabitsNames](inputs, year);
 }
 
 // TODO: change any type
-const FUN_CALC: { [key in HabitsNames]: any } = {
+const FUN_CALC: {
+  [key in HabitsNames]: (
+    input: { [key in InputNames]: Input },
+    year: number
+  ) => string;
+} = {
   Meditate: "",
   "Drink Water": calculateRaindrops,
   "Sleep Well": "",
@@ -136,9 +142,7 @@ export function formatLiquidPerYear({
   year,
 }: Omit<Props, "frequency">) {
   const result = calculateYearly({ frequency: 7, dailyValue, unit, year });
-  return result >= 1000
-    ? `${result / ML_PER_LITER}L`
-    : `${result}mL`;
+  return result >= 1000 ? `${result / ML_PER_LITER}L` : `${result}mL`;
 }
 
 export function formatGenericPerYear({
