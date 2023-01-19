@@ -52,9 +52,10 @@ function HabitCard({
               frequency: Number(frequency.selectedOption),
               dailyValue: Number(time.value),
               unit:
-                typeof time.selectedOption === "number"
+                time.selectedOption === "hours" ||
+                time.selectedOption === "minutes"
                   ? time.selectedOption
-                  : 3,
+                  : "hours",
               year,
             })}
           {liquid &&
