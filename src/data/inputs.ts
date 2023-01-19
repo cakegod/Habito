@@ -1,33 +1,29 @@
+// HELPER
 type GetPropValues<T, B extends keyof T[keyof T]> = T[keyof T][B];
 
 export type InputNames = "liquid" | "frequency" | "time" | "generic";
+export type InputCategory = GetPropValues<typeof inputs, "inputCategory">;
+export type Input = InputGroup | InputSelect;
 
-export type Base = Readonly<{
+export interface Base {
   name: InputNames;
   label: string;
-}>;
-
-export type InputGroup = {
-  inputCategory: "inputGroup";
   value: string;
   type: "number" | "text";
+}
+
+export interface InputGroup extends Base {
+  inputCategory: "inputGroup";
   placeholder: string;
   options: ReadonlyArray<readonly [string, string]>;
   selectedOption: string;
-};
+}
 
-export type InputSelect = {
+export interface InputSelect extends Base {
   inputCategory: "inputSelect";
-  value: string;
-  type: "number" | "text";
   options: ReadonlyArray<readonly [number, string]>;
   selectedOption: string | number;
-};
-
-export type InputCategory = GetPropValues<typeof inputs, "inputCategory">;
-
-export type InputType = InputGroup | InputSelect;
-export type Input = Base & InputType;
+}
 
 export const inputs = {
   liquid: {
