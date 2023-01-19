@@ -2,6 +2,7 @@ import type { HabitData } from "@data/habits";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 import { formatLiquidPerWeek, formatTimePerWeek } from "@util/calculate";
+import { transformToObj } from "@util/transform";
 import type React from "react";
 
 export default function HabitsDrawer() {
@@ -24,11 +25,8 @@ function Container({ children }: { children: React.ReactNode }) {
 }
 
 function Habit({ habit }: { habit: HabitData }) {
-  const { id, icon, name, inputs } = habit;
-  const time = inputs.find((input) => input.name === "time");
-  const frequency = inputs.find((input) => input.name === "frequency");
-  const liquid = inputs.find((input) => input.name === "liquid");
-  const generic = inputs.find((input) => input.name === "generic");
+  const { id, icon, name } = habit;
+  const { time, frequency, liquid, generic } = transformToObj(habit.inputs);
 
   return (
     <button

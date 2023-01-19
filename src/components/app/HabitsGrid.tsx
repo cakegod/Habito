@@ -8,6 +8,7 @@ import {
   formatTimePerYear,
   generateFunComparaison,
 } from "@util/calculate";
+import { transformToObj } from "@util/transform";
 
 const gradients = [
   "bg-gradient-to-r from-sky-400 to-blue-500",
@@ -16,12 +17,6 @@ const gradients = [
   "bg-gradient-to-r from-orange-600 to-orange-500",
 ];
 
-function transformToObj(inputs: HabitData["inputs"]) {
-  return inputs.reduce((acc, curr) => {
-    acc[curr.name] = curr;
-    return acc;
-  }, {} as { [key in InputNames]: Input });
-}
 
 export default function HabitsGrid({ year }: { year: number }) {
   const $habits = useStore(habits);
