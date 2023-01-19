@@ -1,5 +1,4 @@
 import type { HabitData } from "@data/habits";
-import type { Input, InputNames } from "@data/inputs";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 import {
@@ -16,7 +15,6 @@ const gradients = [
   "bg-gradient-to-r from-red-500 to-red-800",
   "bg-gradient-to-r from-orange-600 to-orange-500",
 ];
-
 
 export default function HabitsGrid({ year }: { year: number }) {
   const $habits = useStore(habits);
@@ -53,13 +51,19 @@ function HabitCard({
             formatTimePerYear({
               frequency: Number(frequency.selectedOption),
               dailyValue: Number(time.value),
-              unit: time.selectedOption as number,
+              unit:
+                typeof time.selectedOption === "number"
+                  ? time.selectedOption
+                  : 3,
               year,
             })}
           {liquid &&
             formatLiquidPerYear({
               dailyValue: Number(liquid.value),
-              unit: liquid.selectedOption as "ml" | "l",
+              unit:
+                liquid.selectedOption === "ml" || liquid.selectedOption === "l"
+                  ? liquid.selectedOption
+                  : "ml",
               year,
             })}
           {generic &&
@@ -79,7 +83,7 @@ function HabitCard({
 
 function Name({ icon, name }: { icon: string; name: string }) {
   return (
-    <div className="flex items-center gap-2 font-bold text-xl uppercase">
+    <div className="flex items-center gap-2 text-xl font-bold uppercase">
       <span>{icon}</span>
       <p className="text-sm text-primary-content">{name}</p>
     </div>

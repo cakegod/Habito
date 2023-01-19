@@ -41,7 +41,10 @@ function Habit({ habit }: { habit: HabitData }) {
             {formatTimePerWeek({
               frequency: Number(frequency.selectedOption),
               dailyValue: Number(time.value),
-              unit: time.selectedOption as number,
+              unit:
+                typeof time.selectedOption === "number"
+                  ? time.selectedOption
+                  : 3,
             })}
           </Badge>
           <Badge>{`${
@@ -57,7 +60,10 @@ function Habit({ habit }: { habit: HabitData }) {
           <Badge>
             {formatLiquidPerWeek({
               dailyValue: Number(liquid.value),
-              unit: liquid.selectedOption as "ml" | "l",
+              unit:
+                liquid.selectedOption === "ml" || liquid.selectedOption === "l"
+                  ? liquid.selectedOption
+                  : "ml",
             })}
           </Badge>
           <Badge>daily</Badge>
@@ -68,7 +74,7 @@ function Habit({ habit }: { habit: HabitData }) {
         <>
           {/* Temporary */}
           <Badge>{`${Number(generic.value) * 7} ${
-            generic.options[0]![1]
+            generic.options[0] !== undefined && generic.options[0][1]
           } / week`}</Badge>
           <Badge>daily</Badge>
         </>
