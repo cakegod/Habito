@@ -21,7 +21,7 @@ function Card({ habit }: { habit: HabitData }) {
   return (
     <button
       className={`btn h-24 flex-col border-none ${
-        habit.avoid ? "btn-error" : "bg-base-200"
+        habit.avoid ? "bg-error/20 hover:bg-error/40" : "bg-base-200/75 hover:bg-base-300"
       } normal-case`}
       onClick={() => toggleModal(habit)}
     >
