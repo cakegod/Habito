@@ -15,6 +15,8 @@ const UNITS = {
   generic: 1,
 };
 
+// FUN CALCS FUNCTIONS
+
 function calculateRaindrops(inputs: { liquid: Input }, year: number) {
   const RAIN_DROPS_PER_ML = 20;
   const rainDropsQuantity =
@@ -36,7 +38,7 @@ function calculateBooks(
 ) {
   console.log(inputs, year);
 
-  const AVERAGE_MIN_PER_BOOK = 1200;
+  const AVERAGE_MIN_PER_BOOK = 900;
   const booksQuantity = Math.round(
     calculateYearly({
       frequency: Number(inputs.frequency.selectedOption),
@@ -55,6 +57,8 @@ export function generateFunComparaison(
 ) {
   return FUN_CALC[habit.name as HabitsNames](inputs, year);
 }
+
+////// 
 
 // TODO: change any type
 const FUN_CALC: {
