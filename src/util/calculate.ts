@@ -2,7 +2,7 @@ import type { HabitData, HabitsNames } from "@data/habits";
 import type { Input, InputNames } from "@data/inputs";
 
 const MINS_PER_HOUR = 60;
-// const HOURS_PER_DAY = 24;
+const HOURS_PER_DAY = 24;
 const DAYS_PER_WEEK = 7;
 const DAYS_PER_YEAR = 365;
 const ML_PER_LITER = 1000;
@@ -34,18 +34,22 @@ function calculateRaindrops(inputs: { liquid: Input }, year: number) {
 
 function calculateBooks(
   inputs: { time: Input; frequency: Input },
-  year: number
+  year: number,
+  habitName: string
 ) {
-  console.log(inputs, year);
-
-  const AVERAGE_MIN_PER_BOOK = 900;
+  const AVERAGE_MIN_PER_BOOK_READ = MINS_PER_HOUR * 15;
+  const AVERAGE_MIN_PER_BOOK_WRITE =
+    MINS_PER_HOUR * HOURS_PER_DAY * DAYS_PER_WEEK;
   const booksQuantity = Math.round(
     calculateYearly({
       frequency: Number(inputs.frequency.selectedOption),
       dailyValue: Number(inputs.time.value),
       unit: inputs.time.selectedOption as "minutes" | "hours",
       year,
-    }) / AVERAGE_MIN_PER_BOOK
+    }) /
+      (habitName === "Read"
+        ? AVERAGE_MIN_PER_BOOK_READ
+        : AVERAGE_MIN_PER_BOOK_WRITE)
   );
   return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""}!`;
 }
@@ -55,16 +59,17 @@ export function generateFunComparaison(
   inputs: { [key in InputNames]: Input },
   year: number
 ) {
-  return FUN_CALC[habit.name as HabitsNames](inputs, year);
+  return FUN_CALC[habit.name as HabitsNames](inputs, year, habit.name);
 }
 
-////// 
+//////
 
 // TODO: change any type
 const FUN_CALC: {
   [key in HabitsNames]: (
     input: { [key in InputNames]: Input },
-    year: number
+    year: number,
+    habitName: string
   ) => string;
 } = {
   Meditate: "",
@@ -75,7 +80,7 @@ const FUN_CALC: {
   Read: calculateBooks,
   Smartphone: "",
   Smoke: "",
-  Write: "",
+  Write: calculateBooks,
 };
 
 interface Props {
