@@ -5,8 +5,8 @@ import {
   formatGenericPerYear,
   formatLiquidPerYear,
   formatTimePerYear,
-  generateFunComparaison,
 } from "@util/calculate";
+import { generateFunComparaison } from "@util/funComparaison";
 import { transformToObj } from "@util/transform";
 
 const gradients = [
@@ -72,9 +72,7 @@ function HabitCard({
             `${formatGenericPerYear({
               dailyValue: Number(generic.value),
               year,
-            })} ${generic.options[0] !== undefined && generic.options[0][1]} ${
-              habit.avoid ? "avoided" : ""
-            }`}
+            })} ${generic.options[0] !== undefined && generic.options[0][1]}`}
         </p>
       }
       <p className="text-primary-content">
