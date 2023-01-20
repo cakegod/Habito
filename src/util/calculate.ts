@@ -54,6 +54,22 @@ function calculateBooks(
   return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""}!`;
 }
 
+function calculateCigarettesPrice(inputs: { generic: Input }, year: number) {
+  const CIGARETTES_PER_PACK = 20;
+  const PRICE_PER_PACK = 6.5;
+  const priceAnnually = Math.round(
+    (calculateYearly({
+      frequency: 7,
+      dailyValue: Number(inputs.generic.value),
+      unit: "generic",
+      year,
+    }) /
+      CIGARETTES_PER_PACK) *
+      PRICE_PER_PACK
+  );
+  return `Or $${priceAnnually} saved!`;
+}
+
 export function generateFunComparaison(
   habit: HabitData,
   inputs: { [key in InputNames]: Input },
@@ -74,12 +90,11 @@ const FUN_CALC: {
 } = {
   Meditate: "",
   "Drink Water": calculateRaindrops,
-  "Sleep Well": "",
   Code: "",
   Exercise: "",
   Read: calculateBooks,
-  Smartphone: "",
-  Smoke: "",
+  "Smartphone Addiction": "",
+  "Smoke Addiction": calculateCigarettesPrice,
   Write: calculateBooks,
 };
 
