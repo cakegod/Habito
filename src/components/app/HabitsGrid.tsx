@@ -1,4 +1,5 @@
 import type { HabitData } from "@data/habits";
+import type { Input } from "@data/inputs";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 import {
@@ -46,36 +47,14 @@ function HabitCard({
       <Name name={habit.name} icon={habit.icon} />
       {
         <p className="text-xl font-bold text-primary-content md:text-2xl">
-          {time &&
-            frequency &&
-            formatTimePerYear({
-              frequency: Number(frequency.selectedOption),
-              dailyValue: Number(time.value),
-              unit:
-                time.selectedOption === "hours" ||
-                time.selectedOption === "minutes"
-                  ? time.selectedOption
-                  : "hours",
-              year,
-            })}
-          {liquid &&
-            formatLiquidPerYear({
-              dailyValue: Number(liquid.value),
-              unit:
-                liquid.selectedOption === "ml" || liquid.selectedOption === "l"
-                  ? liquid.selectedOption
-                  : "ml",
-              year,
-            })}
-          {generic &&
-            // TODO: To improve
-            `${formatGenericPerYear({
-              dailyValue: Number(generic.value),
-              year,
-            })} ${generic.options[0] !== undefined && generic.options[0][1]}`}
+          {time && frequency && (
+            <TimePerYear frequency={frequency} time={time} year={year} />
+          )}
+          {liquid && <LiquidPerYear liquid={liquid} year={year} />}
+          {generic && <GenericPerYear generic={generic} year={year} />}
         </p>
       }
-      <p className="text-primary-content text-start">
+      <p className="text-start text-primary-content">
         {generateFunComparaison(habit, inputs, year)}
       </p>
     </button>
@@ -88,5 +67,55 @@ function Name({ icon, name }: { icon: string; name: string }) {
       <span>{icon}</span>
       <p className="text-sm text-primary-content">{name}</p>
     </div>
+  );
+}
+
+function TimePerYear({
+  frequency,
+  time,
+  year,
+}: {
+  frequency: Input;
+  time: Input;
+  year: number;
+}) {
+  return (
+    <>
+      {formatTimePerYear({
+        frequency: Number(frequency.selectedOption),
+        dailyValue: Number(time.value),
+        unit:
+          time.selectedOption === "hours" || time.selectedOption === "minutes"
+            ? time.selectedOption
+            : "hours",
+        year,
+      })}
+    </>
+  );
+}
+
+function LiquidPerYear({ liquid, year }: { liquid: Input; year: number }) {
+  return (
+    <>
+      {formatLiquidPerYear({
+        dailyValue: Number(liquid.value),
+        unit:
+          liquid.selectedOption === "ml" || liquid.selectedOption === "l"
+            ? liquid.selectedOption
+            : "ml",
+        year,
+      })}
+    </>
+  );
+}
+
+function GenericPerYear({ generic, year }: { generic: Input; year: number }) {
+  return (
+    <>
+      {`${formatGenericPerYear({
+        dailyValue: Number(generic.value),
+        year,
+      })} ${generic.options[0] !== undefined && generic.options[0][1]}`}
+    </>
   );
 }
