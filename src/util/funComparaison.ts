@@ -73,7 +73,7 @@ export function calculateCodeLanguagesLearned({
   year,
 }: Omit<Props, "habitName">) {
   const HOURS_TO_LEARN_LANGUAGE = 1440 * CONST.MINS_PER_HOUR;
-  const languagesLearned = Math.round(
+  const languagesLearned = Math.floor(
     calculateYearly({
       frequency: Number(inputs.frequency.selectedOption),
       dailyValue: Number(inputs.time.value),
