@@ -112,10 +112,10 @@ const FUN_CALC: {
     habitName: HabitsNames;
   }) => string;
 } = {
-  Meditate: () => "Or a lot of stress of reduced!",
+  Meditate: () => "Or a lot of stress reduced!",
   "Drink Water": calculateRaindrops,
   Code: calculateCodeLanguagesLearned,
-  Exercise: () => "",
+  Exercise: () => "Or a lot of stress reduced",
   Read: calculateBooks,
   "Smartphone Addiction": () => "Or a lot of time saved!",
   "Smoke Addiction": calculateCigarettesPrice,
