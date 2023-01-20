@@ -1,0 +1,103 @@
+import type { HabitsNames, HabitData } from "@data/habits";
+import type { Input, InputNames } from "@data/inputs";
+import { calculateYearly, CONST } from "@util/calculate";
+
+type Props = {
+  inputs: {
+    [key in InputNames]: Input;
+  };
+  year: number;
+  habitName: HabitsNames;
+};
+
+export function calculateRaindrops({ inputs, year }: Props) {
+  const RAIN_DROPS_PER_ML = 20;
+  const rainDropsQuantity =
+    calculateYearly({
+      frequency: 7,
+      dailyValue: Number(inputs.liquid.value),
+      unit:
+        inputs.liquid.selectedOption === "ml"
+          ? inputs.liquid.selectedOption
+          : "l",
+      year,
+    }) * RAIN_DROPS_PER_ML;
+
+  return rainDropsQuantity > 1000000
+    ? `Or ${rainDropsQuantity / 1000000}M raindrops!`
+    : `Or ${rainDropsQuantity / 1000}K raindrops!`;
+}
+
+export function calculateBooks({ inputs, year, habitName }: Props) {
+  const AVERAGE_MIN_PER_BOOK_READ = CONST.MINS_PER_HOUR * 15;
+  const AVERAGE_MIN_PER_BOOK_WRITE =
+    CONST.MINS_PER_HOUR * CONST.HOURS_PER_DAY * CONST.DAYS_PER_WEEK;
+  const booksQuantity = Math.round(
+    calculateYearly({
+      frequency: Number(inputs.frequency.selectedOption),
+      dailyValue: Number(inputs.time.value),
+      unit:
+        inputs.time.selectedOption === "minutes"
+          ? inputs.time.selectedOption
+          : "hours",
+      year,
+    }) /
+      (habitName === "Read"
+        ? AVERAGE_MIN_PER_BOOK_READ
+        : AVERAGE_MIN_PER_BOOK_WRITE)
+  );
+  return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""}!`;
+}
+
+export function calculateCigarettesPrice({ inputs, year }: Props) {
+  const CIGARETTES_PER_PACK = 20;
+  const PRICE_PER_PACK = 6.5;
+  const priceAnnually = Math.round(
+    (calculateYearly({
+      frequency: 7,
+      dailyValue: Number(inputs.generic.value),
+      unit: "generic",
+      year,
+    }) /
+      CIGARETTES_PER_PACK) *
+      PRICE_PER_PACK
+  );
+  return `Or $${priceAnnually} saved!`;
+}
+
+export function calculateCodeTime({ inputs, year }: Props) {
+	
+}
+
+export function generateFunComparaison(
+  habit: HabitData,
+  inputs: { [key in InputNames]: Input },
+  year: number
+) {
+  return FUN_CALC[habit.name as HabitsNames]({
+    inputs,
+    year,
+    habitName: habit.name,
+  });
+}
+
+const FUN_CALC: {
+  [key in HabitsNames]: ({
+    inputs,
+    year,
+    habitName,
+  }: {
+    inputs: { [key in InputNames]: Input };
+    year: number;
+    habitName: string;
+  }) => string;
+} = {
+  Meditate: () => "Or a lot of stress of reduced!",
+  "Drink Water": calculateRaindrops,
+  Code: () => "Or",
+  Exercise: "",
+  Read: calculateBooks,
+  "Smartphone Addiction": () => "Or a lot of time saved!",
+  "Smoke Addiction": calculateCigarettesPrice,
+  Write: calculateBooks,
+};
