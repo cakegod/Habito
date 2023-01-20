@@ -10,7 +10,7 @@ type Props = {
   habitName: HabitsNames;
 };
 
-export function calculateRaindrops({ inputs, year }: Props) {
+export function calculateRaindrops({ inputs, year }: Omit<Props, "habitName">) {
   const RAIN_DROPS_PER_ML = 20;
   const rainDropsQuantity =
     calculateYearly({
@@ -49,7 +49,10 @@ export function calculateBooks({ inputs, year, habitName }: Props) {
   return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""}!`;
 }
 
-export function calculateCigarettesPrice({ inputs, year }: Props) {
+export function calculateCigarettesPrice({
+  inputs,
+  year,
+}: Omit<Props, "habitName">) {
   const CIGARETTES_PER_PACK = 20;
   const PRICE_PER_PACK = 6.5;
   const priceAnnually = Math.round(
@@ -65,8 +68,25 @@ export function calculateCigarettesPrice({ inputs, year }: Props) {
   return `Or $${priceAnnually} saved!`;
 }
 
-export function calculateCodeTime({ inputs, year }: Props) {
-	
+export function calculateCodeLanguagesLearned({
+  inputs,
+  year,
+}: Omit<Props, "habitName">) {
+  const HOURS_TO_LEARN_LANGUAGE = 1440 * CONST.MINS_PER_HOUR;
+  const languagesLearned = Math.round(
+    calculateYearly({
+      frequency: Number(inputs.frequency.selectedOption),
+      dailyValue: Number(inputs.time.value),
+      unit:
+        inputs.time.selectedOption === "minutes"
+          ? inputs.time.selectedOption
+          : "hours",
+      year,
+    }) / HOURS_TO_LEARN_LANGUAGE
+  );
+  return `Or ${languagesLearned} code language${
+    languagesLearned > 1 ? "s" : ""
+  } learned!`;
 }
 
 export function generateFunComparaison(
@@ -77,7 +97,7 @@ export function generateFunComparaison(
   return FUN_CALC[habit.name as HabitsNames]({
     inputs,
     year,
-    habitName: habit.name,
+    habitName: habit.name as HabitsNames,
   });
 }
 
@@ -89,13 +109,13 @@ const FUN_CALC: {
   }: {
     inputs: { [key in InputNames]: Input };
     year: number;
-    habitName: string;
+    habitName: HabitsNames;
   }) => string;
 } = {
   Meditate: () => "Or a lot of stress of reduced!",
   "Drink Water": calculateRaindrops,
-  Code: () => "Or",
-  Exercise: "",
+  Code: calculateCodeLanguagesLearned,
+  Exercise: () => "",
   Read: calculateBooks,
   "Smartphone Addiction": () => "Or a lot of time saved!",
   "Smoke Addiction": calculateCigarettesPrice,
