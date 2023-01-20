@@ -75,7 +75,7 @@ function HabitCard({
             })} ${generic.options[0] !== undefined && generic.options[0][1]}`}
         </p>
       }
-      <p className="text-primary-content">
+      <p className="text-primary-content text-start">
         {generateFunComparaison(habit, inputs, year)}
       </p>
     </button>
