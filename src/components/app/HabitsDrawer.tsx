@@ -1,4 +1,5 @@
 import type { HabitData } from "@data/habits";
+import type { Input } from "@data/inputs";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 import { formatLiquidPerWeek, formatTimePerWeek } from "@util/calculate";
@@ -35,51 +36,9 @@ function Habit({ habit }: { habit: HabitData }) {
       key={id}
     >
       <Title icon={icon} name={name} />
-      {time && frequency && (
-        <>
-          <Badge>
-            {formatTimePerWeek({
-              frequency: Number(frequency.selectedOption),
-              dailyValue: Number(time.value),
-              unit:
-                time.selectedOption === "hours" ||
-                time.selectedOption === "minutes"
-                  ? time.selectedOption
-                  : "hours",
-            })}
-          </Badge>
-          <Badge>{`${
-            frequency.selectedOption === "7"
-              ? "daily"
-              : `${frequency.selectedOption} times / week`
-          }`}</Badge>
-        </>
-      )}
-
-      {liquid && (
-        <>
-          <Badge>
-            {formatLiquidPerWeek({
-              dailyValue: Number(liquid.value),
-              unit:
-                liquid.selectedOption === "ml" || liquid.selectedOption === "l"
-                  ? liquid.selectedOption
-                  : "ml",
-            })}
-          </Badge>
-          <Badge>daily</Badge>
-        </>
-      )}
-
-      {generic && (
-        <>
-          {/* Temporary */}
-          <Badge>{`${Number(generic.value) * 7} ${
-            generic.options[0] !== undefined && generic.options[0][1]
-          } / week`}</Badge>
-          <Badge>daily</Badge>
-        </>
-      )}
+      {time && frequency && <TimePerWeek frequency={frequency} time={time} />}
+      {liquid && <LiquidPerWeek liquid={liquid} />}
+      {generic && <GenericPerWeek generic={generic} />}
     </button>
   );
 }
@@ -94,5 +53,56 @@ function Title({ icon, name }: { icon: string; name: string }) {
       <span>{icon}</span>
       <p>{name}</p>
     </div>
+  );
+}
+
+function TimePerWeek({ frequency, time }: { frequency: Input; time: Input }) {
+  return (
+    <>
+      <Badge>
+        {formatTimePerWeek({
+          frequency: Number(frequency.selectedOption),
+          dailyValue: Number(time.value),
+          unit:
+            time.selectedOption === "hours" || time.selectedOption === "minutes"
+              ? time.selectedOption
+              : "hours",
+        })}
+      </Badge>
+      <Badge>{`${
+        frequency.selectedOption === "7"
+          ? "daily"
+          : `${frequency.selectedOption} times / week`
+      }`}</Badge>
+    </>
+  );
+}
+
+function LiquidPerWeek({ liquid }: { liquid: Input }) {
+  return (
+    <>
+      <Badge>
+        {formatLiquidPerWeek({
+          dailyValue: Number(liquid.value),
+          unit:
+            liquid.selectedOption === "ml" || liquid.selectedOption === "l"
+              ? liquid.selectedOption
+              : "ml",
+        })}
+      </Badge>
+      <Badge>daily</Badge>
+    </>
+  );
+}
+
+function GenericPerWeek({ generic }: { generic: Input }) {
+  return (
+    <>
+      {/* Temporary */}
+      <Badge>{`${Number(generic.value) * 7} ${
+        generic.options[0] !== undefined && generic.options[0][1]
+      } / week`}</Badge>
+      <Badge>daily</Badge>
+    </>
   );
 }
