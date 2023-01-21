@@ -28,7 +28,7 @@ export default function HabitsGrid({ year }: { year: number }) {
   );
 }
 
-function HabitCard({
+export function HabitCard({
   habit,
   year,
   index,
@@ -41,7 +41,7 @@ function HabitCard({
   const { time, frequency, liquid, generic } = inputs;
   return (
     <button
-      className={`card cursor-pointer gap-1  p-4 ${gradients[index % 4]}`}
+      className={`card cursor-pointer gap-1 p-4 ${gradients[index % 4]} w-full`}
       onClick={() => toggleModal(habit)}
     >
       <Name name={habit.name} icon={habit.icon} />
