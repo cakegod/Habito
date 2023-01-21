@@ -3,9 +3,10 @@ import { HabitCard } from "@components/app/HabitsGrid";
 import { habitsData } from "@data/habits";
 import Layout from "@layouts/Layout.astro";
 
+const medidate = habitsData.find((habit) => habit.name === "Meditate")!;
 const data = {
-  ...habitsData[2],
-  inputs: habitsData[0].inputs.map((input) =>
+  ...medidate,
+  inputs: medidate.inputs.map((input) =>
     input.name === "time" ? { ...input, value: "100" } : input
   ),
 };
@@ -19,9 +20,8 @@ const data = {
       </h2>
       <p class="pt-8">
         Unleash your <strong>inner powerhouse</strong> and discover the habits that
-        will help you conquer 2023 with our snazzy, <strong
-          >free calculator!</strong
-        >
+        will help you conquer 2023 with our snazzy,
+        <strong>free calculator!</strong>
       </p>
       <p class="pt-2">
         Track your progress and watch in awe as you
