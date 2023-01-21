@@ -46,7 +46,7 @@ export function calculateBooks({ inputs, year, habitName }: Props) {
         ? AVERAGE_MIN_PER_BOOK_READ
         : AVERAGE_MIN_PER_BOOK_WRITE)
   );
-  return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""}!`;
+  return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""} read in ${year} year${year > 1 ? "s" : ""}!`;
 }
 
 export function calculateCigarettesPrice({
