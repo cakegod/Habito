@@ -31,7 +31,7 @@ function Habit({ habit }: { habit: HabitData }) {
 
   return (
     <button
-      className="btn flex h-24 max-h-full grow flex-col gap-1 p-2 normal-case"
+      className="btn flex h-24 max-h-full grow flex-col gap-1 bg-base-100 p-2 normal-case hover:bg-base-300"
       onClick={() => toggleModal(habit)}
       key={id}
     >

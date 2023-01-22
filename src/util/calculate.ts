@@ -83,7 +83,9 @@ export function formatLiquidPerYear({
   year,
 }: Omit<Props, "frequency">) {
   const result = calculateYearly({ frequency: 7, dailyValue, unit, year });
-  return result >= 1000 ? `${Math.round(result / CONST.ML_PER_LITER * 10) / 10}L` : `${result}mL`;
+  return result >= 1000
+    ? `${Math.round((result / CONST.ML_PER_LITER) * 10) / 10}L`
+    : `${result}mL`;
 }
 
 export function formatGenericPerYear({
