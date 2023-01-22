@@ -1,15 +1,22 @@
 ---
 import { HabitCard } from "@components/app/HabitsGrid";
-import { habitsData } from "@data/habits";
+import { habitsData, HabitsNames } from "@data/habits";
 import Layout from "@layouts/Layout.astro";
 
-const medidate = habitsData.find((habit) => habit.name === "Meditate")!;
-const data = {
-  ...medidate,
-  inputs: medidate.inputs.map((input) =>
-    input.name === "time" ? { ...input, value: "100" } : input
+
+function getData(habitName: HabitsNames) {
+	const habit = habitsData.find((habit) => habit.name === habitName)!
+	return {
+  ...habit,
+  inputs: habit.inputs.map((input) =>
+    input.name === "time" || input.name === "liquid" ? { ...input, value: toString(Math.random() * 1000) } : input
   ),
 };
+}
+
+const medidate = getData("Meditate")
+const code = getData("Code")
+const water = getData("Drink Water")
 
 ---
 
@@ -32,8 +39,10 @@ const data = {
       </p>
       <a class="btn-primary btn mt-10" href="/app">Build my habits list</a>
     </div>
-    <div class="pointer-events-none mx-auto w-full sm:max-w-[300px]">
-      <HabitCard habit={data} year={1} index={0} />
+    <div class="pointer-events-none mx-auto w-full sm:max-w-[300px] flex flex-col gap-4">
+      <HabitCard habit={medidate} year={1} index={0} />
+      <HabitCard habit={code} year={1} index={1} />
+      <HabitCard habit={water} year={1} index={2} />
     </div>
   </main>
 </Layout>
