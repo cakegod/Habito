@@ -13,7 +13,7 @@ type Props = {
 export function calculateRaindrops({ inputs, year }: Omit<Props, "habitName">) {
   const RAIN_DROPS_PER_ML = 20;
   const rainDropsQuantity =
-    calculateYearly({
+    (calculateYearly({
       frequency: 7,
       dailyValue: Number(inputs.liquid.value),
       unit:
@@ -21,11 +21,11 @@ export function calculateRaindrops({ inputs, year }: Omit<Props, "habitName">) {
           ? inputs.liquid.selectedOption
           : "l",
       year,
-    }) * RAIN_DROPS_PER_ML;
+    }) * RAIN_DROPS_PER_ML);
 
   return rainDropsQuantity > 1000000
-    ? `Or ${rainDropsQuantity / 1000000}M raindrops!`
-    : `Or ${rainDropsQuantity / 1000}K raindrops!`;
+    ? `Or ${Math.round(rainDropsQuantity / 1000000 * 10) / 10}M raindrops!`
+    : `Or ${Math.round(rainDropsQuantity / 1000 * 10) / 10}K raindrops!`;
 }
 
 export function calculateBooks({ inputs, year, habitName }: Props) {
