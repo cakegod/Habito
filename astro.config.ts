@@ -8,7 +8,14 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), image({
-    serviceEntryPoint: "@astrojs/image/sharp"
-  }), compress(), react()]
+  integrations: [
+    tailwind({
+      config: { applyBaseStyles: false },
+    }),
+    image({
+      serviceEntryPoint: "@astrojs/image/sharp",
+    }),
+    compress(),
+    react(),
+  ],
 });
