@@ -21,10 +21,10 @@ const water = getData("Drink Water");
 ---
 
 <Layout title="Habito">
-  <main class="w-full max-w-5xl grow pt-4 sm:grid sm:grid-cols-2 sm:pt-20">
-    <div class="pb-10 sm:p-0">
-      <h2 class="text-5xl font-bold">
-        The time has come to stop procrastinating 💪
+  <main class="w-full max-w-5xl grow pt-4 md:grid md:grid-cols-3 md:pt-20 gap-4">
+    <div class="pb-10 md:p-0 col-span-2">
+      <h2 class="text-4xl sm:text-5xl font-bold">
+        The time has come to stop procrastination 💪
       </h2>
       <p class="pt-8">
         Unleash your <strong>inner powerhouse</strong> and discover the habits that
@@ -37,10 +37,10 @@ const water = getData("Drink Water");
         and soar to new heights of success. Let's make this year one for the history
         books, folks!
       </p>
-      <a class="btn-primary btn mt-10" href="/app">Build my habits list</a>
+      <a class="btn-primary btn mt-10 md:w-auto md:btn-md w-full btn-lg" href="/app">Build my habits list</a>
     </div>
     <div
-      class="pointer-events-none mx-auto flex w-full flex-col gap-4 sm:max-w-[300px]"
+      class="pointer-events-none mx-full flex w-full flex-col gap-4"
     >
       <HabitCard habit={medidate} year={1} index={0} />
       <HabitCard habit={code} year={1} index={1} />
