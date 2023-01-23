@@ -1,4 +1,5 @@
 import { inputs } from "./inputs";
+import { nanoid } from 'nanoid'
 
 export type HabitData = Readonly<{
   name: string;
@@ -15,56 +16,56 @@ export const habitsData = [
   {
     name: "Meditate",
     icon: "🧘‍♀️",
-    id: "1",
+    id: nanoid(),
     inputs: [inputs.time, inputs.frequency],
     avoid: false,
   },
   {
     name: "Exercise",
     icon: "🏋️‍♂️",
-    id: "2",
+    id: nanoid(),
     inputs: [inputs.time, inputs.frequency],
     avoid: false,
   },
   {
     name: "Read",
     icon: "📖",
-    id: "3",
+    id: nanoid(),
     inputs: [inputs.time, inputs.frequency],
     avoid: false,
   },
   {
     name: "Write",
     icon: "📝",
-    id: "4",
+    id: nanoid(),
     inputs: [inputs.time, inputs.frequency],
     avoid: false,
   },
   {
     name: "Drink Water",
     icon: "💧",
-    id: "5",
+    id: nanoid(),
     inputs: [inputs.liquid],
     avoid: false,
   },
   {
     name: "Code",
     icon: "👨‍💻",
-    id: "6",
+    id: nanoid(),
     inputs: [inputs.time, inputs.frequency],
     avoid: false,
   },
   {
     name: "Smoke Addiction",
     icon: "🚬",
-    id: "7",
+    id: nanoid(),
     inputs: [inputs.cigarettes],
     avoid: true,
   },
   {
     name: "Smartphone Addiction",
     icon: "📱",
-    id: "8",
+    id: nanoid(),
     inputs: [inputs.smartphone],
     avoid: true,
   },
