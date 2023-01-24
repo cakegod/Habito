@@ -1,4 +1,4 @@
-import type { HabitData } from "@data/habits";
+import type { Habit } from "@data/habits";
 import type { Input } from "@data/inputs";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
@@ -25,7 +25,7 @@ function Container({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Habit({ habit }: { habit: HabitData }) {
+function Habit({ habit }: { habit: Habit }) {
   const { id, icon, name } = habit;
   const { time, frequency, liquid, generic } = transformToObj(habit.inputs);
 
@@ -63,17 +63,10 @@ function TimePerWeek({ frequency, time }: { frequency: Input; time: Input }) {
         {formatTimePerWeek({
           frequency: Number(frequency.selectedOption),
           dailyValue: Number(time.value),
-          unit:
-            time.selectedOption === "hours" || time.selectedOption === "minutes"
-              ? time.selectedOption
-              : "hours",
+          unit: time.selectedOption,
         })}
       </Badge>
-      <Badge>{`${
-        frequency.selectedOption === "7"
-          ? "daily"
-          : `${frequency.selectedOption} times / week`
-      }`}</Badge>
+      <Badge>{`${frequency.selectedOption}`}</Badge>
     </>
   );
 }
@@ -84,10 +77,7 @@ function LiquidPerWeek({ liquid }: { liquid: Input }) {
       <Badge>
         {formatLiquidPerWeek({
           dailyValue: Number(liquid.value),
-          unit:
-            liquid.selectedOption === "ml" || liquid.selectedOption === "l"
-              ? liquid.selectedOption
-              : "ml",
+          unit: liquid.selectedOption,
         })}
       </Badge>
       <Badge>daily</Badge>

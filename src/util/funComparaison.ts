@@ -1,4 +1,4 @@
-import type { HabitsNames, HabitData } from "@data/habits";
+import type { HabitsNames, Habit } from "@data/habits";
 import type { Input, InputNames } from "@data/inputs";
 import { calculateYearly, CONST } from "@util/calculate";
 
@@ -13,19 +13,16 @@ type Props = {
 export function calculateRaindrops({ inputs, year }: Omit<Props, "habitName">) {
   const RAIN_DROPS_PER_ML = 20;
   const rainDropsQuantity =
-    (calculateYearly({
+    calculateYearly({
       frequency: 7,
       dailyValue: Number(inputs.liquid.value),
-      unit:
-        inputs.liquid.selectedOption === "ml"
-          ? inputs.liquid.selectedOption
-          : "l",
+      unit: inputs.liquid.selectedOption,
       year,
-    }) * RAIN_DROPS_PER_ML);
+    }) * RAIN_DROPS_PER_ML;
 
   return rainDropsQuantity > 1000000
-    ? `Or ${Math.round(rainDropsQuantity / 1000000 * 10) / 10}M raindrops!`
-    : `Or ${Math.round(rainDropsQuantity / 1000 * 10) / 10}K raindrops!`;
+    ? `Or ${Math.round((rainDropsQuantity / 1000000) * 10) / 10}M raindrops!`
+    : `Or ${Math.round((rainDropsQuantity / 1000) * 10) / 10}K raindrops!`;
 }
 
 export function calculateBooks({ inputs, year, habitName }: Props) {
@@ -36,17 +33,16 @@ export function calculateBooks({ inputs, year, habitName }: Props) {
     calculateYearly({
       frequency: Number(inputs.frequency.selectedOption),
       dailyValue: Number(inputs.time.value),
-      unit:
-        inputs.time.selectedOption === "minutes"
-          ? inputs.time.selectedOption
-          : "hours",
+      unit: inputs.time.selectedOption,
       year,
     }) /
       (habitName === "Read"
         ? AVERAGE_MIN_PER_BOOK_READ
         : AVERAGE_MIN_PER_BOOK_WRITE)
   );
-  return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""} read in ${year} year${year > 1 ? "s" : ""}!`;
+  return `Or ${booksQuantity} book${
+    booksQuantity > 1 ? "s" : ""
+  } read in ${year} year${year > 1 ? "s" : ""}!`;
 }
 
 export function calculateCigarettesPrice({
@@ -77,10 +73,7 @@ export function calculateCodeLanguagesLearned({
     calculateYearly({
       frequency: Number(inputs.frequency.selectedOption),
       dailyValue: Number(inputs.time.value),
-      unit:
-        inputs.time.selectedOption === "minutes"
-          ? inputs.time.selectedOption
-          : "hours",
+      unit: inputs.time.selectedOption,
       year,
     }) / HOURS_TO_LEARN_LANGUAGE
   );
@@ -90,14 +83,14 @@ export function calculateCodeLanguagesLearned({
 }
 
 export function generateFunComparaison(
-  habit: HabitData,
+  habit: Habit,
   inputs: { [key in InputNames]: Input },
   year: number
 ) {
-  return FUN_CALC[habit.name as HabitsNames]({
+  return FUN_CALC[habit.name]({
     inputs,
     year,
-    habitName: habit.name as HabitsNames,
+    habitName: habit.name,
   });
 }
 
@@ -120,4 +113,5 @@ const FUN_CALC: {
   "Smartphone Addiction": () => "Or a lot of time saved!",
   "Smoke Addiction": calculateCigarettesPrice,
   Write: calculateBooks,
+  "Learn Language": "", //
 };

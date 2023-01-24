@@ -1,4 +1,4 @@
-import type { HabitData } from "@data/habits";
+import type { Habit } from "@data/habits";
 import type { Input } from "@data/inputs";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
@@ -33,7 +33,7 @@ export function HabitCard({
   year,
   index,
 }: {
-  habit: HabitData;
+  habit: Habit;
   year: number;
   index: number;
 }) {
@@ -84,10 +84,7 @@ function TimePerYear({
       {formatTimePerYear({
         frequency: Number(frequency.selectedOption),
         dailyValue: Number(time.value),
-        unit:
-          time.selectedOption === "hours" || time.selectedOption === "minutes"
-            ? time.selectedOption
-            : "hours",
+        unit: time.selectedOption,
         year,
       })}
     </>
@@ -99,10 +96,7 @@ function LiquidPerYear({ liquid, year }: { liquid: Input; year: number }) {
     <>
       {formatLiquidPerYear({
         dailyValue: Number(liquid.value),
-        unit:
-          liquid.selectedOption === "ml" || liquid.selectedOption === "l"
-            ? liquid.selectedOption
-            : "ml",
+        unit: liquid.selectedOption,
         year,
       })}
     </>
