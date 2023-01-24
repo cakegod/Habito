@@ -66,7 +66,7 @@ function TimePerWeek({ frequency, time }: { frequency: Input; time: Input }) {
           unit: time.selectedOption,
         })}
       </Badge>
-      <Badge>{`${frequency.selectedOption}`}</Badge>
+      <Badge>{`${frequency.selectedOption} times / week`}</Badge>
     </>
   );
 }
