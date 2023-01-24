@@ -1,10 +1,10 @@
 import { atom } from "nanostores";
-import type { HabitData } from "@data/habits";
+import type { Habit } from "@data/habits";
 
-export const habits = atom<HabitData[]>([]);
+export const habits = atom<Habit[]>([]);
 
 // TODO: Refactor into two separated functions
-export const addHabit = (habit: HabitData) => {
+export const addHabit = (habit: Habit) => {
   const isPresent = habits.get().some((h) => h.id === habit.id);
 
   // Updating the object with the argument if is present in the array
@@ -13,15 +13,15 @@ export const addHabit = (habit: HabitData) => {
     : habits.set([...habits.get(), habit]);
 };
 
-export const deleteHabit = (habit: HabitData) => {
+export const deleteHabit = (habit: Habit) => {
   habits.set(habits.get().filter((h) => h.id !== habit.id));
 };
 
-export const currentHabit = atom<HabitData>({} as HabitData);
+export const currentHabit = atom<Habit>({} as Habit);
 
 export const isModalOpen = atom(false);
 
-export const toggleModal = (habit?: HabitData) => {
+export const toggleModal = (habit?: Habit) => {
   isModalOpen.set(!isModalOpen.get());
   if (habit) {
     currentHabit.set(habit);

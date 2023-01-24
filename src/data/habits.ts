@@ -12,8 +12,8 @@ function createHabit<Name extends string>(
   return { name, icon, inputs, avoid, id: nanoid() };
 }
 
-export type Habit = ReturnType<typeof createHabit>;
-export type HabitData = typeof habitsData[number];
+export type HabitData = ReturnType<typeof createHabit>;
+export type Habit = (typeof habitsData)[number];
 
 // TODO: add more habits
 export const habitsData = [
@@ -26,4 +26,4 @@ export const habitsData = [
   createHabit("Smoke Addiction", "🚬", [input.cigarettes], true),
   createHabit("Smartphone Addiction", "📱", [input.smartphone], true),
   createHabit("Learn Language", "🌎", [input.time, input.frequency]),
-].sort((a) => (a.avoid ? 1 : -1)) satisfies Readonly<Habit[]>;
+].sort((a) => (a.avoid ? 1 : -1)) satisfies Readonly<HabitData[]>;

@@ -1,18 +1,18 @@
-import type { HabitData } from "@data/habits";
+import type { Habit } from "@data/habits";
 import { toggleModal, addHabit, deleteHabit, habits } from "@stores/habits";
 import React, { useState } from "react";
 import { useStore } from "@nanostores/react";
 import { Inputs } from "./Inputs";
 import type { InputCategory } from "@data/inputs";
 
-function ModalForm({ habit }: { habit: HabitData }) {
-  const [state, setState] = useState<HabitData>(habit);
+function ModalForm({ habit }: { habit: Habit }) {
+  const [state, setState] = useState<Habit>(habit);
   const $habits = useStore(habits);
 
   // Check if the current item exists in the added habits
   const isPresent = $habits.some((habit) => habit.id === state.id);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>, habit: HabitData) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>, habit: Habit) {
     e.preventDefault();
 
     // FIXME: Find a better way to handle this bug
@@ -72,7 +72,7 @@ function UpdateButton() {
   );
 }
 
-function RemoveButton({ habit }: { habit: HabitData }) {
+function RemoveButton({ habit }: { habit: Habit }) {
   return (
     <button
       type="button"

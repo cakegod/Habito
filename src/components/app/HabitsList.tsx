@@ -1,4 +1,4 @@
-import { habitsData, type HabitData } from "@data/habits";
+import { habitsData, type Habit } from "@data/habits";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 
@@ -17,11 +17,13 @@ export default function HabitsList() {
   );
 }
 
-function Card({ habit }: { habit: HabitData }) {
+function Card({ habit }: { habit: Habit }) {
   return (
     <button
       className={`btn h-24 flex-col border-none ${
-        habit.avoid ? "bg-error/20 hover:bg-error/40" : "bg-base-200 hover:bg-base-300"
+        habit.avoid
+          ? "bg-error/20 hover:bg-error/40"
+          : "bg-base-200 hover:bg-base-300"
       } normal-case`}
       onClick={() => toggleModal(habit)}
     >

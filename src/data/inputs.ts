@@ -48,7 +48,7 @@ function createInputSelect<
 
 export type InputGroup = ReturnType<typeof createInputGroup>;
 export type InputSelect = ReturnType<typeof createInputSelect>;
-export type Input = InputGroup | InputSelect;
+export type Input = (typeof inputs)[keyof typeof inputs];
 export type InputNames = GetPropValues<typeof inputs, "name">;
 export type InputCategory = GetPropValues<typeof inputs, "inputCategory">;
 
