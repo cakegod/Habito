@@ -1,6 +1,6 @@
 interface Props {
-  frequency: number;
-  dailyValue: number;
+  frequency: string | number;
+  dailyValue: string | number;
   unit: keyof typeof UNITS | number;
   year: number;
 }
@@ -27,14 +27,14 @@ export function calculateDaily({
   unit,
 }: Omit<Props, "year">) {
   const result =
-    ((frequency * dailyValue) / CONST.DAYS_PER_WEEK) *
+    ((Number(frequency) * Number(dailyValue)) / CONST.DAYS_PER_WEEK) *
     (typeof unit === "string" ? UNITS[unit] : 1);
   return result;
 }
 
 export function calculateYearly({ frequency, dailyValue, unit, year }: Props) {
   const result =
-    ((frequency * dailyValue) / CONST.DAYS_PER_WEEK) *
+    ((Number(frequency) * Number(dailyValue)) / CONST.DAYS_PER_WEEK) *
     (typeof unit === "string" ? UNITS[unit] : 1);
   return result * CONST.DAYS_PER_YEAR * year;
 }

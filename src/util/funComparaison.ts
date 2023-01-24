@@ -15,7 +15,7 @@ export function calculateRaindrops({ inputs, year }: Omit<Props, "habitName">) {
   const rainDropsQuantity =
     calculateYearly({
       frequency: 7,
-      dailyValue: Number(inputs.liquid.value),
+      dailyValue: inputs.liquid.value,
       unit: inputs.liquid.selectedOption,
       year,
     }) * RAIN_DROPS_PER_ML;
@@ -31,8 +31,8 @@ export function calculateBooks({ inputs, year, habitName }: Props) {
     CONST.MINS_PER_HOUR * CONST.HOURS_PER_DAY * CONST.DAYS_PER_WEEK;
   const booksQuantity = Math.round(
     calculateYearly({
-      frequency: Number(inputs.frequency.selectedOption),
-      dailyValue: Number(inputs.time.value),
+      frequency: inputs.frequency.selectedOption,
+      dailyValue: inputs.time.value,
       unit: inputs.time.selectedOption,
       year,
     }) /
@@ -54,7 +54,7 @@ export function calculateCigarettesPrice({
   const priceAnnually = Math.round(
     (calculateYearly({
       frequency: 7,
-      dailyValue: Number(inputs.generic.value),
+      dailyValue: inputs.generic.value,
       unit: "generic",
       year,
     }) /
@@ -71,8 +71,8 @@ export function calculateCodeLanguagesLearned({
   const HOURS_TO_LEARN_LANGUAGE = 1440 * CONST.MINS_PER_HOUR;
   const languagesLearned = Math.floor(
     calculateYearly({
-      frequency: Number(inputs.frequency.selectedOption),
-      dailyValue: Number(inputs.time.value),
+      frequency: inputs.frequency.selectedOption,
+      dailyValue: inputs.time.value,
       unit: inputs.time.selectedOption,
       year,
     }) / HOURS_TO_LEARN_LANGUAGE
