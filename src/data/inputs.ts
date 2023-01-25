@@ -20,7 +20,17 @@ function createInputGroup<
   placeholder: string,
   options: [Option, string][],
   selectedOption: SelectedOption
-) {
+): {
+  name: Name;
+  label: string;
+  value: string;
+  type: "number" | "text";
+} & {
+  inputCategory: "inputGroup";
+  placeholder: string;
+  options: [Option, string][];
+  selectedOption: Option;
+} {
   return Object.assign({}, createInputBase(name, label), {
     inputCategory: "inputGroup" as const,
     placeholder,
@@ -38,7 +48,16 @@ function createInputSelect<
   label: string,
   options: [Option, string][],
   selectedOption: SelectedOption
-) {
+): {
+  name: Name;
+  label: string;
+  value: string;
+  type: "number" | "text";
+} & {
+  inputCategory: "inputSelect";
+  options: [Option, string][];
+  selectedOption: Option;
+} {
   return Object.assign({}, createInputBase(name, label), {
     inputCategory: "inputSelect" as const,
     options,
