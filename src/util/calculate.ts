@@ -32,7 +32,12 @@ export function calculateDaily({
   return result;
 }
 
-export function calculateYearly({ frequency, dailyValue, unit, year }: Props) {
+export function calculateHoursYearly({
+  frequency,
+  dailyValue,
+  unit,
+  year,
+}: Props) {
   const result =
     ((Number(frequency) * Number(dailyValue)) / CONST.DAYS_PER_WEEK) *
     (typeof unit === "string" ? UNITS[unit] : 1);
@@ -61,7 +66,7 @@ export function formatTimePerYear({
   year,
 }: Props) {
   const result =
-    calculateYearly({ frequency, dailyValue, unit, year }) /
+    calculateHoursYearly({ frequency, dailyValue, unit, year }) /
     CONST.MINS_PER_HOUR;
   return `${Math.round(result)} hours`;
 }
@@ -82,7 +87,7 @@ export function formatLiquidPerYear({
   unit,
   year,
 }: Omit<Props, "frequency">) {
-  const result = calculateYearly({ frequency: 7, dailyValue, unit, year });
+  const result = calculateHoursYearly({ frequency: 7, dailyValue, unit, year });
   return result >= 1000
     ? `${Math.round((result / CONST.ML_PER_LITER) * 10) / 10}L`
     : `${result}mL`;
