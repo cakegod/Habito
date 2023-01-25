@@ -86,18 +86,15 @@ export function calculatePercentageAcquired({
   inputs,
   year,
 }: Omit<Props, "habitName">) {
-  const HOURS_TO_REACH_WORKING_PROFICIENCY = 700;
-  const percentageAcquired =
-    (calculateHoursYearly({
-      frequency: inputs.frequency.selectedOption,
-      dailyValue: inputs.time.value,
-      unit: "generic",
-      year,
-    }) /
-      HOURS_TO_REACH_WORKING_PROFICIENCY) *
-    100;
-  const roundedPercentage = Math.round(percentageAcquired);
-
+  const MINS_WORKING_PROFICIENCY = 700 * CONST.MINS_PER_HOUR;
+  const yearlyHours = calculateHoursYearly({
+    frequency: inputs.frequency.selectedOption,
+    dailyValue: inputs.time.value,
+    unit: inputs.time.selectedOption,
+    year,
+  });
+  const percentageAcquired = yearlyHours / MINS_WORKING_PROFICIENCY;
+  const roundedPercentage = Math.round(percentageAcquired * 100);
   return `Or ${roundedPercentage}% the time required to reach professional working proficiency!`;
 }
 
