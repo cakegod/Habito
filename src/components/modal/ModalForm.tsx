@@ -58,7 +58,11 @@ function ModalForm({ habit }: { habit: Habit }) {
 
 function AddButton() {
   return (
-    <button className="btn-primary btn grow" type="submit">
+    <button
+      className="btn-primary btn grow"
+      type="submit"
+      data-cy={"submit-btn"}
+    >
       Add Habit
     </button>
   );
@@ -66,7 +70,11 @@ function AddButton() {
 
 function UpdateButton() {
   return (
-    <button className="btn-success btn grow" type="submit">
+    <button
+      className="btn-success btn grow"
+      type="submit"
+      data-cy={"update-btn"}
+    >
       Update
     </button>
   );
@@ -80,6 +88,7 @@ function RemoveButton({ habit }: { habit: Habit }) {
       onClick={() => {
         toggleModal(), deleteHabit(habit);
       }}
+      data-cy={"remove-btn"}
     >
       Remove
     </button>
@@ -92,6 +101,7 @@ function CancelButton() {
       type="button"
       className="btn-ghost btn grow"
       onClick={() => toggleModal()}
+      data-cy={"cancel-btn"}
     >
       Cancel
     </button>

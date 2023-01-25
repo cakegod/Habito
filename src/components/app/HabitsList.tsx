@@ -26,6 +26,7 @@ function Card({ habit }: { habit: Habit }) {
           : "bg-base-200 hover:bg-base-300"
       } normal-case`}
       onClick={() => toggleModal(habit)}
+			data-cy={habit.name}
     >
       <span className="flex grow items-center text-lg">{habit.icon}</span>
       <h2 className="flex grow items-start text-center">{habit.name}</h2>

@@ -43,6 +43,7 @@ export function HabitCard({
     <button
       className={`card cursor-pointer gap-1 p-4 ${gradients[index % 4]} w-full`}
       onClick={() => toggleModal(habit)}
+      data-cy={habit.name}
     >
       <Name name={habit.name} icon={habit.icon} />
       {

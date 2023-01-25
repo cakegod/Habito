@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "eslint": "eslint 'src/**/*.{js,astro}'"
+    "eslint": "eslint 'src/**/*.{js,astro}'",
+		"e2e": "cypress open"
   },
   "dependencies": {
     "@astrojs/image": "^0.13.0",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@typescript-eslint/parser": "^5.49.0",
     "astro-compress": "1.1.28",
+    "cypress": "^12.4.0",
     "eslint": "^8.32.0",
     "eslint-plugin-astro": "^0.23.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",

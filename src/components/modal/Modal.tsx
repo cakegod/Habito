@@ -36,7 +36,7 @@ function Modal() {
 
 function Title({ icon, name }: { icon: string; name: string }) {
   return (
-    <Dialog.Title className="flex items-center text-xl font-bold">
+    <Dialog.Title className="flex items-center text-xl font-bold" data-cy={"modal-title"}>
       <span className="pr-2 text-2xl">{icon}</span>
       {name}
     </Dialog.Title>
