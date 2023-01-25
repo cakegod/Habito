@@ -1,6 +1,6 @@
 import type { HabitsNames, Habit } from "@data/habits";
 import type { Input, InputNames } from "@data/inputs";
-import { calculateYearly, CONST } from "@util/calculate";
+import { calculateHoursYearly, CONST } from "@util/calculate";
 
 type Props = {
   inputs: {
@@ -13,7 +13,7 @@ type Props = {
 export function calculateRaindrops({ inputs, year }: Omit<Props, "habitName">) {
   const RAIN_DROPS_PER_ML = 20;
   const rainDropsQuantity =
-    calculateYearly({
+    calculateHoursYearly({
       frequency: 7,
       dailyValue: inputs.liquid.value,
       unit: inputs.liquid.selectedOption,
@@ -30,7 +30,7 @@ export function calculateBooks({ inputs, year, habitName }: Props) {
   const AVERAGE_MIN_PER_BOOK_WRITE =
     CONST.MINS_PER_HOUR * CONST.HOURS_PER_DAY * CONST.DAYS_PER_WEEK;
   const booksQuantity = Math.round(
-    calculateYearly({
+    calculateHoursYearly({
       frequency: inputs.frequency.selectedOption,
       dailyValue: inputs.time.value,
       unit: inputs.time.selectedOption,
@@ -52,7 +52,7 @@ export function calculateCigarettesPrice({
   const CIGARETTES_PER_PACK = 20;
   const PRICE_PER_PACK = 6.5;
   const priceAnnually = Math.round(
-    (calculateYearly({
+    (calculateHoursYearly({
       frequency: 7,
       dailyValue: inputs.generic.value,
       unit: "generic",
@@ -70,7 +70,7 @@ export function calculateCodeLanguagesLearned({
 }: Omit<Props, "habitName">) {
   const HOURS_TO_LEARN_LANGUAGE = 1440 * CONST.MINS_PER_HOUR;
   const languagesLearned = Math.floor(
-    calculateYearly({
+    calculateHoursYearly({
       frequency: inputs.frequency.selectedOption,
       dailyValue: inputs.time.value,
       unit: inputs.time.selectedOption,
@@ -80,6 +80,25 @@ export function calculateCodeLanguagesLearned({
   return `Or ${languagesLearned} code language${
     languagesLearned > 1 ? "s" : ""
   } learned!`;
+}
+
+export function calculatePercentageAcquired({
+  inputs,
+  year,
+}: Omit<Props, "habitName">) {
+  const HOURS_TO_REACH_WORKING_PROFICIENCY = 700;
+  const percentageAcquired =
+    (calculateHoursYearly({
+      frequency: inputs.frequency.selectedOption,
+      dailyValue: inputs.time.value,
+      unit: "generic",
+      year,
+    }) /
+      HOURS_TO_REACH_WORKING_PROFICIENCY) *
+    100;
+  const roundedPercentage = Math.round(percentageAcquired);
+
+  return `Or ${roundedPercentage}% the time required to reach professional working proficiency!`;
 }
 
 export function generateFunComparaison(
@@ -113,5 +132,5 @@ const FUN_CALC: {
   "Smartphone Addiction": () => "Or a lot of time saved!",
   "Smoke Addiction": calculateCigarettesPrice,
   Write: calculateBooks,
-  "Learn Language": "", //
+  "Learn Language": calculatePercentageAcquired,
 };
