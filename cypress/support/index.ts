@@ -1,6 +1,9 @@
 declare namespace Cypress {
   interface Chainable {
-    getByData(dataTestAttribute: string): Chainable<JQuery<HTMLElement>>;
+    getByData(
+      dataTestAttribute: string,
+      exist?: boolean
+    ): Chainable<JQuery<HTMLElement>>;
   }
 }
 declare namespace Cypress {
@@ -8,7 +11,7 @@ declare namespace Cypress {
     simpleInput(
       name: string,
       type: string,
-      selector: string
+      selector?: string
     ): Chainable<JQuery<HTMLElement>>;
   }
 }

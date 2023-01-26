@@ -24,12 +24,12 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add("getByData", (selector) =>
-  cy.get(`[data-cy='${selector}']`).should("exist")
+Cypress.Commands.add("getByData", (selector, exist = true) =>
+  cy.get(`[data-cy='${selector}']`).should(exist ? "exist" : "not.exist")
 );
 
 Cypress.Commands.add("simpleInput", (name, type, select) => {
   cy.getByData("modal-title").should("contain.text", name);
   cy.getByData("input").type(type);
-  cy.getByData("input-select").select(select);
+ 	select && cy.getByData("input-select").select(select);
 });
