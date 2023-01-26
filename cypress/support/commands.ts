@@ -25,5 +25,5 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add("getByData", (selector) =>
-  cy.get(`[data-cy=${selector}]`)
+  cy.get(`[data-cy='${selector}']`).should("exist")
 );
