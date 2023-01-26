@@ -27,3 +27,9 @@
 Cypress.Commands.add("getByData", (selector) =>
   cy.get(`[data-cy='${selector}']`).should("exist")
 );
+
+Cypress.Commands.add("simpleInput", (name, type, select) => {
+  cy.getByData("modal-title").should("contain.text", name);
+  cy.getByData("input").type(type);
+  cy.getByData("input-select").select(select);
+});
