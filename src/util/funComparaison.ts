@@ -1,10 +1,12 @@
 import type { HabitsNames, Habit } from "@data/habits";
-import type { Input, InputNames } from "@data/inputs";
+import type { Input, InputNames, Inputs } from "@data/inputs";
 import { calculateYearly, CONST } from "@util/calculate";
 
 type Props = {
   inputs: {
-    [key in InputNames]: Input;
+    [key in InputNames]: key extends keyof Inputs
+      ? Inputs[key]
+      : Inputs[Exclude<keyof Inputs, InputNames>];
   };
   year: number;
   habitName: HabitsNames;
@@ -14,7 +16,7 @@ function drinkWater({ inputs, year }: Omit<Props, "habitName">) {
   const RAIN_DROPS_PER_ML = 20;
   const rainDropsQuantity =
     calculateYearly({
-      frequency: 7,
+      frequency: "7",
       dailyValue: inputs.liquid.value,
       unit: inputs.liquid.selectedOption,
       year,
@@ -50,7 +52,7 @@ function smokeAddiction({ inputs, year }: Omit<Props, "habitName">) {
   const PRICE_PER_PACK = 6.5;
   const priceAnnually = Math.round(
     (calculateYearly({
-      frequency: 7,
+      frequency: "7",
       dailyValue: inputs.generic.value,
       unit: "generic",
       year,
@@ -91,7 +93,11 @@ function learnLanguage({ inputs, year }: Omit<Props, "habitName">) {
 
 export function generateFunComparaison(
   habit: Habit,
-  inputs: { [key in InputNames]: Input },
+  inputs: {
+    [key in InputNames]: key extends keyof Inputs
+      ? Inputs[key]
+      : Inputs[Exclude<keyof Inputs, InputNames>];
+  },
   year: number
 ) {
   return FUN_CALC[habit.name]({
@@ -107,7 +113,11 @@ const FUN_CALC: {
     year,
     habitName,
   }: {
-    inputs: { [key in InputNames]: Input };
+    inputs: {
+      [key in InputNames]: key extends keyof Inputs
+        ? Inputs[key]
+        : Inputs[Exclude<keyof Inputs, InputNames>];
+    };
     year: number;
     habitName: HabitsNames;
   }) => string;

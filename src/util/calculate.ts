@@ -1,5 +1,5 @@
 interface Props {
-  frequency: string | number;
+  frequency: string;
   dailyValue: string | number;
   unit: keyof typeof UNITS | number;
   year: number;
@@ -71,7 +71,7 @@ export function formatLiquidPerWeek({
   unit,
 }: Pick<Props, "dailyValue" | "unit">) {
   const result =
-    calculateDaily({ frequency: 7, dailyValue, unit }) * CONST.DAYS_PER_WEEK;
+    calculateDaily({ frequency: "7", dailyValue, unit }) * CONST.DAYS_PER_WEEK;
   return result >= 1000
     ? `${result / CONST.ML_PER_LITER}L / week`
     : `${result}mL / week`;
@@ -82,7 +82,7 @@ export function formatLiquidPerYear({
   unit,
   year,
 }: Omit<Props, "frequency">) {
-  const result = calculateYearly({ frequency: 7, dailyValue, unit, year });
+  const result = calculateYearly({ frequency: "7", dailyValue, unit, year });
   return result >= 1000
     ? `${Math.round((result / CONST.ML_PER_LITER) * 10) / 10}L`
     : `${result}mL`;
@@ -93,7 +93,7 @@ export function formatGenericPerYear({
   year,
 }: Pick<Props, "dailyValue" | "year">) {
   const result =
-    calculateDaily({ frequency: 7, dailyValue, unit: "generic" }) *
+    calculateDaily({ frequency: "7", dailyValue, unit: "generic" }) *
     CONST.DAYS_PER_YEAR *
     year;
 

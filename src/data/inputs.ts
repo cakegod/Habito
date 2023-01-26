@@ -41,7 +41,7 @@ function createInputGroup<
 
 function createInputSelect<
   Name extends string,
-  Option extends number,
+  Option extends string,
   SelectedOption extends Option
 >(
   name: Name,
@@ -68,6 +68,7 @@ function createInputSelect<
 export type InputGroup = ReturnType<typeof createInputGroup>;
 export type InputSelect = ReturnType<typeof createInputSelect>;
 export type Input = (typeof inputs)[keyof typeof inputs];
+export type Inputs = typeof inputs
 export type InputNames = GetPropValues<typeof inputs, "name">;
 export type InputCategory = GetPropValues<typeof inputs, "inputCategory">;
 
@@ -96,15 +97,15 @@ export const inputs = {
     "frequency",
     "Time spent",
     [
-      [1, "1 time per week"],
-      [2, "2 times per week"],
-      [3, "3 times per week"],
-      [4, "4 times per week"],
-      [5, "5 times per week"],
-      [6, "6 times per week"],
-      [7, "Every day 🚀"],
+      ["1", "1 time per week"],
+      ["2", "2 times per week"],
+      ["3", "3 times per week"],
+      ["4", "4 times per week"],
+      ["5", "5 times per week"],
+      ["6", "6 times per week"],
+      ["7", "Every day 🚀"],
     ],
-    3
+    "3"
   ),
   cigarettes: createInputGroup(
     "generic",
