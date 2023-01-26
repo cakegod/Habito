@@ -20,14 +20,23 @@ describe("app", () => {
 
     describe("allows users to add a frequency/time habit", () => {
       beforeEach(() => {
-        cy.getByData("Meditate").wait(200).click();
+        cy.getByData("Meditate").wait(300).click();
+      });
 
-        cy.simpleInput("Meditate", "2", "hours");
-        cy.getByData("input-dropdown").select(6);
+      it("should not allow habit to be added if invalid input", () => {
         cy.getByData("submit-btn").click();
+        cy.getByData("modal-title");
+        cy.getByData("Meditate-drawer-card", false);
+
+        cy.simpleInput("Meditate", "something");
+        cy.getByData("modal-title");
+        cy.getByData("Meditate-drawer-card", false);
       });
 
       it("should render card drawer", () => {
+        cy.simpleInput("Meditate", "2", "hours");
+        cy.getByData("input-dropdown").select(6);
+        cy.getByData("submit-btn").click();
         cy.getByData("Meditate-drawer-card").within(() => {
           cy.get("p").should("have.text", "Meditate");
           cy.get("span").eq(1).should("have.text", "14 hours / week");
@@ -36,6 +45,9 @@ describe("app", () => {
       });
 
       it("should render card", () => {
+        cy.simpleInput("Meditate", "2", "hours");
+        cy.getByData("input-dropdown").select(6);
+        cy.getByData("submit-btn").click();
         cy.getByData("btn-calculate").wait(200).click();
 
         cy.getByData("Meditate-grid-card").within(() => {
@@ -49,12 +61,21 @@ describe("app", () => {
     describe("allows users to add a liquid habit", () => {
       beforeEach(() => {
         cy.getByData("Drink Water").wait(200).click();
+      });
 
-        cy.simpleInput("Drink Water", "2", "l");
+      it("should not allow habit to be added if invalid input", () => {
         cy.getByData("submit-btn").click();
+        cy.getByData("modal-title");
+        cy.getByData("Drink Water-drawer-card", false);
+
+        cy.simpleInput("Drink Water", "something");
+        cy.getByData("modal-title");
+        cy.getByData("Drink Water-drawer-card", false);
       });
 
       it("should render card drawer", () => {
+        cy.simpleInput("Drink Water", "2", "l");
+        cy.getByData("submit-btn").click();
         cy.getByData("Drink Water-drawer-card").within(() => {
           cy.get("p").should("have.text", "Drink Water");
           cy.get("span").eq(1).should("have.text", "14L / week");
@@ -63,6 +84,8 @@ describe("app", () => {
       });
 
       it("should render card", () => {
+        cy.simpleInput("Drink Water", "2", "l");
+        cy.getByData("submit-btn").click();
         cy.getByData("btn-calculate").wait(200).click();
 
         cy.getByData("Drink Water-grid-card").within(() => {
