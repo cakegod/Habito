@@ -23,7 +23,7 @@ export const habitsData = [
   createHabit("Write", "📝", [input.time, input.frequency]),
   createHabit("Drink Water", "💧", [input.liquid]),
   createHabit("Code", "👨‍💻", [input.time, input.frequency]),
-  createHabit("Smoke Addiction", "🚬", [input.cigarettes], true),
-  createHabit("Smartphone Addiction", "📱", [input.smartphone], true),
+  createHabit("Smoke", "🚬", [input.cigarettes], true),
+  createHabit("Smartphone", "📱", [input.smartphone], true),
   createHabit("Learn Language", "🌎", [input.time, input.frequency]),
 ].sort((a) => (a.avoid ? 1 : -1)) satisfies Readonly<HabitData[]>;
