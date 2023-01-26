@@ -29,7 +29,7 @@ function App() {
       {index === 0 ? (
         <>
           <HabitsList />
-          <SuccessButton handleNext={handleNext} />
+          <CalculateButton handleNext={handleNext} />
           <HabitsDrawer />
         </>
       ) : (
@@ -69,7 +69,7 @@ function BackButton({
   );
 }
 
-function SuccessButton({
+function CalculateButton({
   handleNext,
 }: {
   handleNext: (e: React.MouseEvent) => void;
@@ -81,6 +81,7 @@ function SuccessButton({
         className="btn-success btn-lg btn"
         onClick={handleNext}
         disabled={!$habits.length}
+				data-cy="btn-calculate"
       >
         Calculate my habits!
         <span className="m-1 text-xl">😎</span>

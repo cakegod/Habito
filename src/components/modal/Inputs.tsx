@@ -65,6 +65,7 @@ function Input({ input, handler }: Props<InputGroup>) {
       className="input w-full bg-base-200 placeholder:text-base-content/50"
       onChange={(e) => handler(e, "inputGroup")}
       name="value"
+      data-cy="input"
     />
   );
 }
@@ -76,6 +77,7 @@ function SelectInput({ input, handler }: Props<InputGroup>) {
       value={input.selectedOption}
       onChange={(e) => handler(e, "inputGroup")}
       name="selectedOption"
+      data-cy="input-select"
     >
       {input.options.map((option) => (
         <option key={option[0]} value={option[0]}>
@@ -93,6 +95,7 @@ function DropdownSelect({ input, handler }: Props<InputSelect>) {
       value={input.selectedOption}
       onChange={(e) => handler(e, "inputSelect")}
       name="selectedOption"
+      data-cy="input-dropdown"
     >
       {input.options.map((option) => (
         <option key={option[1]} value={option[0]}>

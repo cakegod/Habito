@@ -1,5 +1,5 @@
 import type { Habit } from "@data/habits";
-import type { Input } from "@data/inputs";
+import type { Input, Inputs } from "@data/inputs";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 import {
@@ -43,11 +43,14 @@ export function HabitCard({
     <button
       className={`card cursor-pointer gap-1 p-4 ${gradients[index % 4]} w-full`}
       onClick={() => toggleModal(habit)}
-      data-cy={habit.name}
+      data-cy={`${habit.name}-grid-card`}
     >
       <Name name={habit.name} icon={habit.icon} />
       {
-        <p className="text-3xl font-bold text-base-300">
+        <p
+          className="text-3xl font-bold text-base-300"
+          data-cy={`${habit.name}-grid-card-value`}
+        >
           {time && frequency && (
             <TimePerYear frequency={frequency} time={time} year={year} />
           )}
@@ -55,7 +58,10 @@ export function HabitCard({
           {generic && <GenericPerYear generic={generic} year={year} />}
         </p>
       }
-      <p className="text-start text-sm text-base-300">
+      <p
+        className="text-start text-sm text-base-300"
+        data-cy={`${habit.name}-grid-card-fun`}
+      >
         {generateFunComparaison(habit, inputs, year)}
       </p>
     </button>
@@ -66,7 +72,12 @@ function Name({ icon, name }: { icon: string; name: string }) {
   return (
     <div className="flex items-center gap-2 text-xl font-bold uppercase">
       <span className="text-base">{icon}</span>
-      <p className="text-sm text-base-300/80">{name}</p>
+      <p
+        className="text-sm text-base-300/80"
+        data-cy={`${name}-grid-card-name`}
+      >
+        {name}
+      </p>
     </div>
   );
 }
@@ -76,14 +87,14 @@ function TimePerYear({
   time,
   year,
 }: {
-  frequency: Input;
-  time: Input;
+  frequency: Inputs["frequency"];
+  time: Inputs["time"];
   year: number;
 }) {
   return (
     <>
       {formatTimePerYear({
-        frequency: Number(frequency.selectedOption),
+        frequency: frequency.selectedOption,
         dailyValue: Number(time.value),
         unit: time.selectedOption,
         year,
@@ -92,7 +103,13 @@ function TimePerYear({
   );
 }
 
-function LiquidPerYear({ liquid, year }: { liquid: Input; year: number }) {
+function LiquidPerYear({
+  liquid,
+  year,
+}: {
+  liquid: Inputs["liquid"];
+  year: number;
+}) {
   return (
     <>
       {formatLiquidPerYear({

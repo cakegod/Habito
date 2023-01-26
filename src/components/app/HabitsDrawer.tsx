@@ -1,5 +1,5 @@
 import type { Habit } from "@data/habits";
-import type { Input } from "@data/inputs";
+import type { Input, Inputs } from "@data/inputs";
 import { useStore } from "@nanostores/react";
 import { habits, toggleModal } from "@stores/habits";
 import { formatLiquidPerWeek, formatTimePerWeek } from "@util/calculate";
@@ -34,6 +34,7 @@ function Habit({ habit }: { habit: Habit }) {
       className="btn flex h-24 max-h-full grow flex-col gap-1 bg-base-100 p-2 normal-case hover:bg-base-300"
       onClick={() => toggleModal(habit)}
       key={id}
+      data-cy={`${habit.name}-drawer-card`}
     >
       <Title icon={icon} name={name} />
       {time && frequency && <TimePerWeek frequency={frequency} time={time} />}
@@ -51,27 +52,37 @@ function Title({ icon, name }: { icon: string; name: string }) {
   return (
     <div className="flex text-base">
       <span>{icon}</span>
-      <p>{name}</p>
+      <p data-cy={`${name}-drawer-card-name`}>{name}</p>
     </div>
   );
 }
 
-function TimePerWeek({ frequency, time }: { frequency: Input; time: Input }) {
+function TimePerWeek({
+  frequency,
+  time,
+}: {
+  frequency: Inputs["frequency"];
+  time: Inputs["time"];
+}) {
   return (
     <>
       <Badge>
         {formatTimePerWeek({
-          frequency: Number(frequency.selectedOption),
+          frequency: frequency.selectedOption,
           dailyValue: Number(time.value),
           unit: time.selectedOption,
         })}
       </Badge>
-      <Badge>{`${frequency.selectedOption} times / week`}</Badge>
+      <Badge>
+        {frequency.selectedOption === "7"
+          ? "daily"
+          : `${frequency.selectedOption} times / week`}
+      </Badge>
     </>
   );
 }
 
-function LiquidPerWeek({ liquid }: { liquid: Input }) {
+function LiquidPerWeek({ liquid }: { liquid: Inputs["liquid"] }) {
   return (
     <>
       <Badge>
