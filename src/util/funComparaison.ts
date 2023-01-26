@@ -1,5 +1,5 @@
 import type { HabitsNames, Habit } from "@data/habits";
-import type { Input, InputNames, Inputs } from "@data/inputs";
+import type { InputNames, Inputs } from "@data/inputs";
 import { calculateYearly, CONST } from "@util/calculate";
 
 type Props = {
@@ -127,8 +127,8 @@ const FUN_CALC: {
   Code: code,
   Exercise: () => "Or a lot of stress reduced",
   Read: books,
-  "Smartphone Addiction": () => "Or a lot of time saved!",
-  "Smoke Addiction": smokeAddiction,
+  "Smartphone": () => "Or a lot of time saved!",
+  "Smoke": smokeAddiction,
   Write: books,
   "Learn Language": learnLanguage,
 };

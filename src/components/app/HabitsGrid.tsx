@@ -47,10 +47,7 @@ export function HabitCard({
     >
       <Name name={habit.name} icon={habit.icon} />
       {
-        <p
-          className="text-3xl font-bold text-base-300"
-          data-cy={`${habit.name}-grid-card-value`}
-        >
+        <p className="text-3xl font-bold text-base-300">
           {time && frequency && (
             <TimePerYear frequency={frequency} time={time} year={year} />
           )}
@@ -58,10 +55,7 @@ export function HabitCard({
           {generic && <GenericPerYear generic={generic} year={year} />}
         </p>
       }
-      <p
-        className="text-start text-sm text-base-300"
-        data-cy={`${habit.name}-grid-card-fun`}
-      >
+      <p className="text-start text-sm text-base-300">
         {generateFunComparaison(habit, inputs, year)}
       </p>
     </button>
@@ -72,12 +66,7 @@ function Name({ icon, name }: { icon: string; name: string }) {
   return (
     <div className="flex items-center gap-2 text-xl font-bold uppercase">
       <span className="text-base">{icon}</span>
-      <p
-        className="text-sm text-base-300/80"
-        data-cy={`${name}-grid-card-name`}
-      >
-        {name}
-      </p>
+      <p className="text-sm text-base-300/80">{name}</p>
     </div>
   );
 }
