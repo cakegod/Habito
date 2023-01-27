@@ -61,7 +61,11 @@ function BackButton({
 }) {
   return (
     <div className="mt-10 flex w-full items-center justify-center">
-      <button className="btn-info btn-lg btn text-center" onClick={handleBack}>
+      <button
+        className="btn-info btn-lg btn text-center"
+        onClick={handleBack}
+        data-cy="btn-info"
+      >
         <span className="mx-1 rotate-180">➤</span>
         Back to habit selection
       </button>
@@ -81,7 +85,7 @@ function CalculateButton({
         className="btn-success btn-lg btn"
         onClick={handleNext}
         disabled={!$habits.length}
-				data-cy="btn-calculate"
+        data-cy="btn-calculate"
       >
         Calculate my habits!
         <span className="m-1 text-xl">😎</span>

@@ -61,7 +61,7 @@ function AddButton() {
     <button
       className="btn-primary btn grow"
       type="submit"
-      data-cy={"submit-btn"}
+      data-cy={"btn-submit"}
     >
       Add Habit
     </button>
@@ -73,7 +73,7 @@ function UpdateButton() {
     <button
       className="btn-success btn grow"
       type="submit"
-      data-cy={"update-btn"}
+      data-cy={"btn-update"}
     >
       Update
     </button>
