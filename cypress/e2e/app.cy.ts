@@ -37,27 +37,27 @@ describe("app", () => {
     it("allows users to add and update a frequency/time habit", () => {
       cy.getByData("Meditate").wait(300).click();
 
-      // Submit without input
+      // Shouldn't submit without input
       cy.getByData("btn-submit").click();
       cy.getByData("modal-title");
       cy.getByData("Meditate-drawer-card", false);
 
-      // Submit with invalid input
+      // Shouldn't submit with invalid input
       cy.simpleInput("Meditate", "something");
       cy.getByData("modal-title");
       cy.getByData("Meditate-drawer-card", false);
 
-      // Submit with valid inputs
+      // Should submit with valid inputs
       cy.simpleInput("Meditate", "2", "hours");
       cy.getByData("input-dropdown").select(6);
       cy.getByData("btn-submit").click();
 
-      // Check card drawer content
+      // Drawer has the card with the inputted content
       checkDrawerCard("Meditate", "14 hours / week", "daily");
 
       cy.getByData("btn-calculate").wait(200).click();
 
-      // Check card in grid content
+      // Grid has the card with the inputted content
       checkGridCard("Meditate", "730 hours", "Or a lot of stress reduced!");
 
       // Should be able to update the card
@@ -68,12 +68,12 @@ describe("app", () => {
 
       cy.getByData("btn-update").click();
 
-      // Card should be present in the card grid and contain the updated content
+      // Card on the grid should be updated
       checkGridCard("Meditate", "235 hours", "Or a lot of stress reduced!");
 
       cy.getByData("btn-info").click();
 
-      // Card should be present in the card drawer and contain the updated content
+      // Card on the drawer should be updated
       checkDrawerCard("Meditate", "5 hours / week", "5 times / week");
     });
 
@@ -94,12 +94,12 @@ describe("app", () => {
       cy.simpleInput("Drink Water", "2", "l");
       cy.getByData("btn-submit").click();
 
-      // Card should be present in the card drawer and contain the inputted content
+      // Drawer has the card with the inputted content
       checkDrawerCard("Drink Water", "14L / week", "daily");
 
       cy.getByData("btn-calculate").wait(200).click();
 
-      // Card should be present in the card grid and contain the inputted content
+      // Grid has the card with the inputted content
       checkGridCard("Drink Water", "730L", "Or 14.6M raindrops!");
 
       // Should be able to update the card
@@ -109,12 +109,12 @@ describe("app", () => {
 
       cy.getByData("btn-update").click();
 
-      // Card should be present in the card grid and contain the updated content
+      // Card on the grid should be updated
       checkGridCard("Drink Water", "7.3L", "Or 146K raindrops!");
 
       cy.getByData("btn-info").click();
 
-      // Card should be present in the card drawer and contain the updated content
+      // Card on the drawer should be updated
       checkDrawerCard("Drink Water", "140mL / week", "daily");
     });
   });
