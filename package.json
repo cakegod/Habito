@@ -10,18 +10,18 @@
     "preview": "astro preview",
     "astro": "astro",
     "eslint": "eslint 'src/**/*.{js,astro}'",
-		"e2e": "cypress open"
+    "e2e": "cypress open"
   },
   "dependencies": {
-    "@astrojs/image": "^0.13.0",
-    "@astrojs/react": "^2.0.0",
-    "@astrojs/tailwind": "^3.0.0",
+    "@astrojs/image": "^0.13.1",
+    "@astrojs/react": "^2.0.2",
+    "@astrojs/tailwind": "^3.0.1",
     "@fontsource/nunito": "^4.5.12",
-    "@headlessui/react": "^1.7.7",
+    "@headlessui/react": "^1.7.8",
     "@nanostores/react": "^0.4.1",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "astro": "^2.0.1",
+    "astro": "^2.0.4",
     "daisyui": "^2.49.0",
     "nanoid": "^4.0.0",
     "nanostores": "^0.7.1",
@@ -31,14 +31,14 @@
     "tailwindcss": "^3.2.4"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^5.49.0",
+    "@typescript-eslint/parser": "^5.50.0",
     "astro-compress": "1.1.28",
-    "cypress": "^12.4.0",
-    "eslint": "^8.32.0",
+    "cypress": "^12.4.1",
+    "eslint": "^8.33.0",
     "eslint-plugin-astro": "^0.23.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "prettier": "^2.8.3",
-    "prettier-plugin-astro": "^0.7.2",
+    "prettier-plugin-astro": "^0.8.0",
     "prettier-plugin-tailwindcss": "^0.2.2"
   }
 }
