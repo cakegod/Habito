@@ -19,9 +19,9 @@
           name="selectedOption"
           data-cy="input-dropdown"
         >
-          {#each input.options as option (option[1])}
-            <option value={option[0]}>
-              {option[1]}
+          {#each input.options as [value, name] (name)}
+            <option {value}>
+              {name}
             </option>
           {/each}
         </select>
@@ -44,9 +44,9 @@
           name="selectedOption"
           data-cy="input-select"
         >
-          {#each input.options as option (option[0])}
-            <option value={option[0]}>
-              {option[1]}
+          {#each input.options as [value, name] (name)}
+            <option {value}>
+              {name}
             </option>
           {/each}
         </select>
