@@ -1,6 +1,6 @@
 <script lang="ts">
   import HabitCard from "./HabitCard.svelte";
-  import { habits } from "@stores/habits";
+  import { habits } from "src/stores";
   export let year: number;
 </script>
 

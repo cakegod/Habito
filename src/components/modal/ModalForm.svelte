@@ -2,15 +2,15 @@
   import ModalInputs from "./ModalInputs.svelte";
 
   import type { Habit } from "@data/habits";
-  import { toggleModal, addHabit, deleteHabit, habits } from "@stores/habits";
+  import { modal, habits } from "src/stores";
 
   // Check if the current item exists in the added habits
   $: isPresent = $habits.some((habit) => habit.id === state.id);
   export let habit: Habit;
   let state = habit;
   function handleSubmit(habit: Habit) {
-    toggleModal();
-    setTimeout(() => addHabit({ ...habit, ...state }), 200);
+    modal.toggleOpen();
+    setTimeout(() => habits.add({ ...habit, ...state }), 200);
   }
 </script>
 
@@ -22,7 +22,7 @@
         type="button"
         class="btn-ghost btn grow text-error"
         on:click={() => {
-          toggleModal(), deleteHabit(habit);
+          modal.toggleOpen(), habits.delete(habit);
         }}
         data-cy={"remove-btn"}
       >
@@ -35,7 +35,7 @@
       <button
         type="button"
         class="btn-ghost btn grow"
-        on:click={() => toggleModal()}
+        on:click={modal.toggleOpen}
         data-cy={"cancel-btn"}
       >
         Cancel

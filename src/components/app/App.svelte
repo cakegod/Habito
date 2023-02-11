@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { habits, isModalOpen } from "@stores/habits";
+  import { habits, modal } from "src/stores";
   import HabitsList from "./HabitsList.svelte";
   import HabitsDrawer from "./HabitsDrawer.svelte";
   import HabitsGrid from "./HabitsGrid.svelte";
@@ -58,7 +58,7 @@
       </div>
     {/if}
 
-    {#if $isModalOpen}
+    {#if $modal}
       <Modal />
     {/if}
   </main>

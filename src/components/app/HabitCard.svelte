@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Habit } from "@data/habits";
-  import { toggleModal } from "@stores/habits";
+  import { currentHabit, modal } from "src/stores";
   import {
     formatGenericPerYear,
     formatLiquidPerYear,
@@ -25,12 +25,13 @@
   $: {
     ({ time, frequency, liquid, generic } = inputs);
   }
-  $: console.log(time);
 </script>
 
 <button
   class={`card cursor-pointer gap-1 p-4 ${gradients[index % 4]} w-full`}
-  on:click={() => toggleModal(habit)}
+  on:click={() => {
+    currentHabit.set(habit), modal.toggleOpen();
+  }}
   data-cy={`${habit.name}-grid-card`}
 >
   <div class="flex items-center gap-2 text-xl font-bold uppercase">

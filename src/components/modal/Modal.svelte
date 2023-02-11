@@ -1,6 +1,6 @@
 <script lang="ts">
   import ModalForm from "@components/modal/ModalForm.svelte";
-  import { currentHabit, toggleModal } from "@stores/habits";
+  import { currentHabit, modal } from "src/stores";
   import { fade } from "svelte/transition";
 </script>
 
@@ -9,7 +9,7 @@
     <div class="modal-box flex max-w-md flex-col gap-2">
       <button
         class="btn-sm btn-circle btn absolute right-2 top-2 border-none bg-transparent text-lg"
-        on:click={() => toggleModal()}
+        on:click={modal.toggleOpen}
       >
         ✕
       </button>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { habits, toggleModal } from "@stores/habits";
+  import { currentHabit, habits, modal } from "src/stores";
   import { formatLiquidPerWeek, formatTimePerWeek } from "@util/calculate";
   import { transformToObj } from "@util/transform";
 </script>
@@ -12,7 +12,9 @@
 
     <button
       class="btn flex h-24 max-h-full grow flex-col gap-1 bg-base-100 p-2 normal-case hover:bg-base-300"
-      on:click={() => toggleModal(habit)}
+      on:click={() => {
+        currentHabit.set(habit), modal.toggleOpen();
+      }}
       data-cy={`${habit.name}-drawer-card`}
     >
       <div class="flex text-base">
