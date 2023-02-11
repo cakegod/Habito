@@ -1,9 +1,10 @@
 <script lang="ts">
   import ModalForm from "@components/modal/ModalForm.svelte";
   import { currentHabit, toggleModal } from "@stores/habits";
+  import { fade } from "svelte/transition";
 </script>
 
-<div>
+<div transition:fade>
   <div class="modal modal-open">
     <div class="modal-box flex max-w-md flex-col gap-2">
       <button
@@ -20,5 +21,3 @@
     </div>
   </div>
 </div>
-
-export default Modal;

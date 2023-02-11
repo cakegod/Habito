@@ -9,10 +9,8 @@
   export let habit: Habit;
   let state = habit;
   function handleSubmit(habit: Habit) {
-    // FIXME: Find a better way to handle this bug
-    // Small timeout to prevent seeing the modal changing content
-    setTimeout(() => addHabit({ ...habit, ...state }), 200);
     toggleModal();
+    setTimeout(() => addHabit({ ...habit, ...state }), 200);
   }
 </script>
 
