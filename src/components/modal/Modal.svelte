@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ModalForm from "@components/modal/ModalForm.svelte";
+  import ModalForm from "./ModalForm.svelte";
   import { currentHabit, modal } from "src/stores";
   import { fade } from "svelte/transition";
 </script>

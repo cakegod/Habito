@@ -2,12 +2,12 @@
   import type { Habit } from "@data/habits";
   import { currentHabit, modal } from "src/stores";
   import {
+    generateFunComparaison,
+    transformToObj,
     formatGenericPerYear,
     formatLiquidPerYear,
     formatTimePerYear,
-  } from "@util/calculate";
-  import { generateFunComparaison } from "@util/funComparaison";
-  import { transformToObj } from "@util/transform";
+  } from "@util/index";
 
   const gradients = [
     "bg-gradient-to-r from-sky-400 to-blue-500",

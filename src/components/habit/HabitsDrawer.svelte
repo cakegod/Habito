@@ -1,7 +1,10 @@
 <script lang="ts">
   import { currentHabit, habits, modal } from "src/stores";
-  import { formatLiquidPerWeek, formatTimePerWeek } from "@util/calculate";
-  import { transformToObj } from "@util/transform";
+  import {
+    formatLiquidPerWeek,
+    formatTimePerWeek,
+    transformToObj,
+  } from "@util/index";
 </script>
 
 <div

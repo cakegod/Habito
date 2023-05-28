@@ -1,6 +1,5 @@
 <script lang="ts">
   import ModalInputs from "./ModalInputs.svelte";
-
   import type { Habit } from "@data/habits";
   import { modal, habits } from "src/stores";
 

@@ -1,8 +1,6 @@
 <script lang="ts">
   import { habits, modal } from "src/stores";
-  import HabitsList from "./HabitsList.svelte";
-  import HabitsDrawer from "./HabitsDrawer.svelte";
-  import HabitsGrid from "./HabitsGrid.svelte";
+  import { HabitsGrid, HabitsList, HabitsDrawer } from "@components/habit";
   import Modal from "@components/modal/Modal.svelte";
 
   function handleNext() {
