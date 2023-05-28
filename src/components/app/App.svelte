@@ -41,7 +41,7 @@
           max={99}
           class="input mx-2 w-20 bg-neutral text-center font-bold"
         />
-        year{year > 1 && "s"}, you will achieve:
+        year{year > 1 ? "s" : ""}, you will achieve:
       </h2>
       <HabitsGrid {year} />
       <div class="mt-10 flex w-full items-center justify-center">
