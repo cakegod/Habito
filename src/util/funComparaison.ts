@@ -1,6 +1,7 @@
 import type { HabitsNames, Habit } from "@data/habits";
 import type { InputNames, Inputs } from "@data/inputs";
-import { calculateYearly, CONST } from "@util/calculate";
+import { calculateYearly } from "@util/calculate";
+import { FUN } from "./constants";
 
 type Props = {
   inputs: {
@@ -9,84 +10,92 @@ type Props = {
       : Inputs[Exclude<keyof Inputs, InputNames>];
   };
   year: number;
-  habitName: HabitsNames;
 };
 
-function drinkWater({ inputs, year }: Omit<Props, "habitName">) {
-  const RAIN_DROPS_PER_ML = 20;
-  const rainDropsQuantity =
-    calculateYearly({
-      frequency: "7",
-      dailyValue: inputs.liquid.value,
-      unit: inputs.liquid.selectedOption,
-      year,
-    }) * RAIN_DROPS_PER_ML;
+type HabitFunction = {
+  [key in HabitsNames]: (
+    yearValue: number,
+    year: number,
+    habitName: HabitsNames
+  ) => string;
+};
+
+function calculateGenericYearlyValue({ inputs, year }: Props) {
+  const { generic } = inputs;
+  return calculateYearly({ year, dailyValue: generic.value });
+}
+
+function calculateTimeYearlyValue({ inputs, year }: Props) {
+  const { frequency, time } = inputs;
+  return calculateYearly({
+    frequency: frequency.selectedOption,
+    unit: time.selectedOption,
+    year,
+    dailyValue: time.value,
+  });
+}
+
+function calculateLiquidYearlyValue({ inputs, year }: Props) {
+  const { liquid } = inputs;
+
+  return calculateYearly({
+    dailyValue: liquid.value,
+    unit: liquid.selectedOption,
+    year,
+  });
+}
+
+function calculateYearlyValue(data: Props): number {
+  const {
+    inputs: { liquid, time },
+  } = data;
+
+  if (liquid) {
+    return calculateLiquidYearlyValue(data);
+  } else if (time) {
+    return calculateTimeYearlyValue(data);
+  }
+
+  return calculateGenericYearlyValue(data);
+}
+
+function drinkWater(yearlyValue: number) {
+  const rainDropsQuantity = yearlyValue * FUN.RAIN_DROPS_PER_ML;
 
   return rainDropsQuantity > 1000000
     ? `Or ${Math.round((rainDropsQuantity / 1000000) * 10) / 10}M raindrops!`
     : `Or ${Math.round((rainDropsQuantity / 1000) * 10) / 10}K raindrops!`;
 }
 
-function books({ inputs, year, habitName }: Props) {
-  const AVERAGE_MIN_PER_BOOK_READ = CONST.MINS_PER_HOUR * 15;
-  const AVERAGE_MIN_PER_BOOK_WRITE =
-    CONST.MINS_PER_HOUR * CONST.HOURS_PER_DAY * CONST.DAYS_PER_WEEK;
-  const booksQuantity = Math.round(
-    calculateYearly({
-      frequency: inputs.frequency.selectedOption,
-      dailyValue: inputs.time.value,
-      unit: inputs.time.selectedOption,
-      year,
-    }) /
-      (habitName === "Read"
-        ? AVERAGE_MIN_PER_BOOK_READ
-        : AVERAGE_MIN_PER_BOOK_WRITE)
-  );
+function books(yearlyValue: number, year: number, habitName: HabitsNames) {
+  const booksQuantity =
+    Math.round(yearlyValue) /
+    (habitName === "Read"
+      ? FUN.AVERAGE_MIN_PER_BOOK_READ
+      : FUN.AVERAGE_MIN_PER_BOOK_WRITE);
+
   return `Or ${booksQuantity} book${
     booksQuantity > 1 ? "s" : ""
   } read in ${year} year${year > 1 ? "s" : ""}!`;
 }
 
-function smokeAddiction({ inputs, year }: Omit<Props, "habitName">) {
-  const CIGARETTES_PER_PACK = 20;
-  const PRICE_PER_PACK = 6.5;
-  const priceAnnually = Math.round(
-    (calculateYearly({
-      frequency: "7",
-      dailyValue: inputs.generic.value,
-      unit: "generic",
-      year,
-    }) /
-      CIGARETTES_PER_PACK) *
-      PRICE_PER_PACK
-  );
+function smokeAddiction(yearlyValue: number) {
+  const priceAnnually =
+    Math.round(yearlyValue / FUN.CIGARETTES_PER_PACK) * FUN.PRICE_PER_PACK;
   return `Or $${priceAnnually} saved!`;
 }
 
-function code({ inputs, year }: Omit<Props, "habitName">) {
-  const HOURS_TO_LEARN_LANGUAGE = 1440 * CONST.MINS_PER_HOUR;
-  const languagesLearned = Math.floor(
-    calculateYearly({
-      frequency: inputs.frequency.selectedOption,
-      dailyValue: inputs.time.value,
-      unit: inputs.time.selectedOption,
-      year,
-    }) / HOURS_TO_LEARN_LANGUAGE
-  );
+function code(yearlyValue: number) {
+  const languagesLearned =
+    Math.floor(yearlyValue) / FUN.HOURS_TO_LEARN_LANGUAGE;
+
   return `Or ${languagesLearned} code language${
     languagesLearned > 1 ? "s" : ""
   } learned!`;
 }
 
-function learnLanguage({ inputs, year }: Omit<Props, "habitName">) {
-  const MINS_WORKING_PROFICIENCY = 700 * CONST.MINS_PER_HOUR;
-  const yearlyHours = calculateYearly({
-    frequency: inputs.frequency.selectedOption,
-    dailyValue: inputs.time.value,
-    unit: inputs.time.selectedOption,
-    year,
-  });
-  const percentageAcquired = yearlyHours / MINS_WORKING_PROFICIENCY;
+function learnLanguage(yearlyValue: number) {
+  const percentageAcquired = yearlyValue / FUN.MINS_WORKING_PROFICIENCY;
   const roundedPercentage = Math.round(percentageAcquired * 100);
   return `Or ${roundedPercentage}% the time required to reach professional working proficiency!`;
 }
@@ -100,35 +109,19 @@ export function generateFunComparaison(
   },
   year: number
 ) {
-  return FUN_CALC[habit.name]({
-    inputs,
-    year,
-    habitName: habit.name,
-  });
+  const yearlyValue = calculateYearlyValue({ inputs, year });
+  const habitFunc = habitFunctions[habit.name];
+  return habitFunc(yearlyValue, year, habit.name);
 }
 
-const FUN_CALC: {
-  [key in HabitsNames]: ({
-    inputs,
-    year,
-    habitName,
-  }: {
-    inputs: {
-      [key in InputNames]: key extends keyof Inputs
-        ? Inputs[key]
-        : Inputs[Exclude<keyof Inputs, InputNames>];
-    };
-    year: number;
-    habitName: HabitsNames;
-  }) => string;
-} = {
+const habitFunctions: HabitFunction = {
   Meditate: () => "Or a lot of stress reduced!",
   "Drink Water": drinkWater,
   Code: code,
   Exercise: () => "Or a lot of stress reduced",
   Read: books,
-  "Smartphone": () => "Or a lot of time saved!",
-  "Smoke": smokeAddiction,
+  Smartphone: () => "Or a lot of time saved!",
+  Smoke: smokeAddiction,
   Write: books,
   "Learn Language": learnLanguage,
 };

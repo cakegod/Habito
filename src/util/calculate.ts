@@ -5,6 +5,11 @@ interface Props {
   year: number;
 }
 
+type YearlyProps = Omit<Props, "frequency" | "unit"> & {
+  frequency?: string;
+  unit?: keyof typeof UNITS | number;
+};
+
 export const CONST = {
   MINS_PER_HOUR: 60,
   HOURS_PER_DAY: 24,
@@ -32,7 +37,12 @@ export function calculateDaily({
   return result;
 }
 
-export function calculateYearly({ frequency, dailyValue, unit, year }: Props) {
+export function calculateYearly({
+  frequency = "7",
+  dailyValue,
+  unit = "generic",
+  year,
+}: YearlyProps) {
   const result =
     ((Number(frequency) * Number(dailyValue)) / CONST.DAYS_PER_WEEK) *
     (typeof unit === "string" ? UNITS[unit] : 1);
