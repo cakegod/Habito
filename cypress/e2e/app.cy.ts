@@ -35,7 +35,7 @@ describe("app", () => {
     });
 
     it("allows users to add and update a frequency/time habit", () => {
-      cy.getByData("Meditate").wait(300).click();
+      cy.getByData("Meditate").wait(500).click();
 
       // Shouldn't submit without input
       cy.getByData("btn-submit").click();
