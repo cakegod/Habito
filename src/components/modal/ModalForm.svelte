@@ -4,12 +4,12 @@
   import { modal, habits } from "src/stores";
 
   // Check if the current item exists in the added habits
-  $: isPresent = $habits.some((habit) => habit.id === state.id);
+  $: isPresent = $habits.some((habit) => habit.id === state.id) && $modal;
   export let habit: Habit;
   let state = habit;
   function handleSubmit(habit: Habit) {
     modal.toggleOpen();
-    setTimeout(() => habits.add({ ...habit, ...state }), 200);
+    habits.add({ ...habit, ...state })
   }
 </script>
 
