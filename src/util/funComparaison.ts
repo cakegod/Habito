@@ -1,6 +1,6 @@
 import type { HabitsNames, Habit } from "@data/habits";
 import type { InputNames, Inputs } from "@data/inputs";
-import { calculateYearly } from "@util/calculate";
+import { calculateYearlyMinutes } from "@util/calculate";
 import { FUN } from "./constants";
 
 type Props = {
@@ -22,12 +22,12 @@ type HabitFunction = {
 
 function calculateGenericYearlyValue({ inputs, year }: Props) {
   const { generic } = inputs;
-  return calculateYearly({ year, dailyValue: generic.value });
+  return calculateYearlyMinutes({ year, dailyValue: generic.value });
 }
 
 function calculateTimeYearlyValue({ inputs, year }: Props) {
   const { frequency, time } = inputs;
-  return calculateYearly({
+  return calculateYearlyMinutes({
     frequency: frequency.selectedOption,
     unit: time.selectedOption,
     year,
@@ -38,25 +38,25 @@ function calculateTimeYearlyValue({ inputs, year }: Props) {
 function calculateLiquidYearlyValue({ inputs, year }: Props) {
   const { liquid } = inputs;
 
-  return calculateYearly({
+  return calculateYearlyMinutes({
     dailyValue: liquid.value,
     unit: liquid.selectedOption,
     year,
   });
 }
 
-function calculateYearlyValue(data: Props): number {
+function calculateYearlyValue(args: Props): number {
   const {
     inputs: { liquid, time },
-  } = data;
+  } = args;
 
   if (liquid) {
-    return calculateLiquidYearlyValue(data);
+    return calculateLiquidYearlyValue(args);
   } else if (time) {
-    return calculateTimeYearlyValue(data);
+    return calculateTimeYearlyValue(args);
   }
 
-  return calculateGenericYearlyValue(data);
+  return calculateGenericYearlyValue(args);
 }
 
 function drinkWater(yearlyValue: number) {
@@ -69,10 +69,10 @@ function drinkWater(yearlyValue: number) {
 
 function books(yearlyValue: number, year: number, habitName: HabitsNames) {
   const booksQuantity =
-    Math.round(yearlyValue) /
+    Math.round(yearlyValue /
     (habitName === "Read"
       ? FUN.AVERAGE_MIN_PER_BOOK_READ
-      : FUN.AVERAGE_MIN_PER_BOOK_WRITE);
+      : FUN.AVERAGE_MIN_PER_BOOK_WRITE));
 
   return `Or ${booksQuantity} book${
     booksQuantity > 1 ? "s" : ""
@@ -85,17 +85,16 @@ function smokeAddiction(yearlyValue: number) {
   return `Or $${priceAnnually} saved!`;
 }
 
-function code(yearlyValue: number) {
+function code(minutesPerYear: number) {
   const languagesLearned =
-    Math.floor(yearlyValue) / FUN.HOURS_TO_LEARN_LANGUAGE;
-
-  return `Or ${languagesLearned} code language${
+    Math.round((minutesPerYear / FUN.MINUTES_TO_LEARN_LANGUAGE) * 10) / 10;
+  return `Or ${languagesLearned} programming language${
     languagesLearned > 1 ? "s" : ""
-  } learned!`;
+  } mastered!`;
 }
 
-function learnLanguage(yearlyValue: number) {
-  const percentageAcquired = yearlyValue / FUN.MINS_WORKING_PROFICIENCY;
+function learnLanguage(minutesPerYear: number) {
+  const percentageAcquired = minutesPerYear / FUN.MINS_WORKING_PROFICIENCY;
   const roundedPercentage = Math.round(percentageAcquired * 100);
   return `Or ${roundedPercentage}% the time required to reach professional working proficiency!`;
 }
