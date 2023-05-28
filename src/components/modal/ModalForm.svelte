@@ -22,13 +22,14 @@
         type="button"
         class="btn-ghost btn grow text-error"
         on:click={() => {
-          modal.toggleOpen(), habits.delete(habit);
+          modal.toggleOpen();
+          habits.delete(habit);
         }}
         data-cy={"remove-btn"}
       >
         Remove
       </button>
-      <button class="btn-success btn grow" type="submit" data-cy={"btn-update"}>
+      <button class="btn-success btn grow" type="submit" data-cy="btn-update">
         Update
       </button>
     {:else}
@@ -40,7 +41,7 @@
       >
         Cancel
       </button>
-      <button class="btn-primary btn grow" type="submit" data-cy={"btn-submit"}>
+      <button class="btn-primary btn grow" type="submit" data-cy="btn-submit">
         Add Habit
       </button>
     {/if}

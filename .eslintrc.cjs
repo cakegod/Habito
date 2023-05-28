@@ -26,6 +26,6 @@ module.exports = {
   ],
   parserOptions: {
     sourceType: "module",
-    ecmaVersion: "es2022",
+    ecmaVersion: "latest",
   },
 };
