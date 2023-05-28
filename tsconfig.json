@@ -3,8 +3,6 @@
   "compilerOptions": {
     "types": ["@astrojs/image/client"],
     "isolatedModules": false,
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
@@ -13,5 +11,6 @@
       "@data/*": ["src/data/*"],
       "@util/*": ["src/util/*"]
     }
-  }
+  },
+  "exclude": ["node_modules"]
 }
