@@ -7,7 +7,7 @@
   );
 </script>
 
-<section class="grid w-full grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+<section class="no-animation grid w-full grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
   {#each filteredHabits as habit}
     <button
       class={`btn h-24 flex-col border-none normal-case`}
