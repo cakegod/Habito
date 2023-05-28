@@ -8,6 +8,7 @@
     formatLiquidPerYear,
     formatTimePerYear,
   } from "@util/index";
+  import { slide } from "svelte/transition";
 
   const gradients = [
     "bg-gradient-to-r from-sky-400 to-blue-500",
@@ -28,10 +29,13 @@
 </script>
 
 <button
-  class="card cursor-pointer gap-1 p-4 {gradients[index % 4]} w-full"
+  class="card no-animation cursor-pointer gap-1 p-4 {gradients[
+    index % 4
+  ]} w-full"
   on:click={() => {
     currentHabit.set(habit), modal.toggleOpen();
   }}
+	in:slide={{duration:200}}
   data-cy="{habit.name}-grid-card"
 >
   <div class="flex items-center gap-2 text-xl font-bold uppercase">
