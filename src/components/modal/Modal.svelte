@@ -4,7 +4,7 @@
   import { fade } from "svelte/transition";
 </script>
 
-<div transition:fade>
+<div out:fade={{duration: 200}}>
   <div class="modal modal-open">
     <div class="modal-box flex max-w-md flex-col gap-2">
       <button
