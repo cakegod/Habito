@@ -25,7 +25,7 @@
           modal.toggleOpen();
           habits.delete(habit);
         }}
-        data-cy={"remove-btn"}
+        data-cy="remove-btn"
       >
         Remove
       </button>
@@ -37,7 +37,7 @@
         type="button"
         class="btn-ghost btn grow"
         on:click={modal.toggleOpen}
-        data-cy={"cancel-btn"}
+        data-cy="cancel-btn"
       >
         Cancel
       </button>

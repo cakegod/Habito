@@ -13,7 +13,7 @@
       >
         ✕
       </button>
-      <h2 class="flex items-center text-xl font-bold" data-cy={"modal-title"}>
+      <h2 class="flex items-center text-xl font-bold" data-cy="modal-title">
         <span class="pr-2 text-2xl">{$currentHabit.icon}</span>
         {$currentHabit.name}
       </h2>

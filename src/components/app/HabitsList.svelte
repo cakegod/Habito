@@ -13,7 +13,8 @@
       class={`btn h-24 flex-col border-none normal-case`}
       data-cy={habit.name}
       on:click={() => {
-        currentHabit.set(habit), modal.toggleOpen();
+        currentHabit.set(habit);
+        modal.toggleOpen();
       }}
     >
       <span class="flex grow items-center text-lg">{habit.icon}</span>

@@ -28,11 +28,11 @@
 </script>
 
 <button
-  class={`card cursor-pointer gap-1 p-4 ${gradients[index % 4]} w-full`}
+  class="card cursor-pointer gap-1 p-4 {gradients[index % 4]} w-full"
   on:click={() => {
     currentHabit.set(habit), modal.toggleOpen();
   }}
-  data-cy={`${habit.name}-grid-card`}
+  data-cy="{habit.name}-grid-card"
 >
   <div class="flex items-center gap-2 text-xl font-bold uppercase">
     <span class="text-base">{habit.icon}</span>
@@ -54,10 +54,11 @@
         year,
       })}
     {:else if generic}
-      {`${formatGenericPerYear({
+      {formatGenericPerYear({
         dailyValue: Number(generic.value),
         year,
-      })} ${generic.options[0] !== undefined && generic.options[0][1]}`}
+      })}
+      {generic.options[0] && generic.options[0][1]}
     {/if}
   </p>
 
