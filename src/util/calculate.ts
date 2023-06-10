@@ -1,6 +1,6 @@
 import { CONST, UNITS } from "./constants";
 
-type Props = {
+export type CalculatorProps = {
   frequency?: string | number;
   dailyValue: string | number;
   unit?: keyof typeof UNITS | number;
@@ -17,7 +17,7 @@ export class Calculator {
     dailyValue,
     unit = "generic",
     year = 1,
-  }: Props) {
+  }: CalculatorProps) {
     this.#frequency = Number(frequency);
     this.#dailyValue = Number(dailyValue);
     this.#unitValue = typeof unit === "string" ? UNITS[unit] : 1;
@@ -40,6 +40,10 @@ export class Calculator {
 
   get yearlyHours() {
     return Math.round(this.yearlyMinutes / CONST.MINUTES_PER_HOUR);
+  }
+
+  set year(value: number) {
+    this.#year = value;
   }
 }
 
@@ -72,7 +76,7 @@ export class Formatter {
 
   #formatLiquidString(milliliters: number) {
     return milliliters >= 1000
-      ? `${this.#toLiters(milliliters) / 10}L`
+      ? `${this.#toLiters(milliliters)}L`
       : `${milliliters}mL`;
   }
 
@@ -81,6 +85,6 @@ export class Formatter {
   }
 }
 
-export function createFormatter(props: Props) {
+export function createFormatter(props: CalculatorProps) {
   return new Formatter(new Calculator(props));
 }
