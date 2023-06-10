@@ -8,25 +8,25 @@ type Props = {
 };
 
 export class Calculator {
-  frequency;
-  dailyValue;
-  unit;
-  year;
+  #frequency;
+  #dailyValue;
+  #unit;
+  #year;
   constructor({
     frequency = 1,
     dailyValue,
     unit = "generic",
     year = 1,
   }: Props) {
-    this.frequency = frequency;
-    this.dailyValue = dailyValue;
-    this.unit = unit;
-    this.year = year;
+    this.#frequency = frequency;
+    this.#dailyValue = dailyValue;
+    this.#unit = unit;
+    this.#year = year;
   }
 
   get dailyMinutes() {
-    const valuePerWeek = Number(this.frequency) * Number(this.dailyValue);
-    const unitValue = typeof this.unit === "string" ? UNITS[this.unit] : 1;
+    const valuePerWeek = Number(this.#frequency) * Number(this.#dailyValue);
+    const unitValue = typeof this.#unit === "string" ? UNITS[this.#unit] : 1;
     return Math.floor((valuePerWeek / CONST.DAYS_PER_WEEK) * unitValue);
   }
 
@@ -35,7 +35,7 @@ export class Calculator {
   }
 
   get yearlyMinutes() {
-    return this.dailyMinutes * CONST.DAYS_PER_YEAR * this.year;
+    return this.dailyMinutes * CONST.DAYS_PER_YEAR * this.#year;
   }
 
   get yearlyHours() {
@@ -63,14 +63,14 @@ export class Formatter {
   }
 
   get liquidPerYear() {
-    return this.#processLiquidString(this.#calculator.yearlyMinutes);
+    return this.#formatLiquidString(this.#calculator.yearlyMinutes);
   }
 
   get liquidPerWeek() {
-    return this.#processLiquidString(this.#calculator.weeklyMinutes);
+    return this.#formatLiquidString(this.#calculator.weeklyMinutes);
   }
 
-  #processLiquidString(milliliters: number) {
+  #formatLiquidString(milliliters: number) {
     return milliliters >= 1000
       ? `${this.#toLiters(milliliters) / 10}L`
       : `${milliliters}mL`;
