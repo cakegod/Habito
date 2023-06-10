@@ -10,7 +10,7 @@ type Props = {
 export class Calculator {
   #frequency;
   #dailyValue;
-  #unit;
+  #unitValue;
   #year;
   constructor({
     frequency = 1,
@@ -18,16 +18,16 @@ export class Calculator {
     unit = "generic",
     year = 1,
   }: Props) {
-    this.#frequency = frequency;
-    this.#dailyValue = dailyValue;
-    this.#unit = unit;
+    this.#frequency = Number(frequency);
+    this.#dailyValue = Number(dailyValue);
+    this.#unitValue = typeof unit === "string" ? UNITS[unit] : 1;
     this.#year = year;
   }
 
   get dailyMinutes() {
-    const valuePerWeek = Number(this.#frequency) * Number(this.#dailyValue);
-    const unitValue = typeof this.#unit === "string" ? UNITS[this.#unit] : 1;
-    return Math.floor((valuePerWeek / CONST.DAYS_PER_WEEK) * unitValue);
+    const valuePerWeek = this.#frequency * this.#dailyValue * this.#unitValue;
+    const valuePerDay = valuePerWeek / CONST.DAYS_PER_WEEK;
+    return Math.floor(valuePerDay);
   }
 
   get weeklyMinutes() {
