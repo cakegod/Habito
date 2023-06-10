@@ -78,7 +78,7 @@ describe("app", () => {
     });
 
     it("allows users to add and update a liquid habit", () => {
-      cy.getByData("Drink Water").wait(200).click();
+      cy.getByData("Drink Water").wait(400).click();
 
       // Shouldn't submit without input
       cy.getByData("btn-submit").click();
@@ -97,13 +97,13 @@ describe("app", () => {
       // Drawer has the card with the inputted content
       checkDrawerCard("Drink Water", "14L / week", "daily");
 
-      cy.getByData("btn-calculate").wait(200).click();
+      cy.getByData("btn-calculate").wait(700).click();
 
       // Grid has the card with the inputted content
       checkGridCard("Drink Water", "730L", "Or 14.6M raindrops!");
 
       // Should be able to update the card
-      cy.getByData("Drink Water-grid-card").wait(200).click();
+      cy.getByData("Drink Water-grid-card").wait(700).click();
       cy.getByData("input").clear();
       cy.simpleInput("Drink Water", "20", "ml");
 
