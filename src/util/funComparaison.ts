@@ -1,6 +1,6 @@
 import type { HabitsNames, Habit } from "@data/habits";
 import type { InputNames, Inputs } from "@data/inputs";
-import { calculateYearlyMinutes } from "@util/calculate";
+import { Calculator } from "@util/calculate";
 import { FUN } from "./constants";
 
 type Props = {
@@ -22,27 +22,27 @@ type HabitFunction = {
 
 function calculateGenericYearlyValue({ inputs, year }: Props) {
   const { generic } = inputs;
-  return calculateYearlyMinutes({ year, dailyValue: generic.value });
+  return new Calculator({ year, dailyValue: generic.value }).yearlyHours;
 }
 
 function calculateTimeYearlyValue({ inputs, year }: Props) {
   const { frequency, time } = inputs;
-  return calculateYearlyMinutes({
+  return new Calculator({
     frequency: frequency.selectedOption,
     unit: time.selectedOption,
     year,
     dailyValue: time.value,
-  });
+  }).yearlyHours;
 }
 
 function calculateLiquidYearlyValue({ inputs, year }: Props) {
   const { liquid } = inputs;
 
-  return calculateYearlyMinutes({
+  return new Calculator({
     dailyValue: liquid.value,
     unit: liquid.selectedOption,
     year,
-  });
+  }).yearlyHours;
 }
 
 function calculateYearlyValue(args: Props): number {
@@ -68,11 +68,12 @@ function drinkWater(yearlyValue: number) {
 }
 
 function books(yearlyValue: number, year: number, habitName: HabitsNames) {
-  const booksQuantity =
-    Math.round(yearlyValue /
-    (habitName === "Read"
-      ? FUN.AVERAGE_MIN_PER_BOOK_READ
-      : FUN.AVERAGE_MIN_PER_BOOK_WRITE));
+  const booksQuantity = Math.round(
+    yearlyValue /
+      (habitName === "Read"
+        ? FUN.AVERAGE_MIN_PER_BOOK_READ
+        : FUN.AVERAGE_MIN_PER_BOOK_WRITE)
+  );
 
   return `Or ${booksQuantity} book${
     booksQuantity > 1 ? "s" : ""

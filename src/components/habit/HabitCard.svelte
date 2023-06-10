@@ -4,9 +4,7 @@
   import {
     generateFunComparaison,
     transformToObj,
-    formatGenericPerYear,
-    formatLiquidPerYear,
-    formatTimePerYear,
+    createFormatter,
   } from "@util/index";
   import { slide } from "svelte/transition";
 
@@ -35,7 +33,7 @@
   on:click={() => {
     currentHabit.set(habit), modal.toggleOpen();
   }}
-	in:slide={{duration:200}}
+  in:slide={{ duration: 200 }}
   data-cy="{habit.name}-grid-card"
 >
   <div class="flex items-center gap-2 text-xl font-bold uppercase">
@@ -45,23 +43,23 @@
 
   <p class="text-3xl font-bold text-base-300">
     {#if time && frequency}
-      {formatTimePerYear({
+      {createFormatter({
         frequency: frequency.selectedOption,
         dailyValue: Number(time.value),
         unit: time.selectedOption,
         year,
-      })}
+      }).hoursPerYear}
     {:else if liquid}
-      {formatLiquidPerYear({
+      {createFormatter({
         dailyValue: Number(liquid.value),
         unit: liquid.selectedOption,
         year,
-      })}
+      }).liquidPerYear}
     {:else if generic}
-      {formatGenericPerYear({
+      {createFormatter({
         dailyValue: Number(generic.value),
         year,
-      })}
+      }).hoursPerYear}
       {generic.options[0] && generic.options[0][1]}
     {/if}
   </p>
