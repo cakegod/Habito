@@ -12,7 +12,7 @@ describe("calculate", () => {
   });
 
   test("yearly minutes ", () => {
-    expect(calculator.yearMinutes).toBe(15330);
+    expect(calculator.yearlyMinutes).toBe(15330);
   });
 
   test("yearly hours", () => {
