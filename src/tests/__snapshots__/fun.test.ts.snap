@@ -1,0 +1,133 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`habits > test 1`] = `
+{
+  "avoid": false,
+  "icon": "🧘‍♀️",
+  "id": Any<String>,
+  "inputs": [
+    InputGroup {
+      "inputCategory": "inputGroup",
+      "label": "Time spent",
+      "name": "time",
+      "options": [
+        [
+          "minutes",
+          "minutes",
+        ],
+        [
+          "hours",
+          "hours",
+        ],
+      ],
+      "placeholder": "5",
+      "selectedOption": "minutes",
+      "type": "number",
+      "value": "",
+    },
+    InputBase {
+      "inputCategory": "inputSelect",
+      "label": "Time spent",
+      "name": "frequency",
+      "options": [
+        [
+          1,
+          "1 time per week",
+        ],
+        [
+          2,
+          "2 times per week",
+        ],
+        [
+          3,
+          "3 times per week",
+        ],
+        [
+          4,
+          "4 times per week",
+        ],
+        [
+          5,
+          "5 times per week",
+        ],
+        [
+          6,
+          "6 times per week",
+        ],
+        [
+          7,
+          "Every day 🚀",
+        ],
+      ],
+      "selectedOption": 3,
+      "type": "number",
+      "value": "",
+    },
+  ],
+  "name": "Meditate",
+}
+`;
+
+exports[`habits > test 2`] = `
+{
+  "frequency": InputBase {
+    "inputCategory": "inputSelect",
+    "label": "Time spent",
+    "name": "frequency",
+    "options": [
+      [
+        1,
+        "1 time per week",
+      ],
+      [
+        2,
+        "2 times per week",
+      ],
+      [
+        3,
+        "3 times per week",
+      ],
+      [
+        4,
+        "4 times per week",
+      ],
+      [
+        5,
+        "5 times per week",
+      ],
+      [
+        6,
+        "6 times per week",
+      ],
+      [
+        7,
+        "Every day 🚀",
+      ],
+    ],
+    "selectedOption": 3,
+    "type": "number",
+    "value": "",
+  },
+  "time": InputGroup {
+    "inputCategory": "inputGroup",
+    "label": "Time spent",
+    "name": "time",
+    "options": [
+      [
+        "minutes",
+        "minutes",
+      ],
+      [
+        "hours",
+        "hours",
+      ],
+    ],
+    "placeholder": "5",
+    "selectedOption": "minutes",
+    "type": "number",
+    "value": "",
+  },
+}
+`;
+
+exports[`habits > test 3`] = `"minutes"`;

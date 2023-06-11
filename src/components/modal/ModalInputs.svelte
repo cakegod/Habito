@@ -25,7 +25,7 @@
             </option>
           {/each}
         </select>
-      {:else if input.inputCategory === "inputGroup"}
+      {:else if input.inputCategory === "inputGroup" && "placeholder" in input}
         <input
           type="number"
           required

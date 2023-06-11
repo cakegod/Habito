@@ -1,124 +1,124 @@
+import type { UNITS } from "@util/constants";
+
 // HELPER
-type GetPropValues<T, B extends keyof T[keyof T]> = T[keyof T][B];
 
-function createInputBase<Name extends string>(
-  name: Name,
-  label: string,
-  value: string = "",
-  type: "number" | "text" = "number"
-) {
-  return { name, label, value, type };
-}
-
-function createInputGroup<
-  Name extends string,
-  Option extends string,
-  SelectedOption extends Option
->(
-  name: Name,
-  label: string,
-  placeholder: string,
-  options: [Option, string][],
-  selectedOption: SelectedOption
-): {
-  name: Name;
+export class InputBase {
+  name: string;
   label: string;
   value: string;
   type: "number" | "text";
-} & {
-  inputCategory: "inputGroup";
+  options: [string | number, string][];
+  selectedOption: keyof typeof UNITS | number;
+  inputCategory: InputCategory;
+
+  constructor({
+    name,
+    label,
+    value = "",
+    type = "number",
+    options,
+    selectedOption,
+    inputCategory = "inputSelect",
+  }: {
+    name: string;
+    label: string;
+    value?: string;
+    type?: "number" | "text";
+    options: [string | number, string][];
+    selectedOption: keyof typeof UNITS | number;
+    inputCategory?: InputCategory;
+  }) {
+    this.name = name;
+    this.label = label;
+    this.value = value;
+    this.type = type;
+    this.options = options;
+    this.selectedOption = selectedOption;
+    this.inputCategory = inputCategory;
+  }
+
+  // get unit() {
+  //   return this.selectedOption;
+  // }
+}
+
+export class InputGroup extends InputBase {
   placeholder: string;
-  options: [Option, string][];
-  selectedOption: Option;
-} {
-  return Object.assign({}, createInputBase(name, label), {
-    inputCategory: "inputGroup" as const,
-    placeholder,
-    options,
-    selectedOption,
-  });
+
+  constructor(
+    name: string,
+    label: string,
+    placeholder: string,
+    options: [string, string][],
+    selectedOption: keyof typeof UNITS
+  ) {
+    super({
+      name,
+      label,
+      options,
+      selectedOption,
+      inputCategory: "inputGroup",
+    });
+    this.placeholder = placeholder;
+  }
 }
 
-function createInputSelect<
-  Name extends string,
-  Option extends string,
-  SelectedOption extends Option
->(
-  name: Name,
-  label: string,
-  options: [Option, string][],
-  selectedOption: SelectedOption
-): {
-  name: Name;
-  label: string;
-  value: string;
-  type: "number" | "text";
-} & {
-  inputCategory: "inputSelect";
-  options: [Option, string][];
-  selectedOption: Option;
-} {
-  return Object.assign({}, createInputBase(name, label), {
-    inputCategory: "inputSelect" as const,
-    options,
-    selectedOption,
-  });
-}
-
-export type InputGroup = ReturnType<typeof createInputGroup>;
-export type InputSelect = ReturnType<typeof createInputSelect>;
-export type Input = (typeof inputs)[keyof typeof inputs];
-export type Inputs = typeof inputs
-export type InputNames = GetPropValues<typeof inputs, "name">;
-export type InputCategory = GetPropValues<typeof inputs, "inputCategory">;
+export type Input = InputGroup | InputBase;
+export type Inputs = typeof inputs;
+export type InputCategory = "inputSelect" | "inputGroup";
 
 export const inputs = {
-  liquid: createInputGroup(
-    "liquid",
-    "Liquid Drank per day",
-    "50",
-    [
-      ["ml", "ml"],
-      ["l", "l"],
-    ],
-    "ml"
-  ),
-  time: createInputGroup(
-    "time",
-    "Time spent",
-    "5",
-    [
-      ["minutes", "minutes"],
-      ["hours", "hours"],
-    ],
-    "minutes"
-  ),
-  frequency: createInputSelect(
-    "frequency",
-    "Time spent",
-    [
-      ["1", "1 time per week"],
-      ["2", "2 times per week"],
-      ["3", "3 times per week"],
-      ["4", "4 times per week"],
-      ["5", "5 times per week"],
-      ["6", "6 times per week"],
-      ["7", "Every day 🚀"],
-    ],
-    "3"
-  ),
-  cigarettes: createInputGroup(
-    "generic",
-    "Cigarettes you want to avoid per day",
-    "1",
-    [["generic", "cigarettes"]],
-    "generic"
-  ),
-  smartphone: createInputGroup(
-    "generic",
-    "Hours to avoid per day",
-    "1",
-    [["generic", "hours"]],
-    "generic"
-  ),
+  liquid: () =>
+    new InputGroup(
+      "liquid",
+      "Liquid Drank per day",
+      "50",
+      [
+        ["ml", "ml"],
+        ["l", "l"],
+      ],
+      "ml"
+    ),
+  time: () =>
+    new InputGroup(
+      "time",
+      "Time spent",
+      "5",
+      [
+        ["minutes", "minutes"],
+        ["hours", "hours"],
+      ],
+      "minutes"
+    ),
+  frequency: () =>
+    new InputBase({
+      name: "frequency",
+      label: "Time spent",
+      options: [
+        [1, "1 time per week"],
+        [2, "2 times per week"],
+        [3, "3 times per week"],
+        [4, "4 times per week"],
+        [5, "5 times per week"],
+        [6, "6 times per week"],
+        [7, "Every day 🚀"],
+      ],
+      selectedOption: 3,
+    }),
+  cigarettes: () =>
+    new InputGroup(
+      "generic",
+      "Cigarettes you want to avoid per day",
+      "1",
+      [["generic", "cigarettes"]],
+      "generic"
+    ),
+  smartphone: () =>
+    new InputGroup(
+      "generic",
+      "Hours to avoid per day",
+      "1",
+      [["generic", "hours"]],
+      "generic"
+    ),
 };

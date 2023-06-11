@@ -10,7 +10,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "eslint": "eslint 'src/**/*.{js,astro}'",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@astrojs/image": "^0.16.9",

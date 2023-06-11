@@ -9,7 +9,7 @@
   let state = habit;
   function handleSubmit(habit: Habit) {
     modal.toggleOpen();
-    habits.add({ ...habit, ...state })
+    habits.add(habit)
   }
 </script>
 

@@ -1,11 +1,7 @@
 <script lang="ts">
   import type { Habit } from "@data/habits";
   import { currentHabit, modal } from "src/stores";
-  import {
-    generateFunComparaison,
-    transformToObj,
-    createFormatter,
-  } from "@util/index";
+  import { generateFunComparaison, createFormatter } from "@util/index";
   import { slide } from "svelte/transition";
 
   const gradients = [
@@ -18,9 +14,9 @@
   export let year: number;
   export let index: number;
   export let habit: Habit;
-  let inputs = transformToObj(habit.inputs);
+  let inputs = habit.inputNames;
   let { time, frequency, liquid, generic } = inputs;
-  $: inputs = transformToObj(habit.inputs);
+  $: inputs = habit.inputNames;
   $: {
     ({ time, frequency, liquid, generic } = inputs);
   }

@@ -1,18 +1,18 @@
 ---
 import { HabitCard } from "@components/habit";
-import { habitsData, HabitsNames } from "@data/habits";
+import { habitsData } from "@data/habits";
 import Layout from "@layouts/Layout.astro";
 
-function getData(habitName: HabitsNames) {
+function getData(habitName: string) {
   const habit = habitsData.find((habit) => habit.name === habitName)!;
-  return {
-    ...habit,
-    inputs: habit.inputs.map((input) =>
-      input.name === "time" || input.name === "liquid"
-        ? { ...input, value: String(Math.random() * 1000) }
-        : input
-    ),
-  };
+
+  const input = habit.inputs.find(
+    (input) => input.name === "time" || input.name === "liquid"
+  )!;
+
+  input.value = String(Math.random() * 1000);
+
+  return habit;
 }
 
 const medidate = getData("Meditate");

@@ -20,7 +20,7 @@ export class Calculator {
   }: CalculatorProps) {
     this.#frequency = Number(frequency);
     this.#dailyValue = Number(dailyValue);
-    this.#unitValue = typeof unit === "string" ? UNITS[unit] : 1;
+    this.#unitValue = typeof unit === "number" ? unit : UNITS[unit];
     this.#year = year;
   }
 
