@@ -3,10 +3,9 @@
 
   // Check if the current item exists in the added habits
   export let habit: Habit;
-  let state = habit;
 </script>
 
-{#each state.inputs as input}
+{#each habit.inputs as input}
   <div class="form-control">
     <div class="label">
       <span class="label-text">{input.label}</span>

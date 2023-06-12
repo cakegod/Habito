@@ -5,8 +5,8 @@ import { describe, expect, test } from "vitest";
 describe("habits", () => {
   test("test", () => {
     const habit = createHabit("Meditate", "🧘‍♀️", [
-      inputs.time,
-      inputs.frequency,
+      inputs.time(),
+      inputs.frequency(),
     ]);
     expect(habit.rawData()).toMatchSnapshot({
       id: expect.any(String),

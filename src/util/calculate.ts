@@ -12,6 +12,7 @@ export class Calculator {
   #dailyValue;
   #unitValue;
   #year;
+
   constructor({
     frequency = 1,
     dailyValue,
@@ -49,6 +50,7 @@ export class Calculator {
 
 export class Formatter {
   #calculator: Calculator;
+
   constructor(calculator: Calculator) {
     this.#calculator = calculator;
   }
