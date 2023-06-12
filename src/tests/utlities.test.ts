@@ -29,10 +29,10 @@ describe("calculate", () => {
   test("yearly hours", () => {
     expect(calculator.yearlyHours).toBe(256);
 
-    calculator.year = 2;
+    calculator.years = 2;
     expect(calculator.yearlyHours).toBe(511);
 
-    calculator.year = 20;
+    calculator.years = 20;
     expect(calculator.yearlyHours).toBe(5110);
   });
 });

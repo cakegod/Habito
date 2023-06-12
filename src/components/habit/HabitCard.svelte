@@ -11,7 +11,7 @@
     "bg-gradient-to-r from-orange-600 to-orange-500",
   ];
 
-  export let year: number;
+  export let years: number;
   export let index: number;
   export let habit: Habit;
   let inputs = habit.inputNames;
@@ -43,24 +43,24 @@
         frequency: frequency.selectedOption,
         dailyValue: Number(time.value),
         unit: time.selectedOption,
-        year,
+        years,
       }).hoursPerYear}
     {:else if liquid}
       {createFormatter({
         dailyValue: Number(liquid.value),
         unit: liquid.selectedOption,
-        year,
+        years,
       }).liquidPerYear}
     {:else if generic}
       {createFormatter({
         dailyValue: Number(generic.value),
-        year,
+        years,
       }).hoursPerYear}
       {generic.options[0] && generic.options[0][1]}
     {/if}
   </p>
 
   <p class="text-start text-sm text-base-300">
-    {generateFunComparaison(habit, inputs, year)}
+    {generateFunComparaison({habit, inputs, years})}
   </p>
 </button>

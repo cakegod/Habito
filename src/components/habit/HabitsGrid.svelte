@@ -4,7 +4,7 @@
   import { habits } from "src/stores";
   import type { Habit } from "@data/habits";
 
-  export let year: number;
+  export let years: number;
 
   let cloneHabits = [...$habits];
   let habitList: Habit[] = [];
@@ -24,6 +24,6 @@
 
 <section class="grid w-full grid-cols-[repeat(2,_minmax(150px,_300px))] gap-2">
   {#each habitList as habit, index (index)}
-      <HabitCard {habit} {index} {year} />
+      <HabitCard {habit} {index} {years} />
   {/each}
 </section>

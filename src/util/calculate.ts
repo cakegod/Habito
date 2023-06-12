@@ -4,25 +4,25 @@ export type CalculatorProps = {
   frequency?: string | number;
   dailyValue: string | number;
   unit?: keyof typeof UNITS | number;
-  year?: number;
+  years?: number;
 };
 
 export class Calculator {
   #frequency;
   #dailyValue;
   #unitValue;
-  #year;
+  #years;
 
   constructor({
     frequency = 1,
     dailyValue,
     unit = "generic",
-    year = 1,
+    years = 1,
   }: CalculatorProps) {
     this.#frequency = Number(frequency);
     this.#dailyValue = Number(dailyValue);
     this.#unitValue = typeof unit === "number" ? unit : UNITS[unit];
-    this.#year = year;
+    this.#years = years;
   }
 
   get dailyMinutes() {
@@ -36,15 +36,15 @@ export class Calculator {
   }
 
   get yearlyMinutes() {
-    return this.dailyMinutes * CONST.DAYS_PER_YEAR * this.#year;
+    return this.dailyMinutes * CONST.DAYS_PER_YEAR * this.#years;
   }
 
   get yearlyHours() {
     return Math.round(this.yearlyMinutes / CONST.MINUTES_PER_HOUR);
   }
 
-  set year(value: number) {
-    this.#year = value;
+  set years(value: number) {
+    this.#years = value;
   }
 }
 

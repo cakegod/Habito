@@ -1,4 +1,4 @@
-import { Input, inputs as input } from "./inputs";
+import { Input, InputNames, inputs as input } from "./inputs";
 import { nanoid } from "nanoid";
 
 export function createHabit(
@@ -35,9 +35,9 @@ export class Habit {
 
   get inputNames() {
     return this.data.inputs.reduce((acc, curr) => {
-      acc[curr.name] = curr;
+      acc[curr.name as InputNames] = curr;
       return acc;
-    }, {} as { [key in string]: Input });
+    }, {} as { [key in InputNames]: Input });
   }
 
   get unit() {

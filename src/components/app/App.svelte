@@ -12,7 +12,7 @@
   }
 
   let index: 0 | 1 = 0;
-  let year = 1;
+  let years = 1;
 </script>
 
 <div class="w-full max-w-xl grow">
@@ -36,14 +36,14 @@
         In
         <input
           type="number"
-          bind:value={year}
+          bind:value={years}
           min={1}
           max={99}
           class="input mx-2 w-20 bg-neutral text-center font-bold"
         />
-        year{year > 1 ? "s" : ""}, you will achieve:
+        year{years > 1 ? "s" : ""}, you will achieve:
       </h2>
-      <HabitsGrid {year} />
+      <HabitsGrid {years} />
       <div class="mt-10 flex w-full items-center justify-center">
         <button
           class="btn-info btn-lg btn text-center"

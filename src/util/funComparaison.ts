@@ -7,7 +7,7 @@ type Props = {
   inputs: {
     [key in InputNames]: Input;
   };
-  year: number;
+  years: number;
 };
 
 type HabitData = {
@@ -15,28 +15,28 @@ type HabitData = {
   years: number;
 };
 
-export function calculateGenericYearlyValue({ inputs, year }: Props) {
+export function calculateGenericYearlyValue({ inputs, years }: Props) {
   const { generic } = inputs;
-  return new Calculator({ year, dailyValue: generic.value }).yearlyHours;
+  return new Calculator({ years, dailyValue: generic.value }).yearlyHours;
 }
 
-export function calculateTimeYearlyValue({ inputs, year }: Props) {
+export function calculateTimeYearlyValue({ inputs, years }: Props) {
   const { frequency, time } = inputs;
   return new Calculator({
     frequency: frequency.selectedOption,
     unit: time.selectedOption,
-    year,
+    years,
     dailyValue: time.value,
   }).yearlyHours;
 }
 
-export function calculateLiquidYearlyValue({ inputs, year }: Props) {
+export function calculateLiquidYearlyValue({ inputs, years }: Props) {
   const { liquid } = inputs;
 
   return new Calculator({
     dailyValue: liquid.value,
     unit: liquid.selectedOption,
-    year,
+    years,
   }).yearlyHours;
 }
 
@@ -143,20 +143,17 @@ class LearnLanguage extends FunComparaison {
   }
 }
 
-export function generateFunComparaison(
-  habit: Habit,
+export function generateFunComparaison(data: {
+  habit: Habit;
   inputs: {
     [key in InputNames]: Input;
-  },
-  year: number
-) {
-  const yearlyValue = calculateYearlyValue({
-    inputs,
-    year,
-  });
+  };
+  years: number;
+}) {
+  const yearlyValue = calculateYearlyValue(data);
   const funComparaison = funComparaisons[
-    habit.name as keyof typeof funComparaisons
-  ]({ yearlyValue, years: year });
+    data.habit.name as keyof typeof funComparaisons
+  ]({ ...data, yearlyValue });
 
   if (!funComparaison) throw new Error("Habit");
 
