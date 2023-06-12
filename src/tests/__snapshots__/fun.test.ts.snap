@@ -1,5 +1,131 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`fun comparaisons > snapshots 1`] = `"Or a lot of stress reduced!"`;
+
+exports[`fun comparaisons > snapshots 2`] = `"Or 2K raindrops!"`;
+
+exports[`fun comparaisons > snapshots 3`] = `"Or 0 programming language mastered!"`;
+
+exports[`fun comparaisons > snapshots 4`] = `"Or a lot of stress reduced"`;
+
+exports[`fun comparaisons > snapshots 5`] = `"Or 0 book read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 6`] = `"Or a lot of time saved!"`;
+
+exports[`fun comparaisons > snapshots 7`] = `"Or $32.5 saved!"`;
+
+exports[`fun comparaisons > snapshots 8`] = `"Or 0 book read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 9`] = `"Or 0% the time required to reach professional working proficiency!"`;
+
+exports[`fun comparaisons > snapshots 10`] = `"Or a lot of stress reduced!"`;
+
+exports[`fun comparaisons > snapshots 11`] = `"Or 16K raindrops!"`;
+
+exports[`fun comparaisons > snapshots 12`] = `"Or 0 programming language mastered!"`;
+
+exports[`fun comparaisons > snapshots 13`] = `"Or a lot of stress reduced"`;
+
+exports[`fun comparaisons > snapshots 14`] = `"Or 1 book read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 15`] = `"Or a lot of time saved!"`;
+
+exports[`fun comparaisons > snapshots 16`] = `"Or $260 saved!"`;
+
+exports[`fun comparaisons > snapshots 17`] = `"Or 0 book read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 18`] = `"Or 2% the time required to reach professional working proficiency!"`;
+
+exports[`fun comparaisons > snapshots 19`] = `"Or a lot of stress reduced!"`;
+
+exports[`fun comparaisons > snapshots 20`] = `"Or 157.8K raindrops!"`;
+
+exports[`fun comparaisons > snapshots 21`] = `"Or 0.1 programming language mastered!"`;
+
+exports[`fun comparaisons > snapshots 22`] = `"Or a lot of stress reduced"`;
+
+exports[`fun comparaisons > snapshots 23`] = `"Or 9 books read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 24`] = `"Or a lot of time saved!"`;
+
+exports[`fun comparaisons > snapshots 25`] = `"Or $2567.5 saved!"`;
+
+exports[`fun comparaisons > snapshots 26`] = `"Or 1 book read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 27`] = `"Or 19% the time required to reach professional working proficiency!"`;
+
+exports[`fun comparaisons > snapshots 28`] = `"Or a lot of stress reduced!"`;
+
+exports[`fun comparaisons > snapshots 29`] = `"Or 111.1K raindrops!"`;
+
+exports[`fun comparaisons > snapshots 30`] = `"Or 0.1 programming language mastered!"`;
+
+exports[`fun comparaisons > snapshots 31`] = `"Or a lot of stress reduced"`;
+
+exports[`fun comparaisons > snapshots 32`] = `"Or 6 books read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 33`] = `"Or a lot of time saved!"`;
+
+exports[`fun comparaisons > snapshots 34`] = `"Or $1807 saved!"`;
+
+exports[`fun comparaisons > snapshots 35`] = `"Or 1 book read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 36`] = `"Or 13% the time required to reach professional working proficiency!"`;
+
+exports[`fun comparaisons > snapshots 37`] = `"Or a lot of stress reduced!"`;
+
+exports[`fun comparaisons > snapshots 38`] = `"Or 133.3K raindrops!"`;
+
+exports[`fun comparaisons > snapshots 39`] = `"Or 0.1 programming language mastered!"`;
+
+exports[`fun comparaisons > snapshots 40`] = `"Or a lot of stress reduced"`;
+
+exports[`fun comparaisons > snapshots 41`] = `"Or 7 books read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 42`] = `"Or a lot of time saved!"`;
+
+exports[`fun comparaisons > snapshots 43`] = `"Or $2164.5 saved!"`;
+
+exports[`fun comparaisons > snapshots 44`] = `"Or 1 book read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 45`] = `"Or 16% the time required to reach professional working proficiency!"`;
+
+exports[`fun comparaisons > snapshots 46`] = `"Or a lot of stress reduced!"`;
+
+exports[`fun comparaisons > snapshots 47`] = `"Or 200K raindrops!"`;
+
+exports[`fun comparaisons > snapshots 48`] = `"Or 0.1 programming language mastered!"`;
+
+exports[`fun comparaisons > snapshots 49`] = `"Or a lot of stress reduced"`;
+
+exports[`fun comparaisons > snapshots 50`] = `"Or 11 books read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 51`] = `"Or a lot of time saved!"`;
+
+exports[`fun comparaisons > snapshots 52`] = `"Or $3250 saved!"`;
+
+exports[`fun comparaisons > snapshots 53`] = `"Or 1 book read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 54`] = `"Or 24% the time required to reach professional working proficiency!"`;
+
+exports[`fun comparaisons > snapshots 55`] = `"Or a lot of stress reduced!"`;
+
+exports[`fun comparaisons > snapshots 56`] = `"Or 9.1M raindrops!"`;
+
+exports[`fun comparaisons > snapshots 57`] = `"Or 5.3 programming languages mastered!"`;
+
+exports[`fun comparaisons > snapshots 58`] = `"Or a lot of stress reduced"`;
+
+exports[`fun comparaisons > snapshots 59`] = `"Or 505 books read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 60`] = `"Or a lot of time saved!"`;
+
+exports[`fun comparaisons > snapshots 61`] = `"Or $147732 saved!"`;
+
+exports[`fun comparaisons > snapshots 62`] = `"Or 45 books read in 2 years!"`;
+
+exports[`fun comparaisons > snapshots 63`] = `"Or 1082% the time required to reach professional working proficiency!"`;
+
 exports[`habits > test 1`] = `
 {
   "avoid": false,

@@ -1,7 +1,5 @@
 import type { UNITS } from "@util/constants";
 
-// HELPER
-
 export class InputBase {
   name: string;
   label: string;
@@ -66,6 +64,7 @@ export class InputGroup extends InputBase {
 export type Input = InputGroup | InputBase;
 export type Inputs = typeof inputs;
 export type InputCategory = "inputSelect" | "inputGroup";
+export type InputNames = "frequency" | "generic" | "liquid" | "time";
 
 export const inputs = {
   liquid: () =>

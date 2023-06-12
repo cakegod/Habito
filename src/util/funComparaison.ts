@@ -1,31 +1,26 @@
-import type { HabitsNames, Habit } from "@data/habits";
-import type { InputNames, Inputs } from "@data/inputs";
+import type { Habit } from "@data/habits";
+import type { Input, InputNames } from "@data/inputs";
 import { Calculator } from "@util/calculate";
 import { FUN } from "./constants";
 
 type Props = {
   inputs: {
-    [key in InputNames]: key extends keyof Inputs
-      ? Inputs[key]
-      : Inputs[Exclude<keyof Inputs, InputNames>];
+    [key in InputNames]: Input;
   };
   year: number;
 };
 
-type HabitFunction = {
-  [key in HabitsNames]: (
-    yearValue: number,
-    year: number,
-    habitName: HabitsNames
-  ) => string;
+type HabitData = {
+  yearlyValue: number;
+  years: number;
 };
 
-function calculateGenericYearlyValue({ inputs, year }: Props) {
+export function calculateGenericYearlyValue({ inputs, year }: Props) {
   const { generic } = inputs;
   return new Calculator({ year, dailyValue: generic.value }).yearlyHours;
 }
 
-function calculateTimeYearlyValue({ inputs, year }: Props) {
+export function calculateTimeYearlyValue({ inputs, year }: Props) {
   const { frequency, time } = inputs;
   return new Calculator({
     frequency: frequency.selectedOption,
@@ -35,7 +30,7 @@ function calculateTimeYearlyValue({ inputs, year }: Props) {
   }).yearlyHours;
 }
 
-function calculateLiquidYearlyValue({ inputs, year }: Props) {
+export function calculateLiquidYearlyValue({ inputs, year }: Props) {
   const { liquid } = inputs;
 
   return new Calculator({
@@ -45,7 +40,7 @@ function calculateLiquidYearlyValue({ inputs, year }: Props) {
   }).yearlyHours;
 }
 
-function calculateYearlyValue(args: Props): number {
+export function calculateYearlyValue(args: Props): number {
   const {
     inputs: { liquid, time },
   } = args;
@@ -54,74 +49,128 @@ function calculateYearlyValue(args: Props): number {
     return calculateLiquidYearlyValue(args);
   } else if (time) {
     return calculateTimeYearlyValue(args);
+  } else {
+    return calculateGenericYearlyValue(args);
   }
-
-  return calculateGenericYearlyValue(args);
 }
 
-function drinkWater(yearlyValue: number) {
-  const rainDropsQuantity = yearlyValue * FUN.RAIN_DROPS_PER_ML;
+class FunComparaison {
+  yearlyValue: number;
+  years: number;
 
-  return rainDropsQuantity > 1000000
-    ? `Or ${Math.round((rainDropsQuantity / 1000000) * 10) / 10}M raindrops!`
-    : `Or ${Math.round((rainDropsQuantity / 1000) * 10) / 10}K raindrops!`;
+  constructor(data: HabitData) {
+    this.yearlyValue = data.yearlyValue;
+    this.years = data.years;
+  }
 }
 
-function books(yearlyValue: number, year: number, habitName: HabitsNames) {
-  const booksQuantity = Math.round(
-    yearlyValue /
-      (habitName === "Read"
-        ? FUN.AVERAGE_MIN_PER_BOOK_READ
-        : FUN.AVERAGE_MIN_PER_BOOK_WRITE)
-  );
-
-  return `Or ${booksQuantity} book${
-    booksQuantity > 1 ? "s" : ""
-  } read in ${year} year${year > 1 ? "s" : ""}!`;
+class Meditate extends FunComparaison {
+  get value() {
+    return "Or a lot of stress reduced!";
+  }
 }
 
-function smokeAddiction(yearlyValue: number) {
-  const priceAnnually =
-    Math.round(yearlyValue / FUN.CIGARETTES_PER_PACK) * FUN.PRICE_PER_PACK;
-  return `Or $${priceAnnually} saved!`;
+class DrinkWater extends FunComparaison {
+  get value() {
+    const rainDropsQuantity = this.yearlyValue * FUN.RAIN_DROPS_PER_ML;
+
+    return rainDropsQuantity > 1000000
+      ? `Or ${Math.round((rainDropsQuantity / 1000000) * 10) / 10}M raindrops!`
+      : `Or ${Math.round((rainDropsQuantity / 1000) * 10) / 10}K raindrops!`;
+  }
 }
 
-function code(minutesPerYear: number) {
-  const languagesLearned =
-    Math.round((minutesPerYear / FUN.MINUTES_TO_LEARN_LANGUAGE) * 10) / 10;
-  return `Or ${languagesLearned} programming language${
-    languagesLearned > 1 ? "s" : ""
-  } mastered!`;
+class Code extends FunComparaison {
+  get value() {
+    const languagesLearned =
+      Math.round((this.yearlyValue / FUN.MINUTES_TO_LEARN_LANGUAGE) * 10) / 10;
+    return `Or ${languagesLearned} programming language${
+      languagesLearned > 1 ? "s" : ""
+    } mastered!`;
+  }
 }
 
-function learnLanguage(minutesPerYear: number) {
-  const percentageAcquired = minutesPerYear / FUN.MINS_WORKING_PROFICIENCY;
-  const roundedPercentage = Math.round(percentageAcquired * 100);
-  return `Or ${roundedPercentage}% the time required to reach professional working proficiency!`;
+class Exercise extends FunComparaison {
+  get value() {
+    return "Or a lot of stress reduced";
+  }
+}
+
+class Read extends FunComparaison {
+  get value() {
+    const booksQuantity = Math.round(
+      this.yearlyValue / FUN.AVERAGE_MIN_PER_BOOK_READ
+    );
+
+    return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""} read in ${
+      this.years
+    } year${this.years > 1 ? "s" : ""}!`;
+  }
+}
+
+class Smartphone extends FunComparaison {
+  get value() {
+    return "Or a lot of time saved!";
+  }
+}
+
+class Smoke extends FunComparaison {
+  get value() {
+    const priceAnnually =
+      Math.round(this.yearlyValue / FUN.CIGARETTES_PER_PACK) *
+      FUN.PRICE_PER_PACK;
+    return `Or $${priceAnnually} saved!`;
+  }
+}
+
+class Write extends FunComparaison {
+  get value() {
+    const booksQuantity = Math.round(
+      this.yearlyValue / FUN.AVERAGE_MIN_PER_BOOK_WRITE
+    );
+
+    return `Or ${booksQuantity} book${booksQuantity > 1 ? "s" : ""} read in ${
+      this.years
+    } year${this.years > 1 ? "s" : ""}!`;
+  }
+}
+
+class LearnLanguage extends FunComparaison {
+  get value() {
+    const percentageAcquired = this.yearlyValue / FUN.MINS_WORKING_PROFICIENCY;
+    const roundedPercentage = Math.round(percentageAcquired * 100);
+    return `Or ${roundedPercentage}% the time required to reach professional working proficiency!`;
+  }
 }
 
 export function generateFunComparaison(
   habit: Habit,
   inputs: {
-    [key in InputNames]: key extends keyof Inputs
-      ? Inputs[key]
-      : Inputs[Exclude<keyof Inputs, InputNames>];
+    [key in InputNames]: Input;
   },
   year: number
 ) {
-  const yearlyValue = calculateYearlyValue({ inputs, year });
-  const habitFunc = habitFunctions[habit.name];
-  return habitFunc(yearlyValue, year, habit.name);
+  const yearlyValue = calculateYearlyValue({
+    inputs,
+    year,
+  });
+  const funComparaison = funComparaisons[
+    habit.name as keyof typeof funComparaisons
+  ]({ yearlyValue, years: year });
+
+  if (!funComparaison) throw new Error("Habit");
+
+  return funComparaison.value;
 }
 
-const habitFunctions: HabitFunction = {
-  Meditate: () => "Or a lot of stress reduced!",
-  "Drink Water": drinkWater,
-  Code: code,
-  Exercise: () => "Or a lot of stress reduced",
-  Read: books,
-  Smartphone: () => "Or a lot of time saved!",
-  Smoke: smokeAddiction,
-  Write: books,
-  "Learn Language": learnLanguage,
+export const funComparaisons = {
+  Meditate: (data: HabitData) => new Meditate(data),
+  "Drink Water": (data: HabitData) => new DrinkWater(data),
+  Code: (data: HabitData) => new Code(data),
+  Exercise: (data: HabitData) => new Exercise(data),
+  Read: (data: HabitData) => new Read(data),
+  Smartphone: (data: HabitData) => new Smartphone(data),
+  Smoke: (data: HabitData) => new Smoke(data),
+  Write: (data: HabitData) => new Write(data),
+  "Learn Language": (data: HabitData) => new LearnLanguage(data),
 };
