@@ -15,42 +15,89 @@ type HabitData = {
   years: number;
 };
 
-export function calculateGenericYearlyValue({ inputs, years }: Props) {
-  const { generic } = inputs;
-  return new Calculator({ years, dailyValue: generic.value }).yearlyHours;
-}
+// export function calculateGenericYearlyValue({ inputs, years }: Props) {
+//   const { generic } = inputs;
+//   return new Calculator({ years, dailyValue: generic.value }).yearlyHours;
+// }
 
-export function calculateTimeYearlyValue({ inputs, years }: Props) {
-  const { frequency, time } = inputs;
-  return new Calculator({
-    frequency: frequency.selectedOption,
-    unit: time.selectedOption,
-    years,
-    dailyValue: time.value,
-  }).yearlyHours;
-}
+// export function calculateTimeYearlyValue({ inputs, years }: Props) {
+//   const { frequency, time } = inputs;
+//   return new Calculator({
+//     frequency: frequency.selectedOption,
+//     unit: time.selectedOption,
+//     years,
+//     dailyValue: time.value,
+//   }).yearlyHours;
+// }
 
-export function calculateLiquidYearlyValue({ inputs, years }: Props) {
-  const { liquid } = inputs;
+// export function calculateLiquidYearlyValue({ inputs, years }: Props) {
+//   const { liquid } = inputs;
 
-  return new Calculator({
-    dailyValue: liquid.value,
-    unit: liquid.selectedOption,
-    years,
-  }).yearlyHours;
-}
+//   return new Calculator({
+//     dailyValue: liquid.value,
+//     unit: liquid.selectedOption,
+//     years,
+//   }).yearlyHours;
+// }
 
-export function calculateYearlyValue(args: Props): number {
-  const {
-    inputs: { liquid, time },
-  } = args;
+// export function calculateYearlyValue(args: Props): number {
+//   const {
+//     inputs: { liquid, time },
+//   } = args;
 
-  if (liquid) {
-    return calculateLiquidYearlyValue(args);
-  } else if (time) {
-    return calculateTimeYearlyValue(args);
-  } else {
-    return calculateGenericYearlyValue(args);
+//   if (liquid) {
+//     return calculateLiquidYearlyValue(args);
+//   } else if (time) {
+//     return calculateTimeYearlyValue(args);
+//   } else {
+//     return calculateGenericYearlyValue(args);
+//   }
+// }
+
+class YearlyValueCalculator {
+  #inputs: { [key in InputNames]: Input };
+  #years: number;
+
+  constructor({ inputs, years }: Props) {
+    this.#inputs = inputs;
+    this.#years = years;
+  }
+
+  get calculate(): number {
+    const { liquid, time } = this.#inputs;
+
+    if (liquid) {
+      return this.#liquidYearlyValue;
+    } else if (time) {
+      return this.#timeYearlyValue;
+    } else {
+      return this.#genericYearlyValue;
+    }
+  }
+
+  get #genericYearlyValue(): number {
+    const { generic } = this.#inputs;
+    return new Calculator({ years: this.#years, dailyValue: generic.value })
+      .yearlyHours;
+  }
+
+  get #timeYearlyValue(): number {
+    const { frequency, time } = this.#inputs;
+    return new Calculator({
+      frequency: frequency.selectedOption,
+      unit: time.selectedOption,
+      years: this.#years,
+      dailyValue: time.value,
+    }).yearlyHours;
+  }
+
+  get #liquidYearlyValue(): number {
+    const { liquid } = this.#inputs;
+    return new Calculator({
+      dailyValue: liquid.value,
+      unit: liquid.selectedOption,
+      years: this.#years,
+    }).yearlyHours;
   }
 }
 
@@ -150,7 +197,7 @@ export function generateFunComparaison(data: {
   };
   years: number;
 }) {
-  const yearlyValue = calculateYearlyValue(data);
+  const yearlyValue = new YearlyValueCalculator(data).calculate;
   const funComparaison = funComparaisons[
     data.habit.name as keyof typeof funComparaisons
   ]({ ...data, yearlyValue });
